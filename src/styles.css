@@ -1,3 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Infant&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+.start-section {
+    background: url("/src/images/main.jpg");
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-bottom: 5%;
+}
+
+.content {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
