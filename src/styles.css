@@ -21,3 +21,16 @@
     max-width: 1000px;
 }
 
+.title {
+background: linear-gradient(
+    89.81deg,
+    #ffffffcf 0.12%,
+    rgba(221, 221, 221, 0.273) 80%
+  );
+  border-bottom-left-radius: 14px;
+  padding: 0.2rem 0.2rem 0.2rem 0.9rem;
+}
+
+.info {
+background: linear-gradient(0deg, rgba(224,242,255,1) 0%, rgba(240,249,255,1) 57%, rgba(240,249,255,1) 78%);
+}
