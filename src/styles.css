@@ -8,7 +8,7 @@
 
 
 .start-section {
-    background: url("/src/images/main.jpg");
+    background: url("/images/main.jpg");
     background-position: top;
     background-size: cover;
     background-repeat: no-repeat;
@@ -25,9 +25,10 @@
 background: linear-gradient(
     89.81deg,
     #ffffffcf 0.12%,
-    rgba(221, 221, 221, 0.273) 80%
+    rgba(221, 221, 221, 0.76) 90%
   );
   border-bottom-left-radius: 14px;
+  border-top-right-radius: 14px;
   padding: 0.2rem 0.2rem 0.2rem 0.9rem;
 }
 
