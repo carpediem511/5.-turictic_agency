@@ -22,16 +22,38 @@
 }
 
 .title {
-background: linear-gradient(
-    89.81deg,
-    #ffffffcf 0.12%,
-    rgba(221, 221, 221, 0.76) 90%
-  );
+background-color: #ffffffd5;
   border-bottom-left-radius: 14px;
   border-top-right-radius: 14px;
-  padding: 0.2rem 0.2rem 0.2rem 0.9rem;
+  padding-left: 5px;
+  padding-right: 30px;
+  margin-top: -26%;
+  margin-left: 10%;
+  position: relative;
 }
 
 .info {
 background: linear-gradient(0deg, rgba(224,242,255,1) 0%, rgba(240,249,255,1) 57%, rgba(240,249,255,1) 78%);
+}
+
+.img {
+    height: 280px; /* Высота области */
+}
+
+.title-2 {
+    background: #177FCF;
+    background: linear-gradient(to right, #177FCF 20%, #fdc409 70%);
+    font-family: basic;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: 8%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    font-size: 48px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.tour {
+    width: calc(100% / 3)
 }
