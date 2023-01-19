@@ -1,3 +1,6 @@
+import { format, differenceInDays } from 'date-fns'
+const { default: ru } = require("date-fns/locale/ru");
+
 
 async function getData() {
 
@@ -9,6 +12,8 @@ async function getData() {
     console.log(tours)
 
     tours.forEach(tour => {
+
+        const duration = differenceInDays(new Date(tour.endTime),new Date(tour.startTime))
 
         document.getElementById("tours-all").innerHTML += `
         
@@ -28,9 +33,11 @@ async function getData() {
             
                 <div class="font-basic text-sky-600 text-center font-semibold px-2 xl:text-2xl pt-6 pb-6">${tour.hotelName}</div>
             
-                <div class="pl-6">
-                    <div class="font-basic text-current pb-2 xl:text-xl pt-6>${tour.startTime}</div>
-                    <div class="font-basic text-current xl:text-xl pb-6">${tour.endTime}</div>
+                <div class="font-basic text-current text-base text-center pb-6 font-bold xl:pt-6">
+                ${format(new Date(tour.startTime), "dd MMMM y", { locale: ru })} -
+                ${format(new Date(tour.endTime), "dd MMMM y", { locale: ru })}
+                <span class="text-sky-900 underline decoration-solid underline-offset-4">продолжительность:</span> ${duration} дней
+                </div>
                 </div>
             
                 <div class="flex flex-col pb-10 pt-6 px-6">
