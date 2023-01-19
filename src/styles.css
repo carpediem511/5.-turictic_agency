@@ -1,59 +1,74 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Infant&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Infant&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-
 .start-section {
-    background: url("/images/main.jpg");
-    background-position: top;
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding-bottom: 5%;
+  background: url("/images/main.jpg");
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-bottom: 5%;
 }
 
 .content {
-    width: 100%;
-    margin: 0 auto;
-    max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1000px;
 }
 
 .title {
-background-color: #ffffffd5;
+  background-color: #ffffffd5;
   border-bottom-left-radius: 14px;
   border-top-right-radius: 14px;
   padding-left: 5px;
   padding-right: 30px;
-  margin-top: -26%;
-  margin-left: 10%;
+  margin-top: 60%;
+  margin-left: 14%;
+  width: 70%;
   position: relative;
 }
 
 .info {
-background: linear-gradient(0deg, rgba(224,242,255,1) 0%, rgba(240,249,255,1) 57%, rgba(240,249,255,1) 78%);
-}
-
-.img {
-    height: 280px; /* Высота области */
+  background: linear-gradient(
+    0deg,
+    rgba(224, 242, 255, 1) 0%,
+    rgba(240, 249, 255, 1) 57%,
+    rgba(240, 249, 255, 1) 78%
+  );
 }
 
 .title-2 {
-    background: #177FCF;
-    background: linear-gradient(to right, #177FCF 20%, #fdc409 70%);
-    font-family: basic;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-top: 8%;
-    padding-top: 3%;
-    padding-bottom: 3%;
-    font-size: 48px;
-    text-align: center;
-    font-weight: 700;
+  background: #177fcf;
+  background: linear-gradient(to right, #177fcf 20%, #fdc409 70%);
+  font-family: basic;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-top: 8%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  font-size: 48px;
+  font-weight: 700;
 }
 
 .tour {
-    width: calc(100% / 3)
+  width: calc(100% / 4);
+}
+
+@media (max-width: 900px) {
+  .tour {
+    width: calc(100% / 3);
+  }
+}
+
+@media (max-width: 768px) {
+  .title-2 {
+    font-size: 28px;
+  }
+
+  .tour {
+    width: calc(90%);
+  }
 }
