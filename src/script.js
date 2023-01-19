@@ -40,7 +40,7 @@ async function getData() {
                 </div>
                 </div>
             
-                <div class="flex flex-col pb-10 pt-6 px-6">
+                <div class="flex flex-col pb-10 pt-6 px-10">
                     <div class="flex">
                         <img src="/images/icon-price.png" class="w-12 h-12">
                         <div class="font-basic text-rose-700 pt-6  pl-2 xl:text-3xl font-bold">${tour.price}</div> 
