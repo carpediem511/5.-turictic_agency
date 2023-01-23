@@ -81,6 +81,22 @@
     background-size: contain;
 }
 
+.scroll::-webkit-scrollbar {
+    width: 12px;               /* ширина всей полосы прокрутки */
+  }
+  
+  .scroll::-webkit-scrollbar-track {
+    background: rgb(253, 233, 132);        /* цвет зоны отслеживания */
+    border-radius: 20px;
+  }
+  
+  .scroll::-webkit-scrollbar-thumb {
+    background-color: rgb(2 132 199);    /* цвет бегунка */
+    border-radius: 30px;       /* округлость бегунка */
+ 
+  }
+
+
 @media (max-width: 900px) {
   .tour {
     width: calc(100% / 3);
