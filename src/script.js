@@ -2,11 +2,22 @@ import { format, differenceInDays } from "date-fns"
 const { default: ru } = require("date-fns/locale/ru")
 
 async function getData() {
-  const response = await fetch( //получить запрос
+  const response = await fetch( //получить данные с сервера
     "https://www.bit-by-bit.ru/api/student-projects/tours"
   ) 
 
-  const tours = await response.json() //прочитать тело запроса
+  const data = await response.json() //прочитать данные, полученные с сервера
+
+  return data //данные готовы к использованию
+
+}
+
+async function init() {
+    const tours = await getData()
+    renderTours(tours)
+}
+
+function renderTours (tours) {
 
   tours.forEach((tour) => {
     const duration = differenceInDays(
@@ -76,3 +87,4 @@ function checkCity(tour) {
 }
 
 getData()
+init()
