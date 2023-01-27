@@ -38,7 +38,7 @@
               Количество звёзд:
             </div>
 
-            <div class="flex pt-4">
+            <div class="flex pt-4" data-total-value="0">
               <img src="/images/icon-chooseStar.png" class="w-8 h-8 star" id="chooseStar"/>
               <img src="/images/icon-emptyStar.png" class="w-8 h-8 star" id="emptyStar2"/>
               <img src="/images/icon-emptyStar.png" class="w-8 h-8 star" id="emptyStar3"/>
@@ -56,49 +56,47 @@
               Курорт:
             </div>
 
-            <ol class="pt-4 leading-loose text-current text-xl font-basic overflow-y-scroll max-h-48 pr-10 scroll"
-            >
+            <fieldset id="countriesFilter"> <!-- получать значения из полей чекбоксов-->
+
+            <ol class="pt-4 leading-loose text-current text-xl font-basic overflow-y-scroll max-h-48 pr-10 scroll">
               <li>
-                <input type="checkbox" id="egypt" class="checkbox"/>
+                <input type="checkbox" id="egypt" class="checkbox" name="Египет"/>
                 <label for="egypt">Египет</label>
               </li>
 
               <li>
-                <input type="checkbox" id="indonesia" class="checkbox"/>
+                <input type="checkbox" id="indonesia" class="checkbox" name="Индонезия"/>
                 <label for="indonesia">Индонезия</label>
               </li>
 
               <li>
-                <input type="checkbox" id="cyprus" class="checkbox"/>
+                <input type="checkbox" id="cyprus" class="checkbox" name="Кипр"/>
                 <label for="cyprus">Кипр</label>
               </li>
 
               <li>
-                <input type="checkbox" id="maldives" class="checkbox"/>
+                <input type="checkbox" id="maldives" class="checkbox" name="Мальдивы"/>
                 <label for="maldives">Мальдивы</label>
               </li>
 
               <li>
-                <input type="checkbox" id="mexico" class="checkbox"/>
+                <input type="checkbox" id="mexico" class="checkbox" name="Мексика"/>
                 <label for="mexico">Мексика</label>
               </li>
 
               <li>
-                <input type="checkbox" id="thailand" class="checkbox"/>
+                <input type="checkbox" id="thailand" class="checkbox" name="Таиланд"/>
                 <label for="thailand">Таиланд</label>
               </li>
 
               <li>
-                <input type="checkbox" id="tanzania" class="checkbox"/>
+                <input type="checkbox" id="tanzania" class="checkbox" name="Танзания"/>
                 <label for="tanzania">Танзания</label>
               </li>
 
-              <li>
-                <input type="checkbox" id="allCountries" class="checkbox"/>
-                <label for="allCountries">Все страны</label>
-              </li>
+       
             </ol>
-
+        </fieldset>
         </div>
         </div>
       </div>

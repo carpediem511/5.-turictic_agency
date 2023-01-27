@@ -17,14 +17,8 @@ async function init() {
     const tours = await getData()
     renderTours(tours)
 
-    document.getElementById("egypt").addEventListener("click", () => filterByCountry(tours, "Египет"))
-    document.getElementById("indonesia").addEventListener("click", () => filterByCountry(tours, "Индонезия"))
-    document.getElementById("cyprus").addEventListener("click", () => filterByCountry(tours, "Кипр"))
-    document.getElementById("maldives").addEventListener("click", () => filterByCountry(tours, "Мальдивы"))
-    document.getElementById("mexico").addEventListener("click", () => filterByCountry(tours, "Мексика"))
-    document.getElementById("thailand").addEventListener("click", () => filterByCountry(tours, "Тайланд"))
-    document.getElementById("tanzania").addEventListener("click", () => filterByCountry(tours, "Танзания"))
-    document.getElementById("allCountries").addEventListener("click", () => filterByCountry(tours))
+    document.getElementById("countriesFilter").addEventListener("change", () => filterByCountry(tours))
+
 }
 
 function renderTours (tours) {
@@ -68,8 +62,8 @@ function renderTours (tours) {
                     </div>
                 
                     <div class="font-basic text-current text-sm text-center pb-6 font-bold xl:pt-6">
-                    ${format(new Date(tour.startTime), "dd MMMM y", {locale: ru, })} -
-                    ${format(new Date(tour.endTime), "dd MMMM y", { locale: ru })}
+                    ${format(new Date(tour.startTime), "dd MMMM y", {locale: ru})} -
+                    ${format(new Date(tour.endTime), "dd MMMM y", {locale: ru})}
                     <span class="text-sky-900 underline decoration-solid underline-offset-4 text-sm"><br>
                     продолжительность:</span> ${duration} дней
                     </div>
@@ -84,7 +78,7 @@ function renderTours (tours) {
                             <p class="font-basic text-rose-700 pt-9 pl-2 xl:text-base">рублей</p>
                         </div>
     
-                        <div class="flex">
+                        <div class="flex"">
                             <img src="/images/icon-rating.png" class="w-12 h-12">
                             <div class="font-basic text-amber-500 pt-4 pl-2 xl:text-2xl font-medium">
                             ${tour.rating}
@@ -105,22 +99,43 @@ function checkCity(tour) {
   }
 }
 
-function filterByCountry(tours, filteredСountries) {
+function filterByCountry(tours) {
+
+ const countriesFieldset = Array.from(document.querySelectorAll("#countriesFilter .checkbox")) //получаем все значения из всех чекбоксов
+                                                                                               // в виде массива
+ let checkedCountries = []      //пустой массив, в котором будут отфильтрованные страны
+
+ countriesFieldset.forEach((checkbox) => { // проходимся по каждому чекбоксу
+
+    if (checkbox.checked === true) { //если чекбокс выбран
+
+        checkedCountries.push(checkbox.name) //добавить его в пустой массив
+    }
+ })
+
+    if (checkedCountries) { //если отфильтрованные страны
     
-if (filteredСountries) {
-    
-    const filteredTours = tours.filter((tour) => {
+       const filteredTours = tours.filter((tour) => { //фильтр по турам
         
-    return tour.country === filteredСountries
+        return checkedCountries.includes(tour.country) //возвращаем отфильтрованные туры, добавляем выбранную страну
       
-})
+    })
  
    renderTours(filteredTours) 
+
    } else {
        renderTours(tours)
    }
 
-   console.log(renderTours)
+
+//let checkedCountries = countriesFieldset.map((checkbox) => { //формирование из текущего массива нового массива из отфильтрованных стран
+    
+//    if (checkbox.checked === true) { //если чекбокс выбран
+
+//        return checkbox.name //возвращаем объект в массив
+//    }
+//})
+    
 }
 
 
@@ -138,7 +153,7 @@ let offChangeIcon2 = document.getElementById("emptyStar2").addEventListener("mou
     document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
 })
 
-let changeIcon3 = document.getElementById("emptyStar3").addEventListener("mouseover", () => {
+let onchangeIcon3 = document.getElementById("emptyStar3").addEventListener("mouseover", () => {
     document.getElementById("emptyStar3").src = "/images/icon-chooseStar.png"
     document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
 })
@@ -148,7 +163,7 @@ let offChangeIcon3 = document.getElementById("emptyStar3").addEventListener("mou
     document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
 })
 
-let changeIcon4 = document.getElementById("emptyStar4").addEventListener("mouseover", () => {
+let onchangeIcon4 = document.getElementById("emptyStar4").addEventListener("mouseover", () => {
     document.getElementById("emptyStar4").src = "/images/icon-chooseStar.png"
     document.getElementById("emptyStar3").src = "/images/icon-chooseStar.png"
     document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
@@ -160,7 +175,7 @@ let offChangeIcon4 = document.getElementById("emptyStar4").addEventListener("mou
     document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
 })
 
-let changeIcon5 = document.getElementById("emptyStar5").addEventListener("mouseover", () => {
+let onchangeIcon5 = document.getElementById("emptyStar5").addEventListener("mouseover", () => {
     document.getElementById("emptyStar5").src = "/images/icon-chooseStar.png"
     document.getElementById("emptyStar4").src = "/images/icon-chooseStar.png"
     document.getElementById("emptyStar3").src = "/images/icon-chooseStar.png"
