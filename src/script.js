@@ -25,61 +25,7 @@ async function init() {
     document.getElementById("thailand").addEventListener("click", () => filterByCountry(tours, "Тайланд"))
     document.getElementById("tanzania").addEventListener("click", () => filterByCountry(tours, "Танзания"))
     document.getElementById("allCountries").addEventListener("click", () => filterByCountry(tours))
-
 }
-
-
-
-//let changeIcon = document.getElementById(`emptyStar-${star.id}`)
-//changeIcon.addEventListener("mouseover", () => {
-   // changeIcon.src = "/images/icon-chooseStar.png"
-//}) не получилось минимизировать код
-
-let onChangeIcon2 = document.getElementById("emptyStar2").addEventListener("mouseover", () => {
-    document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
-})
-
-let offChangeIcon2 = document.getElementById("emptyStar2").addEventListener("mouseout", () => {
-    document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
-})
-
-let changeIcon3 = document.getElementById("emptyStar3").addEventListener("mouseover", () => {
-    document.getElementById("emptyStar3").src = "/images/icon-chooseStar.png"
-    document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
-})
-
-let offChangeIcon3 = document.getElementById("emptyStar3").addEventListener("mouseout", () => {
-    document.getElementById("emptyStar3").src = "/images/icon-emptyStar.png"
-    document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
-})
-
-let changeIcon4 = document.getElementById("emptyStar4").addEventListener("mouseover", () => {
-    document.getElementById("emptyStar4").src = "/images/icon-chooseStar.png"
-    document.getElementById("emptyStar3").src = "/images/icon-chooseStar.png"
-    document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
-})
-
-let offChangeIcon4 = document.getElementById("emptyStar4").addEventListener("mouseout", () => {
-    document.getElementById("emptyStar4").src = "/images/icon-emptyStar.png"
-    document.getElementById("emptyStar3").src = "/images/icon-emptyStar.png"
-    document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
-})
-
-let changeIcon5 = document.getElementById("emptyStar5").addEventListener("mouseover", () => {
-    document.getElementById("emptyStar5").src = "/images/icon-chooseStar.png"
-    document.getElementById("emptyStar4").src = "/images/icon-chooseStar.png"
-    document.getElementById("emptyStar3").src = "/images/icon-chooseStar.png"
-    document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
-})
-
-let offChangeIcon5 = document.getElementById("emptyStar5").addEventListener("mouseout", () => {
-    document.getElementById("emptyStar5").src = "/images/icon-emptyStar.png"
-    document.getElementById("emptyStar4").src = "/images/icon-emptyStar.png"
-    document.getElementById("emptyStar3").src = "/images/icon-emptyStar.png"
-    document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
-})
-
- 
 
 function renderTours (tours) {
 
@@ -160,19 +106,74 @@ function checkCity(tour) {
 }
 
 function filterByCountry(tours, filteredСountries) {
-
-    if (filteredСountries) {
-       const filteredTours = tours.filter((tour) => {
-        return tour.country === filteredСountries
-    })
- 
-    renderTours(filteredTours) 
-    } else {
-         renderTours(tours)
-    }
-
     
+if (filteredСountries) {
+    
+    const filteredTours = tours.filter((tour) => {
+        
+    return tour.country === filteredСountries
+      
+})
+ 
+   renderTours(filteredTours) 
+   } else {
+       renderTours(tours)
+   }
+
+   console.log(renderTours)
 }
+
+
+
+//let changeIcon = document.getElementById(`emptyStar-${star.id}`)
+//changeIcon.addEventListener("mouseover", () => {
+   // changeIcon.src = "/images/icon-chooseStar.png"
+//}) не получилось минимизировать код
+
+let onChangeIcon2 = document.getElementById("emptyStar2").addEventListener("mouseover", () => {
+    document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
+})
+
+let offChangeIcon2 = document.getElementById("emptyStar2").addEventListener("mouseout", () => {
+    document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
+})
+
+let changeIcon3 = document.getElementById("emptyStar3").addEventListener("mouseover", () => {
+    document.getElementById("emptyStar3").src = "/images/icon-chooseStar.png"
+    document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
+})
+
+let offChangeIcon3 = document.getElementById("emptyStar3").addEventListener("mouseout", () => {
+    document.getElementById("emptyStar3").src = "/images/icon-emptyStar.png"
+    document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
+})
+
+let changeIcon4 = document.getElementById("emptyStar4").addEventListener("mouseover", () => {
+    document.getElementById("emptyStar4").src = "/images/icon-chooseStar.png"
+    document.getElementById("emptyStar3").src = "/images/icon-chooseStar.png"
+    document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
+})
+
+let offChangeIcon4 = document.getElementById("emptyStar4").addEventListener("mouseout", () => {
+    document.getElementById("emptyStar4").src = "/images/icon-emptyStar.png"
+    document.getElementById("emptyStar3").src = "/images/icon-emptyStar.png"
+    document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
+})
+
+let changeIcon5 = document.getElementById("emptyStar5").addEventListener("mouseover", () => {
+    document.getElementById("emptyStar5").src = "/images/icon-chooseStar.png"
+    document.getElementById("emptyStar4").src = "/images/icon-chooseStar.png"
+    document.getElementById("emptyStar3").src = "/images/icon-chooseStar.png"
+    document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
+})
+
+let offChangeIcon5 = document.getElementById("emptyStar5").addEventListener("mouseout", () => {
+    document.getElementById("emptyStar5").src = "/images/icon-emptyStar.png"
+    document.getElementById("emptyStar4").src = "/images/icon-emptyStar.png"
+    document.getElementById("emptyStar3").src = "/images/icon-emptyStar.png"
+    document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
+})
+
 
 getData()
 init()

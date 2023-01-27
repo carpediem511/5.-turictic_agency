@@ -20,11 +20,11 @@
 }
 
 .content-choose {
-    display: flex;
-    width: 100%;
-    margin: 0 auto;
-    max-width: 1000px;
-    justify-content: center;
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1000px;
+  justify-content: center;
 }
 
 .title {
@@ -66,37 +66,35 @@
 }
 
 .checkbox {
-    appearance: none;
-    width: 17px;
-    height: 17px;
-    border: 1px solid #177fcf;
-    margin-right: 10px;
-    margin-left: 80px;
-    cursor: pointer;
+  appearance: none;
+  width: 17px;
+  height: 17px;
+  border: 1px solid #177fcf;
+  margin-right: 10px;
+  margin-left: 80px;
+  cursor: pointer;
 }
 
 .checkbox:checked {
-    background-color: #177fcf;
-    background-image: url("/images/icon-checkbox.png");
-    background-position: center;
-    background-size: contain;
+  background-color: #177fcf;
+  background-image: url("/images/icon-checkbox.png");
+  background-position: center;
+  background-size: contain;
 }
 
 .scroll::-webkit-scrollbar {
-    width: 12px;               /* ширина всей полосы прокрутки */
-  }
-  
-  .scroll::-webkit-scrollbar-track {
-    background: rgb(253, 233, 132);        /* цвет зоны отслеживания */
-    border-radius: 20px;
-  }
-  
-  .scroll::-webkit-scrollbar-thumb {
-    background-color: rgb(2 132 199);    /* цвет бегунка */
-    border-radius: 30px;       /* округлость бегунка */
- 
-  }
+  width: 12px; /* ширина всей полосы прокрутки */
+}
 
+.scroll::-webkit-scrollbar-track {
+  background: rgb(253, 233, 132); /* цвет зоны отслеживания */
+  border-radius: 20px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: rgb(2 132 199); /* цвет бегунка */
+  border-radius: 30px; /* округлость бегунка */
+}
 
 @media (max-width: 900px) {
   .tour {
