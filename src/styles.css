@@ -49,8 +49,8 @@
 }
 
 .title-2 {
-  background: #177fcf;
-  background: linear-gradient(to right, #177fcf 20%, #fdc409 70%);
+  background: #1564a0;
+  background: linear-gradient(to right, #1564a0 20%, #fdc409 70%);
   font-family: basic;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -69,14 +69,14 @@
   appearance: none;
   width: 17px;
   height: 17px;
-  border: 1px solid #177fcf;
+  border: 1px solid #1564a0;
   margin-right: 10px;
   margin-left: 80px;
   cursor: pointer;
 }
 
 .checkbox:checked {
-  background-color: #177fcf;
+  background-color: #1564a0;
   background-image: url("/images/icon-checkbox.png");
   background-position: center;
   background-size: contain;
@@ -92,8 +92,12 @@
 }
 
 .scroll::-webkit-scrollbar-thumb {
-  background-color: rgb(2 132 199); /* цвет бегунка */
+  background-color: #1564a0; /* цвет бегунка */
   border-radius: 30px; /* округлость бегунка */
+}
+
+.slider {
+    color: #1564a0;
 }
 
 @media (max-width: 900px) {

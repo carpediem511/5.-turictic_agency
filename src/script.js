@@ -2,12 +2,16 @@ import { format, differenceInDays } from "date-fns"
 import { doc } from "prettier"
 const { default: ru } = require("date-fns/locale/ru")
 
+let arr = []
+
 async function getData() {
   const response = await fetch( //получить данные с сервера
     "https://www.bit-by-bit.ru/api/student-projects/tours"
   ) 
 
   const data = await response.json() //прочитать данные, полученные с сервера
+
+  arr = data
 
   return data //данные готовы к использованию
 
@@ -131,12 +135,73 @@ function filterByCountry(tours) {
 
 }
 
+const twoStar = document.getElementById("emptyStar2")
+
+twoStar.addEventListener("click", () => {
+
+    const filteredTours = arr.filter((tour) => {
+
+        if (tour.rating >= 3 && tour.rating <=5) {
+
+            renderTours(filteredTours) 
+
+        } else {
+
+            document.getElementById("tours-all").innerHTML = "По вашему запросу не найдено ни одного тура... Попробуйте выбрать другой вариант"
+
+        }
+    })
+
+})
+
+
+
+const threeStar = document.getElementById("emptyStar3")
+let checkedCountries = []      //пустой массив, в котором будут отфильтрованные страны
+
+function filterByRating(tours) {
+    const getDataOfRating = Array.from(document.querySelectorAll("#rating .star"))
+
+    threeStar.addEventListener("click", () => {
+    
+        
+        getDataOfRating.forEach((tours) => { // проходимся по каждому чекбоксу
+       
+           if (threeStar.addEventListener("click")) { //если чекбокс выбран
+       
+               checkedCountries.push() //добавить его в пустой массив
+           }
+        })
+       
+           if (checkedCountries) { //если отфильтрованные страны
+           
+              const filteredTours = tours.filter((tour) => { //фильтр по турам
+               
+               return checkedCountries.includes(tour.country) //возвращаем отфильтрованные туры, добавляем выбранную страну
+             console.log("результат", checkedCountries)
+           })
+        
+          renderTours(filteredTours) 
+       
+          } else {
+              renderTours(tours)
+          }
+       
+       
+       }
+    )
+}
+
+
+
+
+
 //let changeIcon = document.getElementById(`emptyStar-${star.id}`)
 //changeIcon.addEventListener("mouseover", () => {
    // changeIcon.src = "/images/icon-chooseStar.png"
 //}) не получилось минимизировать код
 
-       
+
 
 let onChangeIcon2 = document.getElementById("emptyStar2").addEventListener("mouseover", () => {
     document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"

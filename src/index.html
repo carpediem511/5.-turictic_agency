@@ -46,17 +46,27 @@
               <img src="/images/icon-emptyStar.png" class="w-8 h-8 star" id="emptyStar5"/>
             </div>
 
-            <div class="pt-10 font-attention text-3xl text-amber-400 font-semibold">
-              Стоимость:
+            <div class="pt-10 mb-10 font-attention text-3xl text-amber-400 font-semibold">
+              По продолжительности:
+            </div>
+
+            <input type="range" id="slider" min="0" max="20" value="50" step="5" class="w-3/4 slider">
+            <label for="slider"></label>
+            <div class="flex text-current text-md font-basic">
+                <p class="pr-4" id="minDuration">5 дн.</p>
+                <p class="pr-4" id="middleDuration">7 дн.</p>
+                <p class="pr-4" id="optimalDuration">10 дн.</p>
+                <p class="pr-4" id="maxDuration">14 дн.</p>
+                <p>17 дн.</p>
             </div>
           </div>
 
-          <div class="pb-10">
+          <div class="mb-14">
             <div class="text-center pt-4 font-attention text-3xl text-amber-400 font-semibold">
               Курорт:
             </div>
 
-          <fieldset id="countriesFilter"> <!-- получать значения из полей чекбоксов-->
+          <fieldset id="countriesFilter" class="mt-4 w-max"> <!-- получать значения из полей чекбоксов-->
 
             <ol class="pt-4 leading-loose text-current text-xl font-basic overflow-y-scroll max-h-48 pr-10 scroll">
               <li>
