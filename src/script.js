@@ -36,6 +36,7 @@ function renderTours (tours) {
     if (tours.length === 0) {
 
         document.getElementById("tours-all").innerHTML = "По вашему запросу не найдено ни одного тура... Попробуйте выбрать другой вариант"
+    
     } else {
 
         tours.forEach(tour => {
@@ -80,7 +81,7 @@ function renderTours (tours) {
     
                         <div class="flex"">
                             <img src="/images/icon-rating.png" class="w-12 h-12">
-                            <div class="font-basic text-amber-500 pt-4 pl-2 xl:text-2xl font-medium">
+                            <div class="font-basic text-amber-500 pt-4 pl-2 xl:text-2xl font-medium" id="rating">
                             ${tour.rating}
                             </div> 
                             <p class="font-basic text-amber-500 pt-6 pl-2 xl:text-base">по версии TopHotels.com</p>
@@ -128,25 +129,19 @@ function filterByCountry(tours) {
    }
 
 
-//let checkedCountries = countriesFieldset.map((checkbox) => { //формирование из текущего массива нового массива из отфильтрованных стран
-    
-//    if (checkbox.checked === true) { //если чекбокс выбран
-
-//        return checkbox.name //возвращаем объект в массив
-//    }
-//})
-    
 }
-
-
 
 //let changeIcon = document.getElementById(`emptyStar-${star.id}`)
 //changeIcon.addEventListener("mouseover", () => {
    // changeIcon.src = "/images/icon-chooseStar.png"
 //}) не получилось минимизировать код
 
+       
+
 let onChangeIcon2 = document.getElementById("emptyStar2").addEventListener("mouseover", () => {
     document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
+
+    document.getElementById("emptyStar2").addEventListener("click", filterByRating)
 })
 
 let offChangeIcon2 = document.getElementById("emptyStar2").addEventListener("mouseout", () => {
