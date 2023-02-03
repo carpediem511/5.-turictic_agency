@@ -52,16 +52,18 @@
                             По продолжительности:
                         </div>
 
-                        <input type="range" id="slider" min="0" max="20" value="50" step="5" class="w-3/4 slider">
-                            <label for="slider"></label>
-                
-                        <div class="flex text-current text-md font-basic">
-                            <p class="pr-4" id="minDuration">5 дн.</p>
-                            <p class="pr-4" id="middleDuration">7 дн.</p>
-                            <p class="pr-4" id="optimalDuration">10 дн.</p>
-                            <p class="pr-4" id="maxDuration">14 дн.</p>
-                            <p>17 дн.</p>
-                        </div>
+                        
+                            <input type="range" id="slider" min="0" max="20" value="50" step="5" class="w-3/4 slider">
+                                <label for="slider"></label>
+                        <fieldset id="durationFilter">
+                            <div class="flex text-current text-md font-basic" id="countDuration">
+                                <p class="pr-4" id="minDuration">5 дн.</p>
+                                <p class="pr-4" id="middleDuration">7 дн.</p>
+                                <p class="pr-4" id="optimalDuration">10 дн.</p>
+                                <p class="pr-4" id="maxDuration">14 дн.</p>
+                                <p id="relaxDuration">17 дн.</p>
+                            </div>
+                        </fieldset>
                     </div>
 
                     <div class="mb-14">
