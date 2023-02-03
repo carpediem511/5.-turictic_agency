@@ -133,8 +133,6 @@ function filterByCountry(tours) {
    } else {
        renderTours(tours)
    }
-
-
 }
 
 /* function changeStar () {
@@ -211,11 +209,6 @@ function filterByRating(event, tours) {
 } */
 
 
-//let changeIcon = document.getElementById(`emptyStar-${star.id}`)
-//changeIcon.addEventListener("mouseover", () => {
-   // changeIcon.src = "/images/icon-chooseStar.png"
-//}) не получилось минимизировать код
-
 document.getElementById("emptyStar2").addEventListener("click", (event) => filterByRating (event, tours))
 document.getElementById("emptyStar3").addEventListener("click", (event) => filterByRating (event, tours))
 document.getElementById("emptyStar4").addEventListener("click", (event) => filterByRating (event, tours))
@@ -264,9 +257,6 @@ let offChangeIcon5 = document.getElementById("emptyStar5").addEventListener("mou
     document.getElementById("emptyStar3").src = "/images/icon-emptyStar.png"
     document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
 })
-
-
-
 
 getData()
 init()
