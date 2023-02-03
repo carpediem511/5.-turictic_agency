@@ -137,8 +137,25 @@ function filterByCountry(tours) {
 
 }
 
+/* function changeStar () {
+
+let choosedStar = document.getElementsByClassName("choose")
+
+choosedStar.addEventListener("click", () => {
+
+    if (choosedStar.getAttribute("src") == "/images/icon-emptyStar.png"){
+
+        choosedStar.src = "/images/icon-chooseStar.png"}
+
+    else{
+
+  image.src = "/images/icon-emptyStar.png"}
+
+})} */
+
 function filterByRating(event, tours) {
 
+   /*  changeStar() */
     const minRating = event.target.dataset.minrating
     const maxRating = event.target.dataset.maxrating
 
@@ -247,6 +264,8 @@ let offChangeIcon5 = document.getElementById("emptyStar5").addEventListener("mou
     document.getElementById("emptyStar3").src = "/images/icon-emptyStar.png"
     document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
 })
+
+
 
 
 getData()
