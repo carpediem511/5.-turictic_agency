@@ -2,27 +2,28 @@ import { format, differenceInDays } from "date-fns"
 import { doc } from "prettier"
 const { default: ru } = require("date-fns/locale/ru")
 
-let arr = []
+let tours = []
 
 async function getData() {
+
   const response = await fetch( //получить данные с сервера
     "https://www.bit-by-bit.ru/api/student-projects/tours"
   ) 
 
   const data = await response.json() //прочитать данные, полученные с сервера
 
-  arr = data
+  tours = data
 
   return data //данные готовы к использованию
 
 }
 
 async function init() {
-    const tours = await getData()
+    
+    tours = await getData()
     renderTours(tours)
 
     document.getElementById("countriesFilter").addEventListener("change", () => filterByCountry(tours))
-
 }
 
 function renderTours (tours) {
@@ -97,6 +98,7 @@ function renderTours (tours) {
         })}})}
 
 function checkCity(tour) {
+
   if (tour.city != null && tour.city.length > 0) {
     return tour.city
   } else {
@@ -114,7 +116,7 @@ function filterByCountry(tours) {
 
     if (checkbox.checked === true) { //если чекбокс выбран
 
-        checkedCountries.push(checkbox.name) //добавить его в пустой массив
+       checkedCountries.push(checkbox.name) //добавить его в пустой массив
     }
  })
 
@@ -122,7 +124,7 @@ function filterByCountry(tours) {
     
        const filteredTours = tours.filter((tour) => { //фильтр по турам
         
-        return checkedCountries.includes(tour.country) //возвращаем отфильтрованные туры, добавляем выбранную страну
+       return checkedCountries.includes(tour.country) //возвращаем отфильтрованные туры, добавляем выбранную страну
       
     })
  
@@ -135,31 +137,30 @@ function filterByCountry(tours) {
 
 }
 
-const twoStar = document.getElementById("emptyStar2")
+function filterByRating(event, tours) {
 
-twoStar.addEventListener("click", () => {
+    const minRating = event.target.dataset.minrating
+    const maxRating = event.target.dataset.maxrating
 
-    const filteredTours = arr.filter((tour) => {
+    const filteredTours = tours.filter((tour) => {
 
-        if (tour.rating >= 3 && tour.rating <=5) {
+        if (tour.rating >= minRating && tour.rating <= maxRating) {
 
-            renderTours(filteredTours) 
+            return true
+
+        }})
+
+        if (filteredTours.length > 0) {
+
+            renderTours(filteredTours)
 
         } else {
 
-            document.getElementById("tours-all").innerHTML = "По вашему запросу не найдено ни одного тура... Попробуйте выбрать другой вариант"
+            document.getElementById("tours-all").innerHTML = "По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска"
+        } 
+}
 
-        }
-    })
-
-})
-
-
-
-const threeStar = document.getElementById("emptyStar3")
-let checkedCountries = []      //пустой массив, в котором будут отфильтрованные страны
-
-function filterByRating(tours) {
+    /*     второй способ
     const getDataOfRating = Array.from(document.querySelectorAll("#rating .star"))
 
     threeStar.addEventListener("click", () => {
@@ -190,10 +191,7 @@ function filterByRating(tours) {
        
        }
     )
-}
-
-
-
+} */
 
 
 //let changeIcon = document.getElementById(`emptyStar-${star.id}`)
@@ -201,12 +199,13 @@ function filterByRating(tours) {
    // changeIcon.src = "/images/icon-chooseStar.png"
 //}) не получилось минимизировать код
 
-
+document.getElementById("emptyStar2").addEventListener("click", (event) => filterByRating (event, tours))
+document.getElementById("emptyStar3").addEventListener("click", (event) => filterByRating (event, tours))
+document.getElementById("emptyStar4").addEventListener("click", (event) => filterByRating (event, tours))
+document.getElementById("emptyStar5").addEventListener("click", (event) => filterByRating (event, tours))
 
 let onChangeIcon2 = document.getElementById("emptyStar2").addEventListener("mouseover", () => {
     document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
-
-    document.getElementById("emptyStar2").addEventListener("click", filterByRating)
 })
 
 let offChangeIcon2 = document.getElementById("emptyStar2").addEventListener("mouseout", () => {
