@@ -3,10 +3,12 @@ import { doc } from "prettier"
 const { default: ru } = require("date-fns/locale/ru")
 
 let tours = []
+let tour = document.getElementById ("tourId")
+
 
 async function getData() {
 
-  const response = await fetch( //получить данные с сервера
+  const response = await fetch( //получить данные с сервера по запросу
     "https://www.bit-by-bit.ru/api/student-projects/tours"
   ) 
 
@@ -22,8 +24,6 @@ async function init() {
     
     tours = await getData()
     renderTours(tours)
-
-    
 }
 
 function renderTours (tours) {
@@ -106,6 +106,8 @@ function checkCity(tour) {
   }
 }
 
+document.getElementById("countriesFilter").addEventListener("change", () => filterByCountry(tours))
+
 function filterByCountry(tours) {
 
  const countriesFieldset = Array.from(document.querySelectorAll("#countriesFilter .checkbox")) //получаем все значения из всех чекбоксов
@@ -151,6 +153,11 @@ choosedStar.addEventListener("click", () => {
 
 })} */
 
+document.getElementById("emptyStar2").addEventListener("click", (event) => filterByRating (event, tours))
+document.getElementById("emptyStar3").addEventListener("click", (event) => filterByRating (event, tours))
+document.getElementById("emptyStar4").addEventListener("click", (event) => filterByRating (event, tours))
+document.getElementById("emptyStar5").addEventListener("click", (event) => filterByRating (event, tours))
+
 function filterByRating(event, tours) {
 
    /*  changeStar() */
@@ -175,24 +182,76 @@ function filterByRating(event, tours) {
         } 
 }
 
-document.getElementById("input").addEventListener("change", (event) => filterByDuration (event, tours))
 
-document.getElementById("input").addEventListener("oninput", () => {
+
+document.getElementById("input").addEventListener("input", () => {
 
     let getValue = document.getElementById("input").value
-    document.getElementById("inputResult").innerHTML = "Вы выбрали" + getValue + "дней"
+    document.getElementById("inputResult").innerHTML = "Вы выбрали " + getValue + " дней"
    
 })
+
+let getDataOfDuration = document.getElementById("input")
+
+getDataOfDuration.addEventListener("change", (event) => filterByDuration (event, tours))
 
 
  function filterByDuration(event, tours) {
 
-    const minDuration = event.target.dataset.minduration 
-    const maxDuration = event.target.dataset.maxduration
+    let getDataOfInput = getDataOfDuration.value
 
     const filteredTours = tours.filter((tour) => {
 
-        if (tour.duration >= minDuration && tour.duration <= maxDuration) {
+        let difference = differenceInDays(new Date(tour.endTime), new Date(tour.startTime))
+
+        if (difference == getDataOfInput) {
+
+           return true
+        }
+    })
+    
+    if (filteredTours.length > 0) {
+            
+        renderTours(filteredTours)
+    } else {
+          
+        document.getElementById("tours-all").innerHTML = "По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска"
+
+    } 
+}
+
+/*
+
+
+    
+
+        if (filteredTours.length > 0) {
+            
+            renderTours(filteredTours)
+
+        } else {
+          
+            document.getElementById("tours-all").innerHTML = "По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска"
+
+        } 
+    })
+  */
+
+   /*  const minDurationGet = event.target.dataset.minduration
+    const maxDurationGet = event.target.dataset.maxduration
+
+    let minDuration = minDurationGet.valu
+    let maxDuration = maxDurationGet
+    let tour = document.getElementById("tourId")
+
+    console.log(minDuration) */
+/* 
+    let difference = differenceInDays(new Date(tour.endTime), new Date(tour.endTime))
+
+
+    const filteredTours = tours.filter((tour) => {
+
+        if (difference >= minDuration && difference <= maxDuration) {
 
             return true
         }})
@@ -200,12 +259,13 @@ document.getElementById("input").addEventListener("oninput", () => {
         if (filteredTours.length > 0) {
             
             renderTours(filteredTours)
+
         } else {
           
             document.getElementById("tours-all").innerHTML = "По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска"
 
-        }
-   } 
+        } */
+   
 
     /*     второй способ
     const getDataOfRating = Array.from(document.querySelectorAll("#rating .star"))
@@ -241,10 +301,11 @@ document.getElementById("input").addEventListener("oninput", () => {
 } */
 
 
-document.getElementById("emptyStar2").addEventListener("click", (event) => filterByRating (event, tours))
-document.getElementById("emptyStar3").addEventListener("click", (event) => filterByRating (event, tours))
-document.getElementById("emptyStar4").addEventListener("click", (event) => filterByRating (event, tours))
-document.getElementById("emptyStar5").addEventListener("click", (event) => filterByRating (event, tours))
+
+
+
+
+
 
 
 
