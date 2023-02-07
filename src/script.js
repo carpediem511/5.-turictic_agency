@@ -29,7 +29,7 @@ async function init() {
 function renderTours (tours) {
 
   tours.forEach((tour) => {
-    const duration = differenceInDays(
+    let duration = differenceInDays(
       new Date(tour.endTime),
       new Date(tour.startTime)
     )
