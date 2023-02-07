@@ -3,7 +3,7 @@ import { doc } from "prettier"
 const { default: ru } = require("date-fns/locale/ru")
 
 let tours = []
-let tour = document.getElementById ("tourId")
+
 
 
 async function getData() {
@@ -193,10 +193,10 @@ document.getElementById("input").addEventListener("input", () => {
 
 let getDataOfDuration = document.getElementById("input")
 
-getDataOfDuration.addEventListener("change", (event) => filterByDuration (event, tours))
+getDataOfDuration.addEventListener("change", () => filterByDuration (tours))
 
 
- function filterByDuration(event, tours) {
+ function filterByDuration(tours) {
 
     let getDataOfInput = getDataOfDuration.value
 
@@ -220,52 +220,7 @@ getDataOfDuration.addEventListener("change", (event) => filterByDuration (event,
     } 
 }
 
-/*
 
-
-    
-
-        if (filteredTours.length > 0) {
-            
-            renderTours(filteredTours)
-
-        } else {
-          
-            document.getElementById("tours-all").innerHTML = "По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска"
-
-        } 
-    })
-  */
-
-   /*  const minDurationGet = event.target.dataset.minduration
-    const maxDurationGet = event.target.dataset.maxduration
-
-    let minDuration = minDurationGet.valu
-    let maxDuration = maxDurationGet
-    let tour = document.getElementById("tourId")
-
-    console.log(minDuration) */
-/* 
-    let difference = differenceInDays(new Date(tour.endTime), new Date(tour.endTime))
-
-
-    const filteredTours = tours.filter((tour) => {
-
-        if (difference >= minDuration && difference <= maxDuration) {
-
-            return true
-        }})
-
-        if (filteredTours.length > 0) {
-            
-            renderTours(filteredTours)
-
-        } else {
-          
-            document.getElementById("tours-all").innerHTML = "По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска"
-
-        } */
-   
 
     /*     второй способ
     const getDataOfRating = Array.from(document.querySelectorAll("#rating .star"))
