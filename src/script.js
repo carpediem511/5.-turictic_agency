@@ -23,7 +23,7 @@ async function init() {
     tours = await getData()
     renderTours(tours)
 
-    document.getElementById("countriesFilter").addEventListener("change", () => filterByCountry(tours))
+    
 }
 
 function renderTours (tours) {
@@ -175,50 +175,37 @@ function filterByRating(event, tours) {
         } 
 }
 
-document.getElementById("minDuration").addEventListener("mouseup", filterByDuration (tours))
-document.getElementById("middleDuration").addEventListener("mouseup", filterByDuration (tours))
-document.getElementById("optimalDuration").addEventListener("mouseup", filterByDuration (tours))
-document.getElementById("maxDuration").addEventListener("mouseup", filterByDuration (tours))
-document.getElementById("relaxDuration").addEventListener("mouseup", filterByDuration (tours))
+document.getElementById("input").addEventListener("change", (event) => filterByDuration (event, tours))
 
+document.getElementById("input").addEventListener("oninput", () => {
 
-
-function filterByDuration(tours) {
-
-    const durationFieldset = Array.from(document.querySelectorAll("#durationFilter #countDuration")) //получаем все значения из всех чекбоксов
-                                                                                                  // в виде массива
-const minDuration = document.getElementById("minDuration")
-const middleDuration = document.getElementById("middleDuration")
-const optimalDuration = document.getElementById("optimalDuration")
-const maxDuration = document.getElementById("maxDuration")
-const relaxDuration = document.getElementById("relaxDuration")
-
-    let checkedCountries = []      //пустой массив, в котором будут отфильтрованные страны
+    let getValue = document.getElementById("input").value
+    document.getElementById("inputResult").innerHTML = "Вы выбрали" + getValue + "дней"
    
-    durationFieldset.forEach((countDuration) => { // проходимся по каждому чекбоксу
-   
-       if (countDuration.checked === true) { //если чекбокс выбран
-   
-          checkedCountries.push(countDuration.name) //добавить его в пустой массив
-       }
-    }) 
-    console.log(countDuration)
-   
-       if (checkedCountries) { //если отфильтрованные страны
-       
-          const filteredTours = tours.filter((tour) => { //фильтр по турам
-           
-          return checkedCountries.includes(tour.country) //возвращаем отфильтрованные туры, добавляем выбранную страну
-         
-       })
-    
-      renderTours(filteredTours) 
-   
-      } else {
-        document.getElementById("tours-all").innerHTML = "По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска"
+})
 
-      }
-   }
+
+ function filterByDuration(event, tours) {
+
+    const minDuration = event.target.dataset.minduration 
+    const maxDuration = event.target.dataset.maxduration
+
+    const filteredTours = tours.filter((tour) => {
+
+        if (tour.duration >= minDuration && tour.duration <= maxDuration) {
+
+            return true
+        }})
+
+        if (filteredTours.length > 0) {
+            
+            renderTours(filteredTours)
+        } else {
+          
+            document.getElementById("tours-all").innerHTML = "По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска"
+
+        }
+   } 
 
     /*     второй способ
     const getDataOfRating = Array.from(document.querySelectorAll("#rating .star"))
@@ -264,6 +251,10 @@ document.getElementById("emptyStar5").addEventListener("click", (event) => filte
 
 
 let onChangeIcon2 = document.getElementById("emptyStar2").addEventListener("mouseover", () => {
+    document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
+})
+
+document.getElementById("emptyStar2").addEventListener("click", () => {
     document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
 })
 
