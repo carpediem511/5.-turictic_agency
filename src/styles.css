@@ -101,6 +101,23 @@
     color: #1564a0;
 }
 
+.nothing {
+
+    font-size: 26px;
+    font-family: 'Lora', serif;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 150px;
+    color: red;
+}
+
+.oups {
+
+    width: 40%;
+    margin: 0 auto;
+   
+}
+
 @media (max-width: 900px) {
   .tour {
     width: calc(100% / 3);

@@ -40,8 +40,8 @@ function renderTours (tours) {
 
     if (tours.length === 0) {
 
-        document.getElementById("tours-all").innerHTML = "По вашему запросу не найдено ни одного тура... Попробуйте выбрать другой вариант"
-    
+        document.getElementById("tours-all").innerHTML = 
+        '<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>'     
     } else {
 
         tours.forEach(tour => {
@@ -178,7 +178,8 @@ function filterByRating(event, tours) {
 
         } else {
 
-            document.getElementById("tours-all").innerHTML = "По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска"
+            document.getElementById("tours-all").innerHTML = 
+            '<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>' 
         } 
 }
 
@@ -215,8 +216,8 @@ getDataOfDuration.addEventListener("change", () => filterByDuration (tours))
         renderTours(filteredTours)
     } else {
           
-        document.getElementById("tours-all").innerHTML = "По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска"
-
+        document.getElementById("tours-all").innerHTML = 
+        '<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>' 
     } 
 }
 
