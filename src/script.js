@@ -28,25 +28,24 @@ async function init() {
 
 function renderTours (tours) {
 
-  tours.forEach((tour) => {
-    let duration = differenceInDays(
-      new Date(tour.endTime),
-      new Date(tour.startTime)
-    )
+    document.getElementById("tours-all").innerHTML = " "
+
+    tours.forEach((tour) => {
+        let duration = differenceInDays(
+        new Date(tour.endTime),
+        new Date(tour.startTime)
+        )
 
     const city = checkCity(tour)
 
-    document.getElementById("tours-all").innerHTML = " "
-
+ 
     if (tours.length === 0) {
 
         document.getElementById("tours-all").innerHTML = 
         '<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>'     
     } else {
-
-        tours.forEach(tour => {
-
-            document.getElementById("tours-all").innerHTML +=
+     
+        document.getElementById("tours-all").innerHTML +=
          `
             
             <div class="tour bg-blue-50 rounded-3xl border-sky-500 border-2 max-w-md xl:w-1/4 mx-10 my-10" id="tourId">
@@ -95,7 +94,7 @@ function renderTours (tours) {
                 </div>
         </div>
             `
-        })}})}
+        }})}
 
 function checkCity(tour) {
 
