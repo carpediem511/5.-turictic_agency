@@ -47,7 +47,6 @@ function renderTours (tours) {
      
         document.getElementById("tours-all").innerHTML +=
          `
-            
             <div class="tour bg-blue-50 rounded-3xl border-sky-500 border-2 max-w-md xl:w-1/4 mx-10 my-10" id="tourId">
                 <div>
                     <div class="flex justify-center pt-6 max-h-6">
@@ -182,9 +181,7 @@ function filterByRating(event, tours) {
         } 
 }
 
-
-
-document.getElementById("input").addEventListener("input", () => {
+ document.getElementById("input").addEventListener("input", () => {
 
     let getValue = document.getElementById("input").value
     document.getElementById("inputResult").innerHTML = "Вы выбрали " + getValue + " дней"
@@ -256,16 +253,6 @@ getDataOfDuration.addEventListener("change", () => filterByDuration (tours))
 } */
 
 
-
-
-
-
-
-
-
-
-
-
 let onChangeIcon2 = document.getElementById("emptyStar2").addEventListener("mouseover", () => {
     document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
 })
@@ -313,6 +300,25 @@ let offChangeIcon5 = document.getElementById("emptyStar5").addEventListener("mou
     document.getElementById("emptyStar3").src = "/images/icon-emptyStar.png"
     document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
 })
+
+let changeOnClick2 = document.getElementById("emptyStar2")
+let changeOnClick3 = document.getElementById("emptyStar3")
+let changeOnClick4 = document.getElementById("emptyStar4")
+let changeOnClick5 = document.getElementById("emptyStar5")
+
+
+
+changeOnClick2.addEventListener("click", () => {
+
+    if (changeOnClick2.getAttribute("src") == "/images/icon-emptyStar.png") {
+
+        changeOnClick2.src = "/images/icon-chooseStar.png"
+    } else {
+
+        changeOnClick2.src ="/images/icon-emptyStar.png"
+    }
+})
+
 
 getData()
 init()
