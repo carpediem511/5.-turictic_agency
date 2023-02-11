@@ -61,7 +61,7 @@ function renderTours (tours) {
     
                 <div class="flex flex-col info border drop-shadow-lg xl:mx-10 my-10">
                 
-                    <div class="font-basic text-sky-600 text-center font-semibold px-2 xl:text-2xl pt-6 pb-6">
+                    <div class="hotel font-basic text-sky-600 text-center font-semibold px-2 xl:text-2xl pt-6 pb-6">
                     ${tour.hotelName}
                     </div>
                 
@@ -82,12 +82,17 @@ function renderTours (tours) {
                             <p class="font-basic text-rose-700 pt-9 pl-2 xl:text-base">рублей</p>
                         </div>
     
-                        <div class="flex"">
+                        <div class="flex">
                             <img src="/images/icon-rating.png" class="w-12 h-12">
                             <div class="font-basic text-amber-500 pt-4 pl-2 xl:text-2xl font-medium" id="rating">
                             ${tour.rating}
                             </div> 
                             <p class="font-basic text-amber-500 pt-6 pl-2 xl:text-base">по версии TopHotels.com</p>
+                        </div>
+
+                        <div class="flex flex-col mt-6 w-3/4 mx-auto">
+                            <button class="mb-4 text-rose-700 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-2 py-2">Забронировать</button>
+                            <button class="text-amber-500 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2">В избранное</button>
                         </div>
                     </div>
                 </div>
@@ -253,7 +258,7 @@ getDataOfDuration.addEventListener("change", () => filterByDuration (tours))
 } */
 
 
-let onChangeIcon2 = document.getElementById("emptyStar2").addEventListener("mouseover", () => {
+document.getElementById("emptyStar2").addEventListener("mouseover", () => {
     document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
 })
 
@@ -261,45 +266,45 @@ document.getElementById("emptyStar2").addEventListener("click", () => {
     document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
 })
 
-let offChangeIcon2 = document.getElementById("emptyStar2").addEventListener("mouseout", () => {
+document.getElementById("emptyStar2").addEventListener("mouseout", () => {
     document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
 })
 
-let onchangeIcon3 = document.getElementById("emptyStar3").addEventListener("mouseover", () => {
+document.getElementById("emptyStar3").addEventListener("mouseover", () => {
     document.getElementById("emptyStar3").src = "/images/icon-chooseStar.png"
     document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
 })
 
-let offChangeIcon3 = document.getElementById("emptyStar3").addEventListener("mouseout", () => {
+document.getElementById("emptyStar3").addEventListener("mouseout", () => {
     document.getElementById("emptyStar3").src = "/images/icon-emptyStar.png"
     document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
 })
 
-let onchangeIcon4 = document.getElementById("emptyStar4").addEventListener("mouseover", () => {
+document.getElementById("emptyStar4").addEventListener("mouseover", () => {
     document.getElementById("emptyStar4").src = "/images/icon-chooseStar.png"
     document.getElementById("emptyStar3").src = "/images/icon-chooseStar.png"
     document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
 })
 
-let offChangeIcon4 = document.getElementById("emptyStar4").addEventListener("mouseout", () => {
+document.getElementById("emptyStar4").addEventListener("mouseout", () => {
     document.getElementById("emptyStar4").src = "/images/icon-emptyStar.png"
     document.getElementById("emptyStar3").src = "/images/icon-emptyStar.png"
     document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
 })
 
-let onchangeIcon5 = document.getElementById("emptyStar5").addEventListener("mouseover", () => {
+document.getElementById("emptyStar5").addEventListener("mouseover", () => {
     document.getElementById("emptyStar5").src = "/images/icon-chooseStar.png"
     document.getElementById("emptyStar4").src = "/images/icon-chooseStar.png"
     document.getElementById("emptyStar3").src = "/images/icon-chooseStar.png"
     document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
 })
 
-let offChangeIcon5 = document.getElementById("emptyStar5").addEventListener("mouseout", () => {
+document.getElementById("emptyStar5").addEventListener("mouseout", () => {
     document.getElementById("emptyStar5").src = "/images/icon-emptyStar.png"
     document.getElementById("emptyStar4").src = "/images/icon-emptyStar.png"
     document.getElementById("emptyStar3").src = "/images/icon-emptyStar.png"
     document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
-})
+}) 
 
 let changeOnClick2 = document.getElementById("emptyStar2")
 let changeOnClick3 = document.getElementById("emptyStar3")
@@ -318,7 +323,6 @@ changeOnClick2.addEventListener("click", () => {
         changeOnClick2.src ="/images/icon-emptyStar.png"
     }
 })
-
 
 getData()
 init()

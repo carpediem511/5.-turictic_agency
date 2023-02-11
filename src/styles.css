@@ -124,6 +124,10 @@
     color: red;
 }
 
+.hotel {
+    min-height: 120px;
+}
+
 @media (max-width: 900px) {
   .tour {
     width: calc(100% / 3);
