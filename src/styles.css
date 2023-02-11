@@ -82,6 +82,10 @@
   background-size: contain;
 }
 
+.scroll {
+    min-height: 210px;
+}
+
 .scroll::-webkit-scrollbar {
   width: 15px; /* ширина всей полосы прокрутки */
 }
