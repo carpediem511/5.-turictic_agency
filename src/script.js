@@ -4,8 +4,6 @@ const { default: ru } = require("date-fns/locale/ru")
 
 let tours = []
 
-
-
 async function getData() {
 
   const response = await fetch( //получить данные с сервера по запросу
@@ -91,7 +89,7 @@ function renderTours (tours) {
                         </div>
 
                         <div class="flex flex-col mt-6 w-3/4 mx-auto">
-                            <button class="mb-4 text-rose-700 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-2 py-2">Забронировать</button>
+                            <button id="bookTour" class="mb-4 text-rose-700 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-2 py-2">Забронировать</button>
                             <button class="text-amber-500 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2">В избранное</button>
                         </div>
                     </div>
@@ -113,11 +111,11 @@ document.getElementById("countriesFilter").addEventListener("change", () => filt
 
 function filterByCountry(tours) {
 
- const countriesFieldset = Array.from(document.querySelectorAll("#countriesFilter .checkbox")) //получаем все значения из всех чекбоксов
+    const countriesFieldset = Array.from(document.querySelectorAll("#countriesFilter .checkbox")) //получаем все значения из всех чекбоксов
                                                                                                // в виде массива
- let checkedCountries = []      //пустой массив, в котором будут отфильтрованные страны
+    let checkedCountries = []      //пустой массив, в котором будут отфильтрованные страны
 
- countriesFieldset.forEach((checkbox) => { // проходимся по каждому чекбоксу
+    countriesFieldset.forEach((checkbox) => { // проходимся по каждому чекбоксу
 
     if (checkbox.checked === true) { //если чекбокс выбран
 
@@ -222,8 +220,6 @@ getDataOfDuration.addEventListener("change", () => filterByDuration (tours))
     } 
 }
 
-
-
     /*     второй способ
     const getDataOfRating = Array.from(document.querySelectorAll("#rating .star"))
 
@@ -306,12 +302,10 @@ document.getElementById("emptyStar5").addEventListener("mouseout", () => {
     document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
 }) 
 
-let changeOnClick2 = document.getElementById("emptyStar2")
+/* let changeOnClick2 = document.getElementById("emptyStar2")
 let changeOnClick3 = document.getElementById("emptyStar3")
 let changeOnClick4 = document.getElementById("emptyStar4")
 let changeOnClick5 = document.getElementById("emptyStar5")
-
-
 
 changeOnClick2.addEventListener("click", () => {
 
@@ -322,7 +316,77 @@ changeOnClick2.addEventListener("click", () => {
 
         changeOnClick2.src ="/images/icon-emptyStar.png"
     }
+}) */
+
+const openModalWindow = document.getElementById("openModalWindow") //найти модальное окно в html
+const buttonOpenModalWindow = document.getElementById("bookTour") //найти кнопку открыть модальное окно
+const buttonCancelRequest = document.getElementById("cancelRequest") //найти кнопку закрыть модальное окно
+const buttonSendRequest = document.getElementById("sendRequest") //найти кнопку забронировать тур
+
+buttonOpenModalWindow.addEventListener("click", () => {//по нажатию кнопки модальное окно открывается
+    openModalWindow.style.display = "flex"
 })
+buttonCancelRequest.addEventListener("click", () => {//по нажатию кнопки модальное окно закрывается
+    openModalWindow.style.display = "none"
+}) 
+
+
+
+/* document
+.getElementById(`openWindowUpdate-${book.id}`)
+.addEventListener("click", () => {
+  openUpdateWindow(book.id); //если нажали на кнопку обновить, то открывается окно "обновить"
+});
+
+function updateInput(book) {
+    //ввожу функцию получить имеющиеся значения полей
+    document.getElementById("bookNameUpdate").value = book.title;
+    document.getElementById("bookAuthorUpdate").value = book.authors;
+    document.getElementById("bookYearUpdate").value = book.year;
+    document.getElementById("bookImageUpdate").value = book.image;
+  }
+  
+  function openUpdateWindow(id) {
+    //ввожу функцию открыть окно "обновить"
+    updateWindow.style.display = "flex"; //показывать стили
+  
+    const book = books.find((findBook) => {
+      return findBook.id === id; //найти книгу по id
+    });
+  
+    updateInput(book); //получить значения с полей
+    const makeUpdate = () => updateBook(book.id, makeUpdate);
+    updateBookButton.addEventListener("click", makeUpdate);
+  }
+  
+  function updateBook(id, makeUpdate) {
+    //ввожу функцию обновить книгу по нажатию кнопки
+    let book = books.find((findBook) => {
+      //ищу нужную книгу
+      return findBook.id === id; //найти книгу по id
+    });
+  
+    const bookIndexUp = books.indexOf(book); //присвоить переменной индексы книг из массива
+  
+    const nameUpdate = document.getElementById("bookNameUpdate").value;
+    const authorUpdate = document.getElementById("bookAuthorUpdate").value;
+    const yearUpdate = document.getElementById("bookYearUpdate").value;
+    const imageUpdate = document.getElementById("bookImageUpdate").value;
+  
+    const newBook = {
+      id,
+      title: nameUpdate,
+      authors: authorUpdate,
+      year: yearUpdate,
+      image: getImage(imageUpdate),
+    };
+  
+    updateBookButton.removeEventListener("click", makeUpdate); //удалить лишних обработчиков
+    books.splice(bookIndexUp, 1, newBook); //удалять книгу и вставлять новую
+    renderBooks();
+    saveToLocalStorage();
+    closeUpdateWindow();
+  }  */
 
 getData()
 init()
