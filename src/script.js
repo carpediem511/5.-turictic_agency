@@ -3,6 +3,7 @@ import { doc } from "prettier"
 const { default: ru } = require("date-fns/locale/ru")
 
 let tours = []
+let favoritTours = []
 
 
 
@@ -10,7 +11,7 @@ async function getData() {
 
   const response = await fetch( //получить данные с сервера по запросу
     "https://www.bit-by-bit.ru/api/student-projects/tours"
-  ) 
+  )
 
   const data = await response.json() //прочитать данные, полученные с сервера
 
@@ -21,7 +22,7 @@ async function getData() {
 }
 
 async function init() {
-    
+
     tours = await getData()
     renderTours(tours)
 }
@@ -38,13 +39,13 @@ function renderTours (tours) {
 
     const city = checkCity(tour)
 
- 
+
     if (tours.length === 0) {
 
-        document.getElementById("tours-all").innerHTML = 
-        '<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>'     
+        document.getElementById("tours-all").innerHTML =
+        '<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>'
     } else {
-     
+
         document.getElementById("tours-all").innerHTML +=
          `
             <div class="tour bg-blue-50 rounded-3xl border-sky-500 border-2 max-w-md xl:w-1/4 mx-10 my-10" id="tourId">
@@ -52,19 +53,19 @@ function renderTours (tours) {
                     <div class="flex justify-center pt-6 max-h-6">
                         <img class="px-8 w-full h-full object-center max-h-48 sm:max-h-54 md:max-h-28 lg:max-h-32 xl:max-h-48" src="${tour.image}">
                     </div>
-    
+
                     <div class="title flex flex-col absolute font-attention">
                         <div class="text-amber-600 pl-2.5 pt-1.5 xl:text-4xl">${tour.country}</div>
                         <div class="text-current mb-2.5 pl-2.5 xl:text-2xl" id="cityId">${city}</div>
                     </div>
                 </div>
-    
+
                 <div class="flex flex-col info border drop-shadow-lg xl:mx-10 my-10">
-                
+
                     <div class="hotel font-basic text-sky-600 text-center font-semibold px-2 xl:text-2xl pt-6 pb-6">
                     ${tour.hotelName}
                     </div>
-                
+
                     <div class="font-basic text-current text-sm text-center pb-6 font-bold xl:pt-6">
                     ${format(new Date(tour.startTime), "dd MMMM y", {locale: ru})} -
                     ${format(new Date(tour.endTime), "dd MMMM y", {locale: ru})}
@@ -72,33 +73,56 @@ function renderTours (tours) {
                     продолжительность:</span> ${duration} дней
                     </div>
                     </div>
-                
+
                     <div class="flex flex-col pb-10 pt-6 px-2 xl:px-10">
                         <div class="flex">
                             <img src="/images/icon-price.png" class="w-12 h-12">
                             <div class="font-basic text-rose-700 pt-6  pl-2 xl:text-3xl font-bold">
                             ${tour.price}
-                            </div> 
+                            </div>
                             <p class="font-basic text-rose-700 pt-9 pl-2 xl:text-base">рублей</p>
                         </div>
-    
+
                         <div class="flex">
                             <img src="/images/icon-rating.png" class="w-12 h-12">
                             <div class="font-basic text-amber-500 pt-4 pl-2 xl:text-2xl font-medium" id="rating">
                             ${tour.rating}
-                            </div> 
+                            </div>
                             <p class="font-basic text-amber-500 pt-6 pl-2 xl:text-base">по версии TopHotels.com</p>
                         </div>
 
                         <div class="flex flex-col mt-6 w-3/4 mx-auto">
                             <button class="mb-4 text-rose-700 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-2 py-2">Забронировать</button>
-                            <button class="text-amber-500 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2">В избранное</button>
+                            <button id="addFavoritrButton-${tour.id}" class="text-amber-500 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2">В избранное</button>
+                            <button id="deleteFavoritrButton-${tour.id}" class="text-amber-500 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2 my-2 hidden">Удалить из избранного</button>
                         </div>
                     </div>
                 </div>
         </div>
             `
-        }})}
+        }})
+
+        tours.forEach((tour) => {
+            document
+                .getElementById(`addFavoritrButton-${tour.id}`)
+                .addEventListener("click", () => {
+                    favoritTours.push(tour)
+                    document.getElementById(`addFavoritrButton-${tour.id}`).style.display = "none"
+                    document.getElementById(`deleteFavoritrButton-${tour.id}`).style.display = "block"
+                })
+            })
+
+            tours.forEach((tour) => {
+                document
+                    .getElementById(`deleteFavoritrButton-${tour.id}`)
+                    .addEventListener("click", () => {
+                        favoritTours.push(tour.id)
+                        document.getElementById(`addFavoritrButton-${tour.id}`).style.display = "block"
+                        document.getElementById(`deleteFavoritrButton-${tour.id}`).style.display = "none"
+                    })
+                    console.log(favoritTours)
+                })
+    }
 
 function checkCity(tour) {
 
@@ -108,6 +132,10 @@ function checkCity(tour) {
     return " "
   }
 }
+
+
+document.getElementById('allTours').addEventListener('click', () => renderTours(tours))
+
 
 document.getElementById("countriesFilter").addEventListener("change", () => filterByCountry(tours))
 
@@ -126,14 +154,14 @@ function filterByCountry(tours) {
  })
 
     if (checkedCountries) { //если отфильтрованные страны
-    
+
        const filteredTours = tours.filter((tour) => { //фильтр по турам
-        
+
        return checkedCountries.includes(tour.country) //возвращаем отфильтрованные туры, добавляем выбранную страну
-      
+
     })
- 
-   renderTours(filteredTours) 
+
+   renderTours(filteredTours)
 
    } else {
        renderTours(tours)
@@ -181,16 +209,16 @@ function filterByRating(event, tours) {
 
         } else {
 
-            document.getElementById("tours-all").innerHTML = 
-            '<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>' 
-        } 
+            document.getElementById("tours-all").innerHTML =
+            '<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>'
+        }
 }
 
  document.getElementById("input").addEventListener("input", () => {
 
     let getValue = document.getElementById("input").value
     document.getElementById("inputResult").innerHTML = "Вы выбрали " + getValue + " дней"
-   
+
 })
 
 let getDataOfDuration = document.getElementById("input")
@@ -211,15 +239,15 @@ getDataOfDuration.addEventListener("change", () => filterByDuration (tours))
            return true
         }
     })
-    
+
     if (filteredTours.length > 0) {
-            
+
         renderTours(filteredTours)
     } else {
-          
-        document.getElementById("tours-all").innerHTML = 
-        '<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>' 
-    } 
+
+        document.getElementById("tours-all").innerHTML =
+        '<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>'
+    }
 }
 
 
@@ -228,31 +256,31 @@ getDataOfDuration.addEventListener("change", () => filterByDuration (tours))
     const getDataOfRating = Array.from(document.querySelectorAll("#rating .star"))
 
     threeStar.addEventListener("click", () => {
-    
-        
+
+
         getDataOfRating.forEach((tours) => { // проходимся по каждому чекбоксу
-       
+
            if (threeStar.addEventListener("click")) { //если чекбокс выбран
-       
+
                checkedCountries.push() //добавить его в пустой массив
            }
         })
-       
+
            if (checkedCountries) { //если отфильтрованные страны
-           
+
               const filteredTours = tours.filter((tour) => { //фильтр по турам
-               
+
                return checkedCountries.includes(tour.country) //возвращаем отфильтрованные туры, добавляем выбранную страну
              console.log("результат", checkedCountries)
            })
-        
-          renderTours(filteredTours) 
-       
+
+          renderTours(filteredTours)
+
           } else {
               renderTours(tours)
           }
-       
-       
+
+
        }
     )
 } */
@@ -304,7 +332,7 @@ document.getElementById("emptyStar5").addEventListener("mouseout", () => {
     document.getElementById("emptyStar4").src = "/images/icon-emptyStar.png"
     document.getElementById("emptyStar3").src = "/images/icon-emptyStar.png"
     document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
-}) 
+})
 
 let changeOnClick2 = document.getElementById("emptyStar2")
 let changeOnClick3 = document.getElementById("emptyStar3")
