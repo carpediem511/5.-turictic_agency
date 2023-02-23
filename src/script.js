@@ -103,26 +103,21 @@ function renderTours (tours) {
         }})
 
         tours.forEach((tour) => {
-            document
-                .getElementById(`addFavoritrButton-${tour.id}`)
-                .addEventListener("click", () => {
+            document.getElementById(`addFavoritrButton-${tour.id}`).addEventListener("click", () => {
                     favoritTours.push(tour)
-                    document.getElementById(`addFavoritrButton-${tour.id}`).style.display = "none"
-                    document.getElementById(`deleteFavoritrButton-${tour.id}`).style.display = "block"
+                    changeButtonToDelete(tour)
+                    saveToLocalStorage()
                 })
             })
 
-            tours.forEach((tour) => {
-                document
-                    .getElementById(`deleteFavoritrButton-${tour.id}`)
-                    .addEventListener("click", () => {
-                        favoritTours.push(tour.id)
-                        document.getElementById(`addFavoritrButton-${tour.id}`).style.display = "block"
-                        document.getElementById(`deleteFavoritrButton-${tour.id}`).style.display = "none"
-                    })
-                    console.log(favoritTours)
+        tours.forEach((tour) => {
+            document.getElementById(`deleteFavoritrButton-${tour.id}`).addEventListener("click", () => {
+                    changeButtonToAdd(tour)
+                    saveToLocalStorage()
                 })
-    }
+            })
+
+      }
 
 function checkCity(tour) {
 
@@ -133,8 +128,27 @@ function checkCity(tour) {
   }
 }
 
+function changeButtonToDelete(tour) {
+    document.getElementById(`addFavoritrButton-${tour.id}`).style.display = "none"
+    document.getElementById(`deleteFavoritrButton-${tour.id}`).style.display = "block"
+}
+function changeButtonToAdd(tour) {
+    document.getElementById(`addFavoritrButton-${tour.id}`).style.display = "block"
+    document.getElementById(`deleteFavoritrButton-${tour.id}`).style.display = "none"
+}
+
+function saveToLocalStorage() {
+    const toursJson = JSON.stringify(favoritTours)
+    localStorage.setItem("favoritTours", toursJson)
+}
 
 document.getElementById('allTours').addEventListener('click', () => renderTours(tours))
+document.getElementById('favoritTours').addEventListener('click', () => renderTours(favoritTours)
+)
+
+
+
+
 
 
 document.getElementById("countriesFilter").addEventListener("change", () => filterByCountry(tours))
