@@ -24,14 +24,16 @@ async function getData() {
 async function init() {
 
     tours = await getData()
-    renderTours(tours)
+	favoritTours = JSON.parse(localStorage.getItem('favoritTours'))
+	renderTours(tours)
+
 }
 
-function renderTours (tours) {
+function renderTours(currentTours) {
 
     document.getElementById("tours-all").innerHTML = " "
 
-    tours.forEach((tour) => {
+    currentTours.forEach((tour) => {
         let duration = differenceInDays(
         new Date(tour.endTime),
         new Date(tour.startTime)
@@ -40,13 +42,13 @@ function renderTours (tours) {
     const city = checkCity(tour)
 
 
-    // let favoriteIds = favoritTours.map(t => {
-    //     return t.id
-    // })
+    let favoriteIds = favoritTours.map(t => {
+        return t.id
+    })
 
-    // const isFavorite = favoriteIds.includes(tour.id)
+    const isFavorite = favoriteIds.includes(tour.id)
 
-    if (tours.length === 0) {
+    if (currentTours.length === 0) {
 
         document.getElementById("tours-all").innerHTML =
         '<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>'
@@ -99,8 +101,10 @@ function renderTours (tours) {
 
                         <div class="flex flex-col mt-6 w-3/4 mx-auto">
                             <button class="mb-4 text-rose-700 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-2 py-2">Забронировать</button>
-                            <button id="addFavoritrButton-${tour.id}" class="text-amber-500 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2">В избранное</button>
-                            <button id="deleteFavoritrButton-${tour.id}" class="text-amber-500 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2 my-2 hidden">Удалить из избранного</button>
+                            ${isFavorite ? 
+								`<button id="deleteFavoritrButton-${tour.id}" class="text-amber-500 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2 my-2å">Удалить из избранного</button>` :
+								`<button id="addFavoritrButton-${tour.id}" class="text-amber-500 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2">В избранное</button>`
+							}
                         </div>
                     </div>
                 </div>
@@ -108,43 +112,26 @@ function renderTours (tours) {
             `
         }})
 
-        tours.forEach((tour) => {
-            document.getElementById(`addFavoritrButton-${tour.id}`).addEventListener("click", () => {
-                    favoritTours.push(tour)
-                    changeButtonToDelete(tour)
-                    saveToLocalStorage()
-                })
+			currentTours.forEach((tour) => {
+                const addToFavoriteButton = document.getElementById(`addFavoritrButton-${tour.id}`)
+				const deleteFromFavoriteButton = document.getElementById(`deleteFavoritrButton-${tour.id}`)
+
+                if (addToFavoriteButton) {
+                    addToFavoriteButton.addEventListener("click", () => {
+                        favoritTours.push(tour)
+						saveToLocalStorage()
+						renderTours(currentTours)
+                    })
+                }
+
+				if (deleteFromFavoriteButton) {
+                    deleteFromFavoriteButton.addEventListener("click", () => {
+                        deleteFavoriteTour(tour.id)
+						saveToLocalStorage()
+						renderTours(currentTours)
+					})
+                }
             })
-
-        tours.forEach((tour) => {
-            document.getElementById(`deleteFavoritrButton-${tour.id}`).addEventListener("click", () => {
-                    deleteFavoriteTour(tour.id)
-                    changeButtonToAdd(tour)
-                    saveToLocalStorage()
-                })
-            })
-
-                      // tours.forEach((tour) => {
-            //     const addToFavoriteButton = document.getElementById(`addFavoritrButton-${tour.id}`)
-            //     if (addToFavoriteButton) {
-            //         addToFavoriteButton.addEventListener("click", () => {
-            //             favoritTours.push(tour)
-            //             changeButtonToDelete(tour)
-            //             saveToLocalStorage()
-            //         })
-            //     }
-            // })
-
-            // tours.forEach((tour) => {
-            //     const deleteFromFavoriteButton = document.getElementById(`addFavoritrButton-${tour.id}`)
-            //     if (deleteFromFavoriteButton) {
-            //         deleteFromFavoriteButton.addEventListener("click", () => {
-            //             deleteFavoriteTour(tour.id)
-            //             changeButtonToAdd(tour)
-            //             saveToLocalStorage()
-            //         })
-            //     }
-            // })
 
       }
 
