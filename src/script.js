@@ -40,6 +40,12 @@ function renderTours (tours) {
     const city = checkCity(tour)
 
 
+    // let favoriteIds = favoritTours.map(t => {
+    //     return t.id
+    // })
+
+    // const isFavorite = favoriteIds.includes(tour.id)
+
     if (tours.length === 0) {
 
         document.getElementById("tours-all").innerHTML =
@@ -112,10 +118,33 @@ function renderTours (tours) {
 
         tours.forEach((tour) => {
             document.getElementById(`deleteFavoritrButton-${tour.id}`).addEventListener("click", () => {
+                    deleteFavoriteTour(tour.id)
                     changeButtonToAdd(tour)
                     saveToLocalStorage()
                 })
             })
+
+                      // tours.forEach((tour) => {
+            //     const addToFavoriteButton = document.getElementById(`addFavoritrButton-${tour.id}`)
+            //     if (addToFavoriteButton) {
+            //         addToFavoriteButton.addEventListener("click", () => {
+            //             favoritTours.push(tour)
+            //             changeButtonToDelete(tour)
+            //             saveToLocalStorage()
+            //         })
+            //     }
+            // })
+
+            // tours.forEach((tour) => {
+            //     const deleteFromFavoriteButton = document.getElementById(`addFavoritrButton-${tour.id}`)
+            //     if (deleteFromFavoriteButton) {
+            //         deleteFromFavoriteButton.addEventListener("click", () => {
+            //             deleteFavoriteTour(tour.id)
+            //             changeButtonToAdd(tour)
+            //             saveToLocalStorage()
+            //         })
+            //     }
+            // })
 
       }
 
@@ -142,9 +171,14 @@ function saveToLocalStorage() {
     localStorage.setItem("favoritTours", toursJson)
 }
 
+function deleteFavoriteTour(id) {
+    let fav = favoritTours.find(f => f.id === id)
+    let index = favoritTours.indexOf(fav)
+    favoritTours.splice(index, 1)
+    saveToLocalStorage()
+}
 document.getElementById('allTours').addEventListener('click', () => renderTours(tours))
-document.getElementById('favoritTours').addEventListener('click', () => renderTours(favoritTours)
-)
+document.getElementById('favoritTours').addEventListener('click', () => renderTours(favoritTours))
 
 
 
