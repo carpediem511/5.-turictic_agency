@@ -119,9 +119,9 @@
                 </div>
             </div>
 
-            <fieldset class="fixed inset-0 hidden justify-center text-center" id="openModalWindow">
+            <fieldset class="fixed hidden inset-0 justify-center text-center z-50" id="openModalWindow">
 
-                <div class="bg-yellow-100 p-7 rounded-xl shadow-xl flex flex-col w-6/12">
+                <div class="bg-yellow-100 p-7 rounded-xl shadow-xl flex flex-col w-4/12 h-3/4 modal-styles">
         
                     <div class="">Вы выбрали данный тур:</div>
 
@@ -131,12 +131,12 @@
 
                     <form action="#" method="get">
                         
-                        <input id="customerName" type="text" class="border p-2.5 rounded-md mt-1.5 pl-1.5 w-9/12 h-20 text-xl ml-1 cursor-text mb-2.5" placeholder="ФИО">
-                        <input id="customerPhone" type="tel" class="border p-2.5 rounded-md mt-1.5 pl-1.5 w-9/12 h-20 text-xl ml-1 cursor-text mb-2.5" placeholder="Номер телефона">
-                        <input id="customerEmail" type="email" class="border p-2.5 rounded-md mt-1.5 pl-1.5 w-9/12 h-20 text-xl ml-1 cursor-text mb-2.5" placeholder="E-mail">
-                        <textarea id="customerComment" cols="30" rows="10" placeholder="Здесь вы можете написать свои пожелания или оставить комментарий" class="border rounded-md mt-1.5 text-xl ml-1 cursor-text mb-2.5"></textarea>
-                        <button id="sendRequest" class="p-5 border-none rounded-md mt-1.5 h-20 text-xl ml-1 cursor-pointer w-6/12 mb-2.5" type="submit">Отправить запрос</button>
-                        <button id="cancelRequest" class="p-5 border-none rounded-md mt-1.5 h-20 text-xl ml-1 cursor-pointer w-6/12 mb-2.5" type="button">Отменить</button>
+                        <input id="customerName" type="text" class="border p-2.5 rounded-md mt-1.5 pl-1.5 w-9/12 h-12 text-xl ml-1 cursor-text mb-2.5" placeholder="ФИО">
+                        <input id="customerPhone" type="tel" class="border p-2.5 rounded-md mt-1.5 pl-1.5 w-9/12 h-12 text-xl ml-1 cursor-text mb-2.5" placeholder="Номер телефона">
+                        <input id="customerEmail" type="email" class="border p-2.5 rounded-md mt-1.5 pl-1.5 w-9/12 h-12 text-xl ml-1 cursor-text mb-2.5" placeholder="E-mail">
+                        <textarea id="customerComment" cols="39" rows="8" placeholder="Здесь вы можете написать свои пожелания или оставить комментарий" class="border rounded-md mt-1.5 text-xl ml-1 cursor-text mb-2.5"></textarea>
+                        <button id="sendRequest" class="button-modal p-5 border-yellow-500 bg-sky-100 border rounded-md mt-1.5 h-12 text-xl ml-1 cursor-pointer w-6/12 mb-2.5" type="submit">Отправить запрос</button>
+                        <button id="cancelRequest" class="button-modal p-5 border bg-sky-100 border-yellow-500 rounded-md mt-1.5 h-12 text-xl ml-1 cursor-pointer w-6/12 mb-2.5" type="button">Отменить</button>
 
                     </form>
                 </div>
@@ -144,7 +144,7 @@
         </div>
     </form>
 
-    <h3 class="title-2 text-center">Смотреть все варианты:</h3>
+    <h3 class="title-2 text-center z-10">Смотреть все варианты:</h3>
 
     <div id="tours-all" class="flex flex-wrap justify-center"></div>
   </body>

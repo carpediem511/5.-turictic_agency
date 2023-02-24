@@ -89,14 +89,46 @@ function renderTours (tours) {
                         </div>
 
                         <div class="flex flex-col mt-6 w-3/4 mx-auto">
-                            <button id="bookTour" class="mb-4 text-rose-700 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-2 py-2">Забронировать</button>
+                            <button id="bookTour-${tour.id}" class="mb-4 text-rose-700 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-2 py-2">Забронировать</button>
                             <button class="text-amber-500 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2">В избранное</button>
                         </div>
                     </div>
                 </div>
         </div>
             `
-        }})}
+        }})
+    
+        tours.forEach((tour) => {
+          
+            document
+              .getElementById(`bookTour-${tour.id}`)
+              .addEventListener("click", () => {
+                openBookingWindow(tour.id) //если нажали на кнопку забронировать, то открывается модальное окно
+              })
+          })
+    }
+
+const findModalWindow = document.getElementById("openModalWindow") //найти модальное окно в html
+const buttonCancelRequest = document.getElementById("cancelRequest") //найти кнопку закрыть модальное окно
+const buttonSendRequest = document.getElementById("sendRequest") //найти кнопку забронировать тур
+
+    function openBookingWindow(id) {        //ввожу функцию открыть модальное окно бронирования
+ 
+        findModalWindow.style.display = "flex" //показывать стили
+      
+        const tour = tours.find((findTour) => { //найти нужный тур по id
+          return findTour.id === id 
+        })
+
+      }
+
+buttonCancelRequest.addEventListener("click", closeModalWindow); //по нажатию кнопки отменить окно закрывается
+
+function closeModalWindow() { //закрыть модальное окно
+
+    findModalWindow.style.display = "none"
+  }
+
 
 function checkCity(tour) {
 
@@ -220,39 +252,6 @@ getDataOfDuration.addEventListener("change", () => filterByDuration (tours))
     } 
 }
 
-    /*     второй способ
-    const getDataOfRating = Array.from(document.querySelectorAll("#rating .star"))
-
-    threeStar.addEventListener("click", () => {
-    
-        
-        getDataOfRating.forEach((tours) => { // проходимся по каждому чекбоксу
-       
-           if (threeStar.addEventListener("click")) { //если чекбокс выбран
-       
-               checkedCountries.push() //добавить его в пустой массив
-           }
-        })
-       
-           if (checkedCountries) { //если отфильтрованные страны
-           
-              const filteredTours = tours.filter((tour) => { //фильтр по турам
-               
-               return checkedCountries.includes(tour.country) //возвращаем отфильтрованные туры, добавляем выбранную страну
-             console.log("результат", checkedCountries)
-           })
-        
-          renderTours(filteredTours) 
-       
-          } else {
-              renderTours(tours)
-          }
-       
-       
-       }
-    )
-} */
-
 
 document.getElementById("emptyStar2").addEventListener("mouseover", () => {
     document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
@@ -318,75 +317,7 @@ changeOnClick2.addEventListener("click", () => {
     }
 }) */
 
-const openModalWindow = document.getElementById("openModalWindow") //найти модальное окно в html
-const buttonOpenModalWindow = document.getElementById("bookTour") //найти кнопку открыть модальное окно
-const buttonCancelRequest = document.getElementById("cancelRequest") //найти кнопку закрыть модальное окно
-const buttonSendRequest = document.getElementById("sendRequest") //найти кнопку забронировать тур
 
-buttonOpenModalWindow.addEventListener("click", () => {//по нажатию кнопки модальное окно открывается
-    openModalWindow.style.display = "flex"
-})
-buttonCancelRequest.addEventListener("click", () => {//по нажатию кнопки модальное окно закрывается
-    openModalWindow.style.display = "none"
-}) 
-
-
-
-/* document
-.getElementById(`openWindowUpdate-${book.id}`)
-.addEventListener("click", () => {
-  openUpdateWindow(book.id); //если нажали на кнопку обновить, то открывается окно "обновить"
-});
-
-function updateInput(book) {
-    //ввожу функцию получить имеющиеся значения полей
-    document.getElementById("bookNameUpdate").value = book.title;
-    document.getElementById("bookAuthorUpdate").value = book.authors;
-    document.getElementById("bookYearUpdate").value = book.year;
-    document.getElementById("bookImageUpdate").value = book.image;
-  }
-  
-  function openUpdateWindow(id) {
-    //ввожу функцию открыть окно "обновить"
-    updateWindow.style.display = "flex"; //показывать стили
-  
-    const book = books.find((findBook) => {
-      return findBook.id === id; //найти книгу по id
-    });
-  
-    updateInput(book); //получить значения с полей
-    const makeUpdate = () => updateBook(book.id, makeUpdate);
-    updateBookButton.addEventListener("click", makeUpdate);
-  }
-  
-  function updateBook(id, makeUpdate) {
-    //ввожу функцию обновить книгу по нажатию кнопки
-    let book = books.find((findBook) => {
-      //ищу нужную книгу
-      return findBook.id === id; //найти книгу по id
-    });
-  
-    const bookIndexUp = books.indexOf(book); //присвоить переменной индексы книг из массива
-  
-    const nameUpdate = document.getElementById("bookNameUpdate").value;
-    const authorUpdate = document.getElementById("bookAuthorUpdate").value;
-    const yearUpdate = document.getElementById("bookYearUpdate").value;
-    const imageUpdate = document.getElementById("bookImageUpdate").value;
-  
-    const newBook = {
-      id,
-      title: nameUpdate,
-      authors: authorUpdate,
-      year: yearUpdate,
-      image: getImage(imageUpdate),
-    };
-  
-    updateBookButton.removeEventListener("click", makeUpdate); //удалить лишних обработчиков
-    books.splice(bookIndexUp, 1, newBook); //удалять книгу и вставлять новую
-    renderBooks();
-    saveToLocalStorage();
-    closeUpdateWindow();
-  }  */
 
 getData()
 init()
