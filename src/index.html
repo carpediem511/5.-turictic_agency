@@ -129,11 +129,11 @@
                        
                     <div class="">Пожалуйста, введите Ваши данные:</div>
 
-                    <form action="#" method="get">
+                    <form action="#" method="post" id="form">
                         
-                        <input id="customerName" type="text" class="border p-2.5 rounded-md mt-1.5 pl-1.5 w-9/12 h-12 text-xl ml-1 cursor-text mb-2.5" placeholder="ФИО">
-                        <input id="customerPhone" type="tel" class="border p-2.5 rounded-md mt-1.5 pl-1.5 w-9/12 h-12 text-xl ml-1 cursor-text mb-2.5" placeholder="Номер телефона">
-                        <input id="customerEmail" type="email" class="border p-2.5 rounded-md mt-1.5 pl-1.5 w-9/12 h-12 text-xl ml-1 cursor-text mb-2.5" placeholder="E-mail">
+                        <input id="customerName" type="text" class="border p-2.5 rounded-md mt-1.5 pl-1.5 w-9/12 h-12 text-xl ml-1 cursor-text mb-2.5 form-input _req" placeholder="ФИО*">
+                        <input id="customerPhone" type="tel" class="border p-2.5 rounded-md mt-1.5 pl-1.5 w-9/12 h-12 text-xl ml-1 cursor-text mb-2.5 form-input _req" placeholder="Номер телефона*">
+                        <input id="customerEmail" type="email" class="border p-2.5 rounded-md mt-1.5 pl-1.5 w-9/12 h-12 text-xl ml-1 cursor-text mb-2.5 form-input _req _email" placeholder="E-mail*">
                         <textarea id="customerComment" cols="39" rows="8" placeholder="Здесь вы можете написать свои пожелания или оставить комментарий" class="border rounded-md mt-1.5 text-xl ml-1 cursor-text mb-2.5"></textarea>
                         <button id="sendRequest" class="button-modal p-5 border-yellow-500 bg-sky-100 border rounded-md mt-1.5 h-12 text-xl ml-1 cursor-pointer w-6/12 mb-2.5" type="submit">Отправить запрос</button>
                         <button id="cancelRequest" class="button-modal p-5 border bg-sky-100 border-yellow-500 rounded-md mt-1.5 h-12 text-xl ml-1 cursor-pointer w-6/12 mb-2.5" type="button">Отменить</button>
@@ -143,6 +143,12 @@
             </fieldset>
         </div>
     </form>
+
+    <div id="showError" class="hidden">
+        Произошла ошибка! Проверьте введённые данные формы! Все обязательные поля должны быть заполнены!
+
+        <button id="isError">Закрыть</button>
+    </div>
 
     <h3 class="title-2 text-center z-10">Смотреть все варианты:</h3>
 

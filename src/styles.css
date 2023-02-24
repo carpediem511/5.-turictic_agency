@@ -146,6 +146,22 @@
     margin-bottom: 2%;
 }
 
+.form-input:focus {
+    box-shadow: 0 0 15px #1564a0;
+}
+
+.form-input._error {
+    box-shadow: 0 0 15px red;
+
+}
+
+.showError {
+
+    border: 2px solid #1564a0;
+    background-color: aliceblue;
+    color: red;
+}
+
 @media (max-width: 900px) {
   .tour {
     width: calc(100% / 3);

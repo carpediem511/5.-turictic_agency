@@ -122,12 +122,122 @@ const buttonSendRequest = document.getElementById("sendRequest") //найти к
 
       }
 
-buttonCancelRequest.addEventListener("click", closeModalWindow); //по нажатию кнопки отменить окно закрывается
+buttonCancelRequest.addEventListener("click", closeModalWindow) //по нажатию кнопки отменить окно закрывается
 
 function closeModalWindow() { //закрыть модальное окно
 
     findModalWindow.style.display = "none"
-  }
+}
+
+
+
+buttonSendRequest.addEventListener("click", submitFormData)
+
+function submitFormData() { 
+
+    const form = document.getElementById("form")
+
+    form.addEventListener("submit", formSend)
+
+    form.onsubmit = async function formSend(e) {
+
+        e.preventDefault() //запрещаем пустую отправку формы
+
+        let error = formValidate(form)
+
+        const customerNameValue = document.getElementById("customerName").value //получить значения, введенные пользователем
+        const customerPhoneValue = document.getElementById("customerPhone").value 
+        const customerEmailValue = document.getElementById("customerEmail").value 
+        const customerCommentValue = document.getElementById("customerComment").value
+      
+   
+        let formData = {
+
+            customerName: customerNameValue,
+            phone: customerPhoneValue,
+            email: customerEmailValue,
+            description: customerCommentValue,
+        }
+
+        let showError = document.getElementById
+
+        if (error === 0) { //если ошибки нет
+        
+            const url = "https://www.bit-by-bit.ru/api/student-projects/tours/tour.id"
+            let response = await fetch(url, {
+
+            method: "POST",
+            body: JSON.stringify(formData)
+            }) 
+
+            if (response.ok) { //если запрос прошёл
+
+                let result = await response.json()
+                alert(result.message)
+                form.reset()
+            
+
+            } else {
+                alert("Ошибка!!")
+               
+            }
+
+        } else {
+
+            document.getElementById("isError").addEventListener("click", () => {
+
+                document.getElementById("showError").style.display = "flex"
+            })
+        }
+
+    }
+
+        function formValidate(form) { //проверка формы
+
+            let error = 0
+
+            let formReq = document.querySelectorAll("._req")
+
+            for (let index = 0; index < formReq.length; index++) {
+
+                const input = formReq[index]
+                formRemoveError(input)
+
+                if (input.classList.contains("_email")) {
+
+                    if (emailTest(input)) {
+
+                        formAddError(input)
+                        error++
+                    } else {
+
+                        if (input.value === "") {
+
+                            formAddError(input) 
+                            error++
+                        }
+                    }
+                }
+            }
+
+            return error
+        }
+
+        function formAddError(input) {
+            input.parentElement.classList.add("_error")
+            input.classList.add("_error")
+        }
+
+        function formRemoveError(input) {
+            input.parentElement.classList.remove("_error")
+            input.classList.remove("_error")
+        }
+
+        function emailTest(input) {
+            return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(input.value)
+        }
+    }
+
 
 
 function checkCity(tour) {
