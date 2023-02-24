@@ -101,7 +101,7 @@ function renderTours(currentTours) {
 
                         <div class="flex flex-col mt-6 w-3/4 mx-auto">
                             <button class="mb-4 text-rose-700 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-2 py-2">Забронировать</button>
-                            ${isFavorite ? 
+                            ${isFavorite ?
 								`<button id="deleteFavoritrButton-${tour.id}" class="text-amber-500 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2 my-2å">Удалить из избранного</button>` :
 								`<button id="addFavoritrButton-${tour.id}" class="text-amber-500 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2">В избранное</button>`
 							}
@@ -144,15 +144,6 @@ function checkCity(tour) {
   }
 }
 
-function changeButtonToDelete(tour) {
-    document.getElementById(`addFavoritrButton-${tour.id}`).style.display = "none"
-    document.getElementById(`deleteFavoritrButton-${tour.id}`).style.display = "block"
-}
-function changeButtonToAdd(tour) {
-    document.getElementById(`addFavoritrButton-${tour.id}`).style.display = "block"
-    document.getElementById(`deleteFavoritrButton-${tour.id}`).style.display = "none"
-}
-
 function saveToLocalStorage() {
     const toursJson = JSON.stringify(favoritTours)
     localStorage.setItem("favoritTours", toursJson)
@@ -165,9 +156,25 @@ function deleteFavoriteTour(id) {
     saveToLocalStorage()
 }
 document.getElementById('allTours').addEventListener('click', () => renderTours(tours))
-document.getElementById('favoritTours').addEventListener('click', () => renderTours(favoritTours))
+document.getElementById('favoritTours').addEventListener('click', () => renderFavoriteTours(favoritTours))
 
+function renderFavoriteTours(favoritTours) {
+    if(favoritTours.length === 0) {
+        document.getElementById("tours-all").innerHTML =
+        '<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">У Вас нет избранных туров!</div></div>'
+    } else {
+        renderTours(favoritTours)
+    }
 
+}
+
+function checkFavoritTours() {
+
+    if (favoritTours.length === 0) {
+        document.getElementById("tours-all").innerHTML =
+        '<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">У Вас нет избранных туров!</div></div>'
+    }
+}
 
 
 
@@ -387,5 +394,6 @@ changeOnClick2.addEventListener("click", () => {
     }
 })
 
+checkFavoritTours()
 getData()
 init()
