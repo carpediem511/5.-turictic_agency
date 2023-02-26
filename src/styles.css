@@ -83,7 +83,7 @@
 }
 
 .scroll {
-    min-height: 210px;
+  min-height: 210px;
 }
 
 .scroll::-webkit-scrollbar {
@@ -102,64 +102,59 @@
 }
 
 .slider {
-    color: #1564a0;
+  color: #1564a0;
 }
 
 .nothing {
-
-    font-size: 26px;
-    font-family: 'Lora', serif;
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 150px;
-    color: red;
+  font-size: 26px;
+  font-family: "Lora", serif;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 150px;
+  color: red;
 }
 
 .oups {
-
-    width: 40%;
-    margin: 0 auto;
+  width: 40%;
+  margin: 0 auto;
 }
 
 .numberInputStyle {
-
-    font-size: 16px;
-    font-family: 'Lora', serif;
-    color: red;
+  font-size: 16px;
+  font-family: "Lora", serif;
+  color: red;
 }
 
 .hotel {
-    min-height: 120px;
+  min-height: 120px;
 }
 
 .modal-styles {
-   margin: 0 auto;
-   justify-content: center;
+  margin: 0 auto;
+  justify-content: center;
 }
 
 .button-modal {
-    height: max-content;
-    width: 70%;
-    padding-bottom: 10px;
-    margin: 0 auto;
-    color: #1564a0;
-    margin-bottom: 2%;
+  height: max-content;
+  width: 70%;
+  padding-bottom: 10px;
+  margin: 0 auto;
+  color: #1564a0;
+  margin-bottom: 2%;
 }
 
 .form-input:focus {
-    box-shadow: 0 0 15px #1564a0;
+  box-shadow: 0 0 15px #1564a0;
 }
 
 .form-input._error {
-    box-shadow: 0 0 15px red;
-
+  box-shadow: 0 0 15px red;
 }
 
 .showError {
-
-    border: 2px solid #1564a0;
-    background-color: aliceblue;
-    color: red;
+  border: 2px solid #1564a0;
+  background-color: aliceblue;
+  color: red;
 }
 
 @media (max-width: 900px) {
@@ -168,56 +163,53 @@
   }
 
   .select {
-      width: 80%;
-    }
+    width: 80%;
+  }
 }
 
 @media (max-width: 768px) {
-    
-    .title-2 {
+  .title-2 {
     font-size: 28px;
   }
 
-    .tour {
+  .tour {
     width: calc(90%);
   }
-  
-    .select {
-      width: 90%;
-    }
 
-    .mobile-version {
-        display: flex;
-        flex-direction: column;
-        padding-left: 5px;
-    }
+  .select {
+    width: 90%;
+  }
 
-    .mobile-version-buttons {
-        flex-direction: column;
-        padding-left: 5px;
-    }
+  .mobile-version {
+    display: flex;
+    flex-direction: column;
+    padding-left: 5px;
+  }
 
-    .mobile-version-button {
-        width: 90%;
-        margin: 6 auto;
-    }
+  .mobile-version-buttons {
+    flex-direction: column;
+    padding-left: 5px;
+  }
 
-    .elem-mobile {
-        font-size: 20px;
-        margin: 0 auto;
-    }
+  .mobile-version-button {
+    width: 90%;
+    margin: 6 auto;
+  }
+
+  .elem-mobile {
+    font-size: 20px;
+    margin: 0 auto;
+  }
 }
 
 @media (max-width: 400px) {
-
-    .checkbox-mini {
-        margin-left: 5px;
-    }
+  .checkbox-mini {
+    margin-left: 5px;
+  }
 }
 
 @media (min-width: 600px) {
-
-    .mobile-version {
-        flex-direction: row;
-    }
+  .mobile-version {
+    flex-direction: row;
+  }
 }
