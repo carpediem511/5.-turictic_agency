@@ -132,7 +132,7 @@ function closeModalWindow() {  //закрыть модальное окно
   findModalWindow.style.display = "none"
 }
 
-buttonSendRequest.addEventListener("click", () => submitFormData(e, tours))
+buttonSendRequest.addEventListener("click", (e) => submitFormData(e, tours))
 
 async function submitFormData(e) {
  
@@ -189,17 +189,16 @@ function formValidate() {//проверка формы
       if (emailTest(input)) {
         formAddError(input)
         error++
-      } else {
+      } 
+    } else {
         if (input.value === "") {
           formAddError(input)
           error++
         }
       }
     }
+   return error  
   }
-
-  return error
-}
 
 function formAddError(input) {
   input.parentElement.classList.add("_error")
@@ -212,7 +211,7 @@ function formRemoveError(input) {
 }
 
 function emailTest(input) {
-  return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(input.value)
+  return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,20})+$/.test(input.value)
 }
 
 
