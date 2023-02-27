@@ -115,17 +115,22 @@ function renderTours(tours) {
 const findModalWindow = document.getElementById("openModalWindow") //найти модальное окно в html
 const buttonCancelRequest = document.getElementById("cancelRequest") //найти кнопку закрыть модальное окно
 const buttonSendRequest = document.getElementById("sendRequest") //найти кнопку забронировать тур
+let tourId
 
 function openBookingWindow(id) {  //ввожу функцию открыть модальное окно бронирования
 
+  tourId = id
+  
   findModalWindow.style.display = "flex" //показывать стили
 
   tours.find((findTour) => { //найти нужный тур по id
     return findTour.id === id
-  })
+  },
+buttonCancelRequest.addEventListener("click", closeModalWindow) //по нажатию кнопки отменить окно закрывается  
+  )
 }
 
-buttonCancelRequest.addEventListener("click", closeModalWindow) //по нажатию кнопки отменить окно закрывается
+
 
 function closeModalWindow() {  //закрыть модальное окно
 
@@ -156,7 +161,7 @@ async function submitFormData(e) {
 
   if (error === 0) {  //если ошибки нет
   
-    const url = "https://www.bit-by-bit.ru/api/student-projects/tours/tour.id"
+    const url = `https://www.bit-by-bit.ru/api/student-projects/tours/${tourId}`
     let response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(formData),
@@ -167,9 +172,9 @@ async function submitFormData(e) {
       let result = await response.json()//прочитать данные, полученные с сервера
       return result //данные готовы к использованию
     } else {
-       document.getElementById("showError").style.display = "flex"
-       document.getElementById("isError").addEventListener("click", () => {
-        document.getElementById("showError").style.display = "none"
+       document.getElementById("mistake").style.display = "flex"
+       document.getElementById("isMistake").addEventListener("click", () => {
+        document.getElementById("mistake").style.display = "none"
     })
     } 
   }}
