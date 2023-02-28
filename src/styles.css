@@ -131,9 +131,20 @@
 
 .modal-styles {
   height: 90%;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
   animation-duration: 0.55s;
   animation-fill-mode: both;
   animation-name: modalWindowAnimation;
+}
+
+.modal {
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
 }
 
 @keyframes modalWindowAnimation {
@@ -181,6 +192,17 @@ textarea.area:focus {
   box-shadow: 0 0 15px red;
 }
 
+@media (min-width: 900px) {
+
+  .modal {
+    height: 20%;
+  }
+
+  .modal-styles {
+    height: max-content;
+  }
+}
+
 @media (max-width: 900px) {
   .tour {
     width: calc(100% / 3);
@@ -189,6 +211,7 @@ textarea.area:focus {
   .select {
     width: 80%;
   }
+
 }
 
 @media (max-width: 768px) {
@@ -224,12 +247,25 @@ textarea.area:focus {
     font-size: 20px;
     margin: 0 auto;
   }
+
+  .modal-styles, .modal {
+    width: 90%;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
+
+  .modal {
+    height: 50%;
+  }
 }
 
 @media (max-width: 400px) {
   .checkbox-mini {
     margin-left: 5px;
   }
+
 }
 
 @media (min-width: 600px) {
