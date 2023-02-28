@@ -5,7 +5,9 @@ const { default: ru } = require("date-fns/locale/ru")
 let tours = []
 
 async function getData() {
-  const response = await fetch(  //получить данные с сервера по запросу
+
+  const response = await fetch(
+    //получить данные с сервера по запросу
     "https://www.bit-by-bit.ru/api/student-projects/tours"
   )
 
@@ -17,11 +19,13 @@ async function getData() {
 }
 
 async function init() {
+
   tours = await getData()
   renderTours(tours)
 }
 
 function checkCity(tour) {
+
   if (tour.city != null && tour.city.length > 0) {
     return tour.city
   } else {
@@ -30,6 +34,7 @@ function checkCity(tour) {
 }
 
 function renderTours(tours) {
+
   document.getElementById("tours-all").innerHTML = " "
 
   tours.forEach((tour) => {
@@ -48,24 +53,18 @@ function renderTours(tours) {
             <div class="tour bg-blue-50 rounded-3xl border-sky-500 border-2 max-w-md xl:w-1/4 mx-10 my-10" id="tourId">
                 <div>
                     <div class="flex justify-center pt-6 max-h-6">
-                        <img class="px-8 w-full h-full object-center max-h-48 sm:max-h-54 md:max-h-28 lg:max-h-32 xl:max-h-48" src="${
-                          tour.image
-                        }">
+                        <img class="px-8 w-full h-full object-center max-h-48 sm:max-h-54 md:max-h-28 lg:max-h-32 xl:max-h-48" src="${tour.image}">
                     </div>
     
                     <div class="title flex flex-col absolute font-attention">
-                        <div class="text-amber-600 pl-2.5 pt-1.5 xl:text-4xl">${
-                          tour.country
-                        }</div>
+                        <div class="text-amber-600 pl-2.5 pt-1.5 xl:text-4xl">${tour.country}</div>
                         <div class="text-current mb-2.5 pl-2.5 xl:text-2xl" id="cityId">${city}</div>
                     </div>
                 </div>
     
                 <div class="flex flex-col info border drop-shadow-lg xl:mx-10 my-10">
                 
-                    <div class="hotel font-basic text-sky-600 text-center font-semibold px-2 xl:text-2xl pt-6 pb-6">
-                    ${tour.hotelName}
-                    </div>
+                    <div class="hotel font-basic text-sky-600 text-center font-semibold px-2 xl:text-2xl pt-6 pb-6">${tour.hotelName}</div>
                 
                     <div class="font-basic text-current text-sm text-center pb-6 font-bold xl:pt-6">
                     ${format(new Date(tour.startTime), "dd MMMM y", {locale: ru,})} -
@@ -78,24 +77,18 @@ function renderTours(tours) {
                     <div class="flex flex-col pb-10 pt-6 px-2 xl:px-10">
                         <div class="flex">
                             <img src="/images/icon-price.png" class="w-12 h-12">
-                            <div class="font-basic text-rose-700 pt-6  pl-2 xl:text-3xl font-bold">
-                            ${tour.price}
-                            </div> 
+                            <div class="font-basic text-rose-700 pt-6  pl-2 xl:text-3xl font-bold">${tour.price}</div> 
                             <p class="font-basic text-rose-700 pt-9 pl-2 xl:text-base">рублей</p>
                         </div>
     
                         <div class="flex">
                             <img src="/images/icon-rating.png" class="w-12 h-12">
-                            <div class="font-basic text-amber-500 pt-4 pl-2 xl:text-2xl font-medium" id="rating">
-                            ${tour.rating}
-                            </div> 
+                            <div class="font-basic text-amber-500 pt-4 pl-2 xl:text-2xl font-medium" id="rating">${tour.rating}</div> 
                             <p class="font-basic text-amber-500 pt-6 pl-2 xl:text-base">по версии TopHotels.com</p>
                         </div>
 
                         <div class="flex flex-col mt-6 w-3/4 mx-auto">
-                            <button id="bookTour-${
-                              tour.id
-                            }" class="mb-4 text-rose-700 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-2 py-2">Забронировать</button>
+                            <button id="bookTour-${tour.id}" class="mb-4 text-rose-700 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-2 py-2">Забронировать</button>
                             <button class="text-amber-500 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2">В избранное</button>
                         </div>
                     </div>
@@ -106,7 +99,9 @@ function renderTours(tours) {
   })
 
   tours.forEach((tour) => {
-    document.getElementById(`bookTour-${tour.id}`).addEventListener("click", () => {
+    document
+      .getElementById(`bookTour-${tour.id}`)
+      .addEventListener("click", () => {
         openBookingWindow(tour.id) //если нажали на кнопку забронировать, то открывается модальное окно
       })
   })
@@ -120,17 +115,17 @@ let tourId
 function openBookingWindow(id) {  //ввожу функцию открыть модальное окно бронирования
 
   tourId = id
-  
+
   findModalWindow.style.display = "flex" //показывать стили
 
-  tours.find((findTour) => { //найти нужный тур по id
-    return findTour.id === id
-  },
-buttonCancelRequest.addEventListener("click", closeModalWindow) //по нажатию кнопки отменить окно закрывается  
+  tours.find(
+    (findTour) => {
+      //найти нужный тур по id
+      return findTour.id === id
+    },
+    buttonCancelRequest.addEventListener("click", closeModalWindow) //по нажатию кнопки отменить окно закрывается
   )
 }
-
-
 
 function closeModalWindow() {  //закрыть модальное окно
 
@@ -140,7 +135,7 @@ function closeModalWindow() {  //закрыть модальное окно
 buttonSendRequest.addEventListener("click", (e) => submitFormData(e, tours))
 
 async function submitFormData(e) {
- 
+
   e.preventDefault() //запрещаем пустую отправку формы
 
   const form = document.getElementById("form")
@@ -159,29 +154,48 @@ async function submitFormData(e) {
     description: customerCommentValue,
   }
 
-  if (error === 0) {  //если ошибки нет
-  
+  if (error === 0) {
+    //если ошибки нет
+
     const url = `https://www.bit-by-bit.ru/api/student-projects/tours/${tourId}`
     let response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(formData),
     })
+    responseSuccessfully()
+    if (response.ok) {
+      //если запрос прошёл
 
-    if (response.ok) {//если запрос прошёл
-      
-      let result = await response.json()//прочитать данные, полученные с сервера
+      let result = await response.json() //прочитать данные, полученные с сервера
       return result //данные готовы к использованию
     } else {
-       document.getElementById("mistake").style.display = "flex"
-       document.getElementById("isMistake").addEventListener("click", () => {
-        document.getElementById("mistake").style.display = "none"
-    })
-    } 
-  }}
+    }
+    responseError()
+  }
+}
 
+function responseSuccessfully() {
 
-function formValidate() {//проверка формы
-  
+  document.getElementById("openModalWindow").style.display = "none"
+  document.getElementById("successfully").style.display = "flex"
+
+  document.getElementById("isSuccessfully").addEventListener("click", () => {
+    document.getElementById("successfully").style.display = "none"
+  })
+}
+
+function responseError() {
+
+  document.getElementById("openModalWindow").style.display = "none"
+  document.getElementById("mistake").style.display = "flex"
+
+  document.getElementById("isMistake").addEventListener("click", () => {
+    document.getElementById("mistake").style.display = "none"
+  })
+}
+
+function formValidate() {  //проверка формы
+
   let error = 0
 
   let formReq = document.querySelectorAll("._req")
@@ -194,16 +208,16 @@ function formValidate() {//проверка формы
       if (emailTest(input)) {
         formAddError(input)
         error++
-      } 
+      }
     } else {
-        if (input.value === "") {
-          formAddError(input)
-          error++
-        }
+      if (input.value === "") {
+        formAddError(input)
+        error++
       }
     }
-   return error  
   }
+  return error
+}
 
 function formAddError(input) {
   input.parentElement.classList.add("_error")
@@ -219,27 +233,32 @@ function emailTest(input) {
   return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,20})+$/.test(input.value)
 }
 
-
 document.getElementById("countriesFilter").addEventListener("change", () => filterByCountry(tours))
 
 function filterByCountry(tours) {
-  const countriesFieldset = Array.from(document.querySelectorAll("#countriesFilter .checkbox")//получаем все значения из всех чекбоксов в виде массива
-  ) 
- 
+
+  const countriesFieldset = Array.from(
+    document.querySelectorAll("#countriesFilter .checkbox") //получаем все значения из всех чекбоксов в виде массива
+  )
+
   let checkedCountries = [] //пустой массив, в котором будут отфильтрованные страны
 
-  countriesFieldset.forEach((checkbox) => {// проходимся по каждому чекбоксу
-    
-    if (checkbox.checked === true) {      //если чекбокс выбран
+  countriesFieldset.forEach((checkbox) => {
+    // проходимся по каждому чекбоксу
+
+    if (checkbox.checked === true) {
+      //если чекбокс выбран
 
       checkedCountries.push(checkbox.name) //добавить его в пустой массив
     }
   })
 
-  if (checkedCountries) { //если отфильтрованные страны
-   
-    const filteredTours = tours.filter((tour) => {    //фильтр по турам
-  
+  if (checkedCountries) {
+    //если отфильтрованные страны
+
+    const filteredTours = tours.filter((tour) => {
+      //фильтр по турам
+
       return checkedCountries.includes(tour.country) //возвращаем отфильтрованные туры, добавляем выбранную страну
     })
 
@@ -290,6 +309,7 @@ function filterByRating(event, tours) {
 }
 
 document.getElementById("input").addEventListener("input", () => {
+
   let getValue = document.getElementById("input").value
   document.getElementById("inputResult").innerHTML =
     "Вы выбрали " + getValue + " дней"
@@ -300,6 +320,7 @@ let getDataOfDuration = document.getElementById("input")
 getDataOfDuration.addEventListener("change", () => filterByDuration(tours))
 
 function filterByDuration(tours) {
+  
   let getDataOfInput = getDataOfDuration.value
 
   const filteredTours = tours.filter((tour) => {

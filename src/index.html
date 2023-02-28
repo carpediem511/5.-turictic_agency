@@ -40,8 +40,8 @@
 
               <div class="flex pt-4">
                 <img src="/images/icon-chooseStar.png" class="w-8 h-8" data-minrating="1" data-maxrating="4" id="chooseStar"/>
-                <img src="/images/icon-emptyStar.png" class="w-8 h-8 choose" data-minrating="4" data-maxrating="7" id="emptyStar2"/>
-                <img src="/images/icon-emptyStar.png" class="w-8 h-8 choose" data-minrating="7" data-maxrating="8" id="emptyStar3"/>
+                <img src="/images/icon-emptyStar.png"  class="w-8 h-8 choose" data-minrating="4" data-maxrating="7" id="emptyStar2"/>
+                <img src="/images/icon-emptyStar.png"  class="w-8 h-8 choose" data-minrating="7" data-maxrating="8" id="emptyStar3"/>
                 <img src="/images/icon-emptyStar.png" class="w-8 h-8 choose" data-minrating="8" data-maxrating="9" id="emptyStar4"/>
                 <img src="/images/icon-emptyStar.png" class="w-8 h-8 choose" data-minrating="9" data-maxrating="10" id="emptyStar5"/>
               </div>
@@ -115,56 +115,67 @@
           </div>
         </div>
 
-        <fieldset class="fixed hidden inset-0 justify-center mt-10 h-full text-center z-50" id="openModalWindow">
+        <fieldset class="fixed hidden inset-0 justify-center mt-10 h-full text-center z-30 modal-animation" id="openModalWindow">
           <div class="bg-yellow-100 p-7 rounded-xl shadow-xl flex flex-col w-4/12 modal-styles">
-            <div class="text-center text-xl text-rose-500 mb-6">Пожалуйста, введите Ваши данные для бронирования:</div>
+            <div class="text-center text-xl text-rose-500 mb-6">
+              Пожалуйста, введите Ваши данные для бронирования:
+            </div>
             <form id="form">
               <div class="form_req">
                 <div class="flex">
-                  <img src="/images/icon-press-pass.png" class="w-8 h-8">
+                  <img src="/images/icon-press-pass.png" class="w-8 h-8" />
                   <p class="text-left ml-2 text-xl text-amber-500">ФИО*</p>
                 </div>
                 <input id="customerName" type="text" class="border text-left p-2.5 rounded-md mt-1.5 pl-1.5 w-9/12 h-12 text-base ml-1 cursor-text mb-2.5 form-input _req" placeholder="Обязательно для заполнения"/>
-              
-                <div class="flex">
-                <img src="/images/phone-call.png" class="w-8 h-8">
-                <p class="text-left ml-2 text-xl text-amber-500">Номер телефона*</p>
-              </div>  
-              <input id="customerPhone" type="tel" class="border text-leftp-2.5 rounded-md mt-1.5 pl-1.5 w-9/12 h-12 text-base ml-1 cursor-text mb-2.5 form-input _req" placeholder="Обязательно для заполнения"/>
-              
-              <div class="flex">
-                <img src="/images/icon-email.png" class="w-8 h-8">
-                <p class="text-left ml-2 text-xl text-amber-500">Адрес электронной почты*</p>
-              </div>
-              <input id="customerEmail" type="email" class="border text-leftp-2.5 rounded-md mt-1.5 pl-1.5 w-9/12 h-12 text-base ml-1 cursor-text mb-2.5 form-input _req _email" placeholder="Обязательно для заполнения"/>
-              
-              <div class="flex">
-                <img src="/images/icon-comment.png" class="w-8 h-8">
-                <p class="text-left ml-2 text-xl text-amber-500">Комментарий*</p>
-              </div>  
-              <textarea id="customerComment" cols="39" rows="4" placeholder="Здесь вы можете написать свои пожелания или оставить комментарий" class="border rounded-md mt-1.5 text-base ml-1 cursor-text mb-6"></textarea>
-              <div class="flex m-auto flex-col w-1/2">
-              <button id="sendRequest" class="button-modal p-2 border-yellow-500 bg-sky-100 border rounded-md mt-1.5 text-base ml-1 cursor-pointer w-6/12 mb-2.5" type="submit">
-                Отправить запрос
-              </button>
 
-              <button id="cancelRequest" class="button-modal p-2 border bg-sky-100 border-yellow-500 rounded-md mt-1.5 text-base ml-1 cursor-pointer w-6/12 mb-2.5" type="button">
-                Отменить
-              </button>
-            </div>
-            </div>
+                <div class="flex">
+                  <img src="/images/phone-call.png" class="w-8 h-8" />
+                  <p class="text-left ml-2 text-xl text-amber-500"> Номер телефона*</p>
+                </div>
+                <input
+                  id="customerPhone"
+                  type="tel"
+                  class="border text-leftp-2.5 rounded-md mt-1.5 pl-1.5 w-9/12 h-12 text-base ml-1 cursor-text mb-2.5 form-input _req" placeholder="Обязательно для заполнения"/>
+
+                <div class="flex">
+                  <img src="/images/icon-email.png" class="w-8 h-8" />
+                  <p class="text-left ml-2 text-xl text-amber-500">Адрес электронной почты*</p>
+                </div>
+                <input id="customerEmail" type="email" class="border text-leftp-2.5 rounded-md mt-1.5 pl-1.5 w-9/12 h-12 text-base ml-1 cursor-text mb-2.5 form-input _req _email" placeholder="Обязательно для заполнения"/>
+
+                <div class="flex">
+                  <img src="/images/icon-comment.png" class="w-8 h-8" />
+                   <p class="text-left ml-2 text-xl text-amber-500">Комментарий*</p>
+                </div>
+                <textarea id="customerComment" cols="39" rows="4" placeholder="Здесь вы можете написать свои пожелания или оставить комментарий" class="border rounded-md mt-1.5 text-base ml-1 cursor-text mb-6 area"></textarea>
+                <div class="flex m-auto flex-col w-1/2">
+                  <button id="sendRequest" class="button-modal p-2 border-yellow-500 bg-sky-100 border rounded-md mt-1.5 text-base ml-1 cursor-pointer w-6/12 mb-2.5" type="submit">
+                    Отправить запрос
+                  </button>
+
+                  <button
+                    id="cancelRequest" class="button-modal p-2 border bg-sky-100 border-yellow-500 rounded-md mt-1.5 text-base ml-1 cursor-pointer w-6/12 mb-2.5" type="button">
+                    Отменить
+                  </button>
+                </div>
+              </div>
             </form>
           </div>
         </fieldset>
       </div>
     </form>
 
-    <div id="successfully" class="hidden">
-  
-      <p>Ваш запрос успешно отправлен! Спасибо! В ближайшее время наш менеджер с вами свяжется!</p>
-      <button id="isSuccessfully">Закрыть</button>
-
-
+    <div id="successfully" class="hidden relative h-10 z-50">
+      <div class="flex flex-col bg-slate-50 border w-1/4 m-auto p-7 rounded-xl shadow-xl fixed top-10 inset-x-1/4 mt-10 text-center">
+        <img src="/images/free-icon-success.png" class="w-20 h-20 mx-auto mt-10"/>
+        <p class="p-6 text-base text-sky-600 font-semibold">
+          Ваш запрос успешно отправлен! Спасибо! В ближайшее время наш менеджер
+          с вами свяжется!
+        </p>
+        <button id="isSuccessfully" class="mx-auto block mobile-version-button drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-2 py-2">
+          Закрыть
+        </button>
+      </div>
     </div>
 
     <div id="mistake" class="hidden">
