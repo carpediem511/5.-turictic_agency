@@ -12,12 +12,12 @@
 
     <div class="start-section">
       <div class="content">
-        <h1 class="font-basic relative text-slate-50 text-2xl text-center xl:text-6xl pt-60 mb-60 lg:text-5xl md:text-4xl mb-48 sm:text-3xl">
+        <h1 class="font-basic relative text-slate-50 text-2xl text-center xl:text-6xl pt-60 mb-60 lg:text-5xl md:text-4xl sm:text-3xl">
           Туристическое агентство <br/>
           "Carpe Diem"
         </h1>
 
-        <h2 class="font-attention relative bg-zinc-200/80 text-amber-600 text-lg border-4 border-sky-800 px-4 py-2.5 w-max xl:text-4xl -ml-36 mt-56 lg:text-3xl ml-10 mb-16 md:border-2 text-2xl sm:text-xl">
+        <h2 class="font-attention relative bg-zinc-200/80 text-amber-600 text-lg border-4 border-sky-800 px-4 py-2.5 w-max xl:text-4xl mt-56 lg:text-3xl ml-10 mb-16 md:border-2 sm:text-xl">
           Жизнь во время путешествия — <br/>
           это мечта в чистом виде...
         </h2>
@@ -30,7 +30,7 @@
         <div class="content-choose">
 
             <div class="solid bg-blue-50 rounded-3xl border-sky-500 border-2 max-w-3xl select">
-                
+
                 <div class="text-center pt-10 font-attention text-4xl text-sky-600 font-semibold">
                     Выбрать тур:
                 </div>
@@ -55,9 +55,9 @@
 
                             <input id="input" type="range" min="1" max="50" value="1" step="1" class="w-full" data-minduration="1" data-maxduration="50">
                                 <label for="slider"></label>
-                 
+
                             <div class="flex text-current text-md font-basic" id="inputResult"></div>
-                       
+
                     </div>
 
                     <div class="mb-14">
@@ -121,8 +121,11 @@
         </div>
     </form>
 
+    <div class="flex flex-row gap-8 mt-16 justify-center">
+        <button class="text-amber-500 font-semibold text-2xl drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-6 py-3" id="allTours">Все туры</button>
+        <button class="text-amber-500 font-semibold text-2xl drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-6 py-3" id="favoritTours">Избранные туры</button>
+    </div>
     <h3 class="title-2 text-center">Смотреть все варианты:</h3>
-
     <div id="tours-all" class="flex flex-wrap justify-center"></div>
   </body>
 </html>
