@@ -23,21 +23,26 @@ async function getData() {
 async function init() {
 
   tours = await getData()
-  renderTours(tours)
 
+  
   let allFavoritesTours = document.getElementById("favoriteToursBtn") //находим "показать избранные туры"
   allFavoritesTours.addEventListener("click", () => {
-      
-      if (favoriteTours == 0) {
 
-          document.getElementById("container").innerHTML = "Вы пока не добавили в избранное ни одного тура!"
-      } else {
-          renderTours(favoriteTours)
-          saveToLocalStorage()
-      }
-     
-  })
-}
+  try {
+   
+    if (tours) {
+      renderTours(favoriteTours)
+      saveToLocalStorage()
+    }}
+ catch {
+    Swal.fire({
+      icon: "warning",
+      text: "Вы ещё не добавили в избранное ни одного тура!",
+      isDismissed: true
+    })
+  }})}
+
+
 
 let loader = document.getElementById("loader")
 window.addEventListener("load", () => {
@@ -182,6 +187,8 @@ function renderTours(tours) {
   })
   }
 
+  
+
 
 
 const findModalWindow = document.getElementById("openModalWindow") //найти модальное окно в html
@@ -189,25 +196,77 @@ const buttonCancelRequest = document.getElementById("cancelRequest") //найт�
 const buttonSendRequest = document.getElementById("sendRequest") //найти кнопку забронировать тур
 let tourId
 
-function openBookingWindow(id) {  //ввожу функцию открыть модальное окно бронирования
+async function openBookingWindow(id) {  //ввожу функцию открыть модальное окно бронирования
 
   tourId = id
-
-  findModalWindow.style.display = "flex" //показывать стили
 
   tours.find(
     (findTour) => {
       //найти нужный тур по id
       return findTour.id === id
     },
-    buttonCancelRequest.addEventListener("click", closeModalWindow) //по нажатию кнопки отменить окно закрывается
+
   )
+  tours = await getData()
+const inputValue = fetch(tours)
+  .then(response => response.json())
+  .then(data => data.ip)
+
+const { value: ipAddress } = await Swal.fire({
+  title: 'Пожалуйста, введите Ваши данные для бронирования:',
+  imageUrl: "/images/icon-press-pass.png",
+  imageWidth: "2rem",
+  imageHeight:"2rem",
+  inputLabel: 'ФИО*',
+  inputValue: inputValue,
+
+  imageUrl: "/images/phone-call.png",
+  imageWidth: "2rem",
+  imageHeight:"2rem",
+  inputLabel: 'Номер телефона*',
+  inputValue: inputValue,
+
+  imageUrl: "/images/icon-email.png",
+  imageWidth: "2rem",
+  imageHeight:"2rem",
+  inputLabel: 'Адрес электронной почты*',
+  inputValue: inputValue,
+
+  imageUrl: "/images/icon-comment.png",
+  imageWidth: "2rem",
+  imageHeight:"2rem",
+  inputLabel: 'Комментарий*',
+  inputValue: inputValue,
+
+  confirmButtonText: "Отправить запрос",
+  cancelButtonText: "Отменить",
+
+  inputValidator: (value) => {
+    if (!value) {
+      return 'Заполните обязательные поля!'
+    }
+  }
+})
+
+if (ipAddress) {
+  Swal.fire({
+    icon: 'success',
+    title: 'Спасибо! Ваш запрос успешно отправлен!',
+    text: 'В ближайшее время наш менеджер с вами свяжется!',
+  })
+} else {
+  Swal.fire({
+    icon: 'error',
+    title: 'Что-то пошло не так...',
+    text: 'Попробуйте ещё раз!',
+  })
+}
 }
 
-function closeModalWindow() {  //закрыть модальное окно
+/* function closeModalWindow() {  //закрыть модальное окно
 
   findModalWindow.style.display = "none"
-}
+} */
 
 buttonSendRequest.addEventListener("click", (e) => submitFormData(e, tours))
 
@@ -251,7 +310,7 @@ async function submitFormData(e) {
   }
 }
 
-function responseSuccessfully() {
+/* function responseSuccessfully() {
 
   document.getElementById("openModalWindow").style.display = "none"
   document.getElementById("successfully").style.display = "flex"
@@ -269,7 +328,7 @@ function responseError() {
   document.getElementById("isMistake").addEventListener("click", () => {
     document.getElementById("mistake").style.display = "none"
   })
-}
+} */
 
 function formValidate() {  //проверка формы
 
