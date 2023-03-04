@@ -1,6 +1,7 @@
 import { format, differenceInDays } from "date-fns"
 import { doc } from "prettier"
 const { default: ru } = require("date-fns/locale/ru")
+import Swal from 'sweetalert2'
 
 let tours = []
 let favoriteTours = [] //массив с любимыми турами
@@ -116,9 +117,9 @@ function renderTours(tours) {
                         </div>
 
                         <div class="flex flex-col mt-6 w-3/4 mx-auto">
-                            <button id="openModalButton-${tour.id}" class="mb-4 text-rose-700 font-medium drop-shadow-lg justify-center border border-sky-500 hover:bg-sky-700 hover:text-white hover:bg-orange-500 transition-all duration-300 hover:text-white rounded-md px-2 py-2">Забронировать</button>
-                            <button id="btnAddFavorite-${tour.id}" class="text-amber-500 font-medium drop-shadow-lg border justify-center border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2 hover:bg-fuchsia-400 transition-all duration-300">В избранное</button>
-                            <button id="btnRemoveFromFavorites-${tour.id}"class="text-amber-500 font-medium drop-shadow-lg justify-center border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2 hover:bg-red-600 transition-all duration-300">Удалить из избранного</button>
+                            <button id="openModalButton-${tour.id}" class="mb-4 text-rose-700 font-medium drop-shadow-lg justify-center border border-sky-500 hover:text-white hover:bg-orange-500 transition-all duration-300 hover:text-white rounded-md px-2 py-2">Забронировать</button>
+                            <button id="btnAddFavorite-${tour.id}" class="text-amber-500 font-medium drop-shadow-lg border justify-center border-sky-500 hover:text-white rounded-md px-3 py-2 hover:bg-fuchsia-400 transition-all duration-300">В избранное</button>
+                            <button id="btnRemoveFromFavorites-${tour.id}"class="text-amber-500 font-medium drop-shadow-lg justify-center border border-sky-500 hover:text-white rounded-md px-3 py-2 hover:bg-red-600 transition-all duration-300">Удалить из избранного</button>
                         </div>
                     </div>
                 </div>
