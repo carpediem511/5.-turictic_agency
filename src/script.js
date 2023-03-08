@@ -208,60 +208,9 @@ async function openBookingWindow(id) {  //ввожу функцию открыт
 
   )
   tours = await getData()
-const inputValue = fetch(tours)
-  .then(response => response.json())
-  .then(data => data.ip)
 
-const { value: ipAddress } = await Swal.fire({
-  title: 'Пожалуйста, введите Ваши данные для бронирования:',
-  imageUrl: "/images/icon-press-pass.png",
-  imageWidth: "2rem",
-  imageHeight:"2rem",
-  inputLabel: 'ФИО*',
-  inputValue: inputValue,
-
-  imageUrl: "/images/phone-call.png",
-  imageWidth: "2rem",
-  imageHeight:"2rem",
-  inputLabel: 'Номер телефона*',
-  inputValue: inputValue,
-
-  imageUrl: "/images/icon-email.png",
-  imageWidth: "2rem",
-  imageHeight:"2rem",
-  inputLabel: 'Адрес электронной почты*',
-  inputValue: inputValue,
-
-  imageUrl: "/images/icon-comment.png",
-  imageWidth: "2rem",
-  imageHeight:"2rem",
-  inputLabel: 'Комментарий*',
-  inputValue: inputValue,
-
-  confirmButtonText: "Отправить запрос",
-  cancelButtonText: "Отменить",
-
-  inputValidator: (value) => {
-    if (!value) {
-      return 'Заполните обязательные поля!'
-    }
-  }
-})
-
-if (ipAddress) {
-  Swal.fire({
-    icon: 'success',
-    title: 'Спасибо! Ваш запрос успешно отправлен!',
-    text: 'В ближайшее время наш менеджер с вами свяжется!',
-  })
-} else {
-  Swal.fire({
-    icon: 'error',
-    title: 'Что-то пошло не так...',
-    text: 'Попробуйте ещё раз!',
-  })
 }
-}
+
 
 /* function closeModalWindow() {  //закрыть модальное окно
 
@@ -298,37 +247,29 @@ async function submitFormData(e) {
       method: "POST",
       body: JSON.stringify(formData),
     })
-    responseSuccessfully()
+    
     if (response.ok) {
       //если запрос прошёл
-
+      Swal.fire({
+        icon: 'success',
+        title: 'Спасибо! Ваш запрос успешно отправлен!',
+        text: 'В ближайшее время наш менеджер с вами свяжется!',
+      })
+      document.getElementById("openModalWindow").style.display = "none"
       let result = await response.json() //прочитать данные, полученные с сервера
       return result //данные готовы к использованию
     } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Что-то пошло не так...',
+        text: 'Попробуйте ещё раз!',
+      })
+      document.getElementById("openModalWindow").style.display = "none"
     }
-    responseError()
+   
   }
 }
 
-/* function responseSuccessfully() {
-
-  document.getElementById("openModalWindow").style.display = "none"
-  document.getElementById("successfully").style.display = "flex"
-
-  document.getElementById("isSuccessfully").addEventListener("click", () => {
-    document.getElementById("successfully").style.display = "none"
-  })
-}
-
-function responseError() {
-
-  document.getElementById("openModalWindow").style.display = "none"
-  document.getElementById("mistake").style.display = "flex"
-
-  document.getElementById("isMistake").addEventListener("click", () => {
-    document.getElementById("mistake").style.display = "none"
-  })
-} */
 
 function formValidate() {  //проверка формы
 
