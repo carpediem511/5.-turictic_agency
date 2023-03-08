@@ -1,8 +1,10 @@
 import { format, differenceInDays } from "date-fns"
 import Swal from 'sweetalert2'
 const { default: ru } = require("date-fns/locale/ru")
+import Swal from 'sweetalert2'
 
 let tours = []
+let favoriteTours = [] //массив с любимыми турами
 
 async function getData() {
 
@@ -21,8 +23,41 @@ async function getData() {
 async function init() {
 
   tours = await getData()
-  renderTours(tours)
-}
+
+  
+  let allFavoritesTours = document.getElementById("favoriteToursBtn") //находим "показать избранные туры"
+  allFavoritesTours.addEventListener("click", () => {
+
+  try {
+   
+    if (tours) {
+      renderTours(favoriteTours)
+      saveToLocalStorage()
+    }}
+ catch {
+    Swal.fire({
+      icon: "warning",
+      text: "Вы ещё не добавили в избранное ни одного тура!",
+      isDismissed: true
+    })
+  }})}
+
+
+
+let loader = document.getElementById("loader")
+window.addEventListener("load", () => {
+    loader.classList.add("hidden")
+    setTimeout(() => {
+        loader.remove()
+    }, 1000)
+})
+
+//отобразить все туры по клику
+let buttonAllTours = document.getElementById("allToursBtn")
+
+buttonAllTours.addEventListener("click", () => {
+    renderTours(tours)
+})
 
 function checkCity(tour) {
 
@@ -34,15 +69,14 @@ function checkCity(tour) {
 }
 
 function renderTours(tours) {
-
   document.getElementById("tours-all").innerHTML = " "
 
-  tours.forEach((tour) => {
+  tours.forEach((tour) => { 
     let duration = differenceInDays(
       new Date(tour.endTime),
       new Date(tour.startTime)
     )
-
+    
     const city = checkCity(tour)
 
     if (tours.length === 0) {
@@ -88,49 +122,151 @@ function renderTours(tours) {
                         </div>
 
                         <div class="flex flex-col mt-6 w-3/4 mx-auto">
-                            <button id="bookTour-${tour.id}" class="mb-4 text-rose-700 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-2 py-2">Забронировать</button>
-                            <button class="text-amber-500 font-medium drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2">В избранное</button>
+                            <button id="openModalButton-${tour.id}" class="mb-4 text-rose-700 font-medium drop-shadow-lg justify-center border border-sky-500 hover:text-white hover:bg-orange-500 transition-all duration-300 hover:text-white rounded-md px-2 py-2">Забронировать</button>
+                            <button id="btnAddFavorite-${tour.id}" class="text-amber-500 font-medium drop-shadow-lg border justify-center border-sky-500 hover:text-white rounded-md px-3 py-2 hover:bg-fuchsia-400 transition-all duration-300">В избранное</button>
+                            <button id="btnRemoveFromFavorites-${tour.id}"class="text-amber-500 font-medium drop-shadow-lg justify-center border border-sky-500 hover:text-white rounded-md px-3 py-2 hover:bg-red-600 transition-all duration-300">Удалить из избранного</button>
                         </div>
                     </div>
                 </div>
         </div>
             `
-    }
+  }})
+
+  tours.forEach((tour) => {
+
+      let buttonCancelFromFavorite = document.getElementById(`btnRemoveFromFavorites-${tour.id}`) //найти кнопку отмена
+      buttonCancelFromFavorite.style.display = "none"
+
+      let buttonAddToFavorite = document.getElementById(`btnAddFavorite-${tour.id}`) //нахожу кнопку добавить 
+      buttonAddToFavorite.addEventListener("click", () => {
+
+          favoriteTours.push(tour) //добавляем тур в любимые
+          buttonAddToFavorite.style.display = "none"
+          buttonCancelFromFavorite.style.display = "flex"
+
+          buttonCancelFromFavorite.addEventListener("click", () => {
+
+              favoriteTours.splice(tour) //удаляем тур из избранного
+              buttonAddToFavorite.style.display = "flex"
+              buttonCancelFromFavorite.style.display = "none"
+             
+         })
+          
+      })
+
+      let IdOfFavoritesTours = favoriteTours.map(idOfTours => {
+
+          return idOfTours.id
+      })
+      
+      let isFavorite = IdOfFavoritesTours.includes(tour.id)
+
+       if (isFavorite) {
+          buttonAddToFavorite.style.display = "none"
+          buttonCancelFromFavorite.style.display = "flex"
+       } 
+
+       buttonCancelFromFavorite.addEventListener("click", () => {
+
+          let tourDelete = tours.find((findTour) => {
+              return findTour.id === id; 
+            });
+            let tourIndex = tours.indexOf(tourDelete); 
+          tours.splice(tourIndex, 1) 
+       
+
+      })
   })
 
   tours.forEach((tour) => {
     document
-      .getElementById(`bookTour-${tour.id}`)
+      .getElementById(`openModalButton-${tour.id}`)
       .addEventListener("click", () => {
         openBookingWindow(tour.id) //если нажали на кнопку забронировать, то открывается модальное окно
       })
   })
-}
+  }
+
+  
+
+
 
 const findModalWindow = document.getElementById("openModalWindow") //найти модальное окно в html
 const buttonCancelRequest = document.getElementById("cancelRequest") //найти кнопку закрыть модальное окно
 const buttonSendRequest = document.getElementById("sendRequest") //найти кнопку забронировать тур
 let tourId
 
-function openBookingWindow(id) {  //ввожу функцию открыть модальное окно бронирования
+async function openBookingWindow(id) {  //ввожу функцию открыть модальное окно бронирования
 
   tourId = id
-
-  findModalWindow.style.display = "flex" //показывать стили
 
   tours.find(
     (findTour) => {
       //найти нужный тур по id
       return findTour.id === id
     },
-    buttonCancelRequest.addEventListener("click", closeModalWindow) //по нажатию кнопки отменить окно закрывается
+
   )
+  tours = await getData()
+const inputValue = fetch(tours)
+  .then(response => response.json())
+  .then(data => data.ip)
+
+const { value: ipAddress } = await Swal.fire({
+  title: 'Пожалуйста, введите Ваши данные для бронирования:',
+  imageUrl: "/images/icon-press-pass.png",
+  imageWidth: "2rem",
+  imageHeight:"2rem",
+  inputLabel: 'ФИО*',
+  inputValue: inputValue,
+
+  imageUrl: "/images/phone-call.png",
+  imageWidth: "2rem",
+  imageHeight:"2rem",
+  inputLabel: 'Номер телефона*',
+  inputValue: inputValue,
+
+  imageUrl: "/images/icon-email.png",
+  imageWidth: "2rem",
+  imageHeight:"2rem",
+  inputLabel: 'Адрес электронной почты*',
+  inputValue: inputValue,
+
+  imageUrl: "/images/icon-comment.png",
+  imageWidth: "2rem",
+  imageHeight:"2rem",
+  inputLabel: 'Комментарий*',
+  inputValue: inputValue,
+
+  confirmButtonText: "Отправить запрос",
+  cancelButtonText: "Отменить",
+
+  inputValidator: (value) => {
+    if (!value) {
+      return 'Заполните обязательные поля!'
+    }
+  }
+})
+
+if (ipAddress) {
+  Swal.fire({
+    icon: 'success',
+    title: 'Спасибо! Ваш запрос успешно отправлен!',
+    text: 'В ближайшее время наш менеджер с вами свяжется!',
+  })
+} else {
+  Swal.fire({
+    icon: 'error',
+    title: 'Что-то пошло не так...',
+    text: 'Попробуйте ещё раз!',
+  })
+}
 }
 
-function closeModalWindow() {  //закрыть модальное окно
+/* function closeModalWindow() {  //закрыть модальное окно
 
   findModalWindow.style.display = "none"
-}
+} */
 
 buttonSendRequest.addEventListener("click", (e) => submitFormData(e, tours))
 
@@ -396,6 +532,19 @@ changeOnClick2.addEventListener("click", () => {
         changeOnClick2.src ="/images/icon-emptyStar.png"
     }
 }) */
+
+
+function saveToLocalStorage() {
+
+  const toursJson = JSON.stringify(tours); 
+  localStorage.setItem("tours", toursJson); 
+}
+
+const toursJson = localStorage.getItem("tours"); //преобразование из JSON в JS
+
+if (toursJson) {
+tours = JSON.parse(toursJson);
+} 
 
 getData()
 init()

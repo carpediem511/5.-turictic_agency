@@ -9,6 +9,12 @@
   </head>
 
   <body>
+
+    <div class="loader-container" id="loader">
+      <div class="loader">
+      </div>
+  </div>
+
     <div class="start-section">
       <div class="content">
         <h1 class="font-basic relative text-slate-50 text-2xl text-center xl:text-6xl pt-60 mb-60 lg:text-5xl md:text-4xl mb-48 sm:text-3xl">
@@ -105,18 +111,18 @@
           </div>
 
           <div class="flex justify-center font-basic text-xl text-sky-600 font-normal mb-12 mobile-version-buttons">
-            <button type="button" class="mobile-version-button drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-2 py-2 mr-12">
+            <button type="button" class="mobile-version-button drop-shadow-lg border border-sky-500  hover:text-white hover:bg-orange-500 transition-all duration-300 rounded-md px-2 py-2 mr-12">
               Показать тур
             </button>
 
-            <button type="reset" class="mobile-version-button drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-2 py-2">
+            <button type="reset" class="mobile-version-button drop-shadow-lg border border-sky-500  hover:text-white hover:bg-red-600 transition-all duration-300 rounded-md px-2 py-2">
               Сбросить настройки
             </button>
           </div>
         </div>
 
         <fieldset class="fixed hidden inset-0 justify-center text-center z-30 modal-animation lg:mt-10 h-full" id="openModalWindow">
-          <div class="bg-yellow-100 p-7 rounded-xl shadow-xl flex flex-col w-4/12 modal-styles sm:w-8/12">
+    <!--       <div class="bg-yellow-100 p-7 rounded-xl shadow-xl flex flex-col w-4/12 modal-styles sm:w-8/12">
             <div class="text-center text-xl text-rose-500 mb-6">
               Пожалуйста, введите Ваши данные для бронирования:
             </div>
@@ -149,27 +155,32 @@
                 </div>
                 <textarea id="customerComment" cols="39" rows="4" placeholder="Здесь вы можете написать свои пожелания или оставить комментарий" class="border rounded-md mt-1.5 text-base ml-1 cursor-text mb-6 area"></textarea>
                 <div class="flex m-auto flex-col w-1/2">
-                  <button id="sendRequest" class="button-modal p-2 border-yellow-500 bg-sky-100 border rounded-md mt-1.5 text-base ml-1 cursor-pointer w-6/12 mb-2.5" type="submit">
+                  <button id="sendRequest" class="button-modal p-2 border-yellow-500 bg-sky-100 border rounded-md mt-1.5 text-base ml-1 cursor-pointer w-6/12 mb-2.5 hover:text-white transition-all duration-300" type="submit">
                     Отправить запрос
                   </button>
 
                   <button
-                    id="cancelRequest" class="button-modal p-2 border bg-sky-100 border-yellow-500 rounded-md mt-1.5 text-base ml-1 cursor-pointer w-6/12 mb-2.5" type="button">
+                    id="cancelRequest" class="button-modal p-2 border bg-sky-100 border-yellow-500 rounded-md mt-1.5 text-base ml-1 cursor-pointer w-6/12 mb-2.5 hover:bg-red-600 transition-all duration-300" type="button">
                     Отменить
                   </button>
                 </div>
               </div>
             </form>
-          </div>
+          </div> -->
         </fieldset>
       </div>
     </form>
 
-    <div id="successfully" class="hidden relative h-10 z-50">
+    <div class="mt-32 flex justify-center">
+      <button class="border border-solid border-yellow-500 px-4 py-2 rounded-md hover:text-white hover:bg-orange-500 transition-all duration-300 mr-2" id="allToursBtn">Все туры</button>
+      <button class="border border-solid border-yellow-500 px-4 py-2 rounded-md hover:text-white hover:bg-fuchsia-400 transition-all duration-300" id="favoriteToursBtn">Избранное</button>
+    </div>
+
+   <!--  <div id="successfully" class="hidden relative h-10 z-50">
       <div class="flex flex-col bg-slate-50 border w-1/4 m-auto p-7 rounded-xl shadow-xl fixed modal top-10 inset-x-1/4 mt-10 text-center sm:w-8/12">
         <img src="/images/free-icon-success.png" class="w-20 h-20 mx-auto mt-10"/>
         <p class="p-6 text-base text-sky-600 font-semibold">
-          Ваш запрос успешно отправлен! Спасибо! В ближайшее время наш менеджер
+          Спасибо! Ваш запрос успешно отправлен! В ближайшее время наш менеджер
           с вами свяжется!
         </p>
         <button id="isSuccessfully" class="mx-auto block mobile-version-button drop-shadow-lg border border-sky-500 hover:bg-sky-600 hover:text-white rounded-md px-2 py-2">
@@ -182,7 +193,7 @@
       <p>Произошла ошибка! Попробуйте ещё раз!</p>
       <button id="isMistake">Закрыть</button>
     </div>
-
+ -->
     <h3 class="title-2 text-center z-10">Смотреть все варианты:</h3>
 
     <div id="tours-all" class="flex flex-wrap justify-center"></div>
