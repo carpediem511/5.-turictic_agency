@@ -238,6 +238,10 @@ textarea.area:focus {
   .select {
     width: 80%;
   }
+
+  .modal-w {
+    width: 90%;
+  }
 }
 
 @media (max-width: 768px) {
@@ -286,11 +290,19 @@ textarea.area:focus {
   .modal {
     height: 50%;
   }
+
+  .modal-w {
+    width: 90%;
+  }
 }
 
 @media (max-width: 400px) {
   .checkbox-mini {
     margin-left: 5px;
+  }
+
+  .modal-w {
+    width: 100%;
   }
 }
 
