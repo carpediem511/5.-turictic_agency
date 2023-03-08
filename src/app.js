@@ -7,29 +7,31 @@ let favoriteTours = [] //массив с любимыми турами
 
 // загрузка данных с БД
 async function loadTours() {
-    const response = await fetch(
-        "https://www.bit-by-bit.ru/api/student-projects/tours"
-    )
-    const data = await response.json()
+  const response = await fetch(
+    "https://www.bit-by-bit.ru/api/student-projects/tours"
+  )
+  const data = await response.json()
 
-    tours = data
-    return data
+  tours = data
+  return data
 }
 
 // отрисовка туров
 function renderTours(tours) {
-    document.getElementById("container").innerHTML = ""
-    tours.forEach((tour) => {
-        const duration = differenceInDays(
-            new Date(tour.endTime),
-            new Date(tour.startTime)
-        )
+  document.getElementById("container").innerHTML = ""
+  tours.forEach((tour) => {
+    const duration = differenceInDays(
+      new Date(tour.endTime),
+      new Date(tour.startTime)
+    )
 
-        document.getElementById("container").innerHTML += `
+    document.getElementById("container").innerHTML += `
         <div class="bg-white shadow-lg rounded-xl mt-8 p-4" id="tour">
             <div>
                 <div class="h-12">
-                     <a class="font-semibold text-yellow-600 hover:underline">${tour.hotelName}</a>
+                     <a class="font-semibold text-yellow-600 hover:underline">${
+                       tour.hotelName
+                     }</a>
                 </div>
                              <p class="font-normal text-sky-900 mb-2 mt-2">
                              ${tour.city ? `<a href="#">${tour.city},</a>` : ""}
@@ -60,15 +62,15 @@ function renderTours(tours) {
                                 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m1.5.5l-1.5-.5M6.75 7.364V3h-3v18m3-13.636l10.5-3.819" />
                                </svg>
                              <span class="ml-3">${format(
-                                 new Date(tour.startTime),
-                                 "dd.MM.yyyy",
-                                 { locale: ru }
+                               new Date(tour.startTime),
+                               "dd.MM.yyyy",
+                               { locale: ru }
                              )}</span>
                              <span class="mr-1 ml-1"> - </span>
                              <span> ${format(
-                                 new Date(tour.endTime),
-                                 "dd.MM.yyyy",
-                                 { locale: ru }
+                               new Date(tour.endTime),
+                               "dd.MM.yyyy",
+                               { locale: ru }
                              )}</span>
 
                         </div>
@@ -76,10 +78,10 @@ function renderTours(tours) {
                          <div>
                              <p class="font-normal text-gray-800 text-m">
                              Стоимость тура: ${tour.price.toLocaleString("ru", {
-                                 style: "currency",
-                                 currency: "rub",
-                                 currencyDisplay: "code",
-                                 minimumFractionDigits: 0
+                               style: "currency",
+                               currency: "rub",
+                               currencyDisplay: "code",
+                               minimumFractionDigits: 0,
                              })}
                              </p>
                              <div class="flex items-center mt-3">
@@ -95,60 +97,61 @@ function renderTours(tours) {
                              </div>
                          </div>
                          <div class="btn-container">
-                             <button class="btn" id="openModalButton-${tour.id}"}">Забронировать</button>
-                             <button class="btn" id="btnAddFavorite-${tour.id}">Добавить в избранное</button>
-                             <button class="btn" id="btnRemoveFromFavorites-${tour.id}">Удалить из избранного</button>
+                             <button class="btn" id="openModalButton-${
+                               tour.id
+                             }"}">Забронировать</button>
+                             <button class="btn" id="btnAddFavorite-${
+                               tour.id
+                             }">Добавить в избранное</button>
+                             <button class="btn" id="btnRemoveFromFavorites-${
+                               tour.id
+                             }">Удалить из избранного</button>
                          </div>
                     </div>
         `
-    })
+  })
 
-    tours.forEach((tour) => {
+  tours.forEach((tour) => {
+    let buttonCancelFromFavorite = document.getElementById(
+      `btnRemoveFromFavorites-${tour.id}`
+    ) //найти кнопку отмена
+    buttonCancelFromFavorite.style.display = "none"
 
-        let buttonCancelFromFavorite = document.getElementById(`btnRemoveFromFavorites-${tour.id}`) //найти кнопку отмена
+    let buttonAddToFavorite = document.getElementById(
+      `btnAddFavorite-${tour.id}`
+    ) //нахожу кнопку добавить
+    buttonAddToFavorite.addEventListener("click", () => {
+      favoriteTours.push(tour) //добавляем тур в любимые
+      buttonAddToFavorite.style.display = "none"
+      buttonCancelFromFavorite.style.display = "flex"
+
+      buttonCancelFromFavorite.addEventListener("click", () => {
+        favoriteTours.splice(tour) //удаляем тур из избранного
+        buttonAddToFavorite.style.display = "flex"
         buttonCancelFromFavorite.style.display = "none"
-
-        let buttonAddToFavorite = document.getElementById(`btnAddFavorite-${tour.id}`) //нахожу кнопку добавить 
-        buttonAddToFavorite.addEventListener("click", () => {
-
-            favoriteTours.push(tour) //добавляем тур в любимые
-            buttonAddToFavorite.style.display = "none"
-            buttonCancelFromFavorite.style.display = "flex"
-
-            buttonCancelFromFavorite.addEventListener("click", () => {
-
-                favoriteTours.splice(tour) //удаляем тур из избранного
-                buttonAddToFavorite.style.display = "flex"
-                buttonCancelFromFavorite.style.display = "none"
-               
-           })
-            
-        })
-
-        let IdOfFavoritesTours = favoriteTours.map(idOfTours => {
-
-            return idOfTours.id
-        })
-        
-        let isFavorite = IdOfFavoritesTours.includes(tour.id)
-
-         if (isFavorite) {
-            buttonAddToFavorite.style.display = "none"
-            buttonCancelFromFavorite.style.display = "flex"
-         } 
-
-         buttonCancelFromFavorite.addEventListener("click", () => {
-
-            let tourDelete = tours.find((findTour) => {
-                return findTour.id === id; 
-              });
-              let tourIndex = tours.indexOf(tourDelete); 
-            tours.splice(tourIndex, 1) 
-         
-
-        })
+      })
     })
+
+    let IdOfFavoritesTours = favoriteTours.map((idOfTours) => {
+      return idOfTours.id
+    })
+
+    let isFavorite = IdOfFavoritesTours.includes(tour.id)
+
+    if (isFavorite) {
+      buttonAddToFavorite.style.display = "none"
+      buttonCancelFromFavorite.style.display = "flex"
     }
+
+    buttonCancelFromFavorite.addEventListener("click", () => {
+      let tourDelete = tours.find((findTour) => {
+        return findTour.id === id
+      })
+      let tourIndex = tours.indexOf(tourDelete)
+      tours.splice(tourIndex, 1)
+    })
+  })
+}
 
 // открытие модального окна для бронирования
 /*  tours.forEach((tour) => {
@@ -164,23 +167,23 @@ closeModalWindow.addEventListener("click", closeModal)
 closeModalXButton.addEventListener("click", closeModal)
 
 function closeModal() {
-    modalWindow.style.display = "none"
+  modalWindow.style.display = "none"
 }
 
 let currentId
 
 // НЕ ПОЛУЧИЛОСЬ ОТОБРАЖАТЬ ДАННЫЕ ТУРА
 async function openModalWindow(id) {
-    const response = await fetch(
-        "https://www.bit-by-bit.ru/api/student-projects/tours"
-    )
-    tours = await response.json()
+  const response = await fetch(
+    "https://www.bit-by-bit.ru/api/student-projects/tours"
+  )
+  tours = await response.json()
 
-    modalWindow.style.display = "flex"
+  modalWindow.style.display = "flex"
 
-    const tour = tours.find((t) => i.id === id)
-    document.getElementById("tourCard").innerHTML = ""
-    document.getElementById("tourCard").innerHTML += `
+  const tour = tours.find((t) => i.id === id)
+  document.getElementById("tourCard").innerHTML = ""
+  document.getElementById("tourCard").innerHTML += `
     <div>
             <div class="h-12">
                 <a class="font-semibold text-yellow-600 hover:underline" id="hotelName">название отеля</a>
@@ -208,205 +211,202 @@ async function openModalWindow(id) {
     </div>
 
     `
-    currentId = id
+  currentId = id
 }
 
 //  dropdown по стране и рейтингу
 document
-    .querySelectorAll(".dropdown__container")
-    .forEach(function (dropdownWrapper) {
-        const dropdownBtn = dropdownWrapper.querySelector(".dropdownButton")
-        const dropdownList = dropdownWrapper.querySelector(".dropdownList")
-        const dropdownListItems = dropdownList.querySelectorAll(".dropdown__list-item")
+  .querySelectorAll(".dropdown__container")
+  .forEach(function (dropdownWrapper) {
+    const dropdownBtn = dropdownWrapper.querySelector(".dropdownButton")
+    const dropdownList = dropdownWrapper.querySelector(".dropdownList")
+    const dropdownListItems = dropdownList.querySelectorAll(
+      ".dropdown__list-item"
+    )
 
-        // откыть dropdowns
-        dropdownBtn.addEventListener("click", function () {
-            dropdownList.classList.remove("hidden")
-        })
-
-        // заполнить dropdowns выбранным значением и закрыть список
-        dropdownListItems.forEach(function (listItem) {
-            listItem.addEventListener("click", function () {
-                dropdownBtn.innerText = this.innerText
-                dropdownList.classList.add("hidden")
-            })
-        })
-
-        // скрыть dropdown если клик не по кнопке
-        document.addEventListener("click", function (event) {
-            if (event.target !== dropdownBtn) {
-                dropdownList.classList.add("hidden")
-            }
-        })
+    // откыть dropdowns
+    dropdownBtn.addEventListener("click", function () {
+      dropdownList.classList.remove("hidden")
     })
+
+    // заполнить dropdowns выбранным значением и закрыть список
+    dropdownListItems.forEach(function (listItem) {
+      listItem.addEventListener("click", function () {
+        dropdownBtn.innerText = this.innerText
+        dropdownList.classList.add("hidden")
+      })
+    })
+
+    // скрыть dropdown если клик не по кнопке
+    document.addEventListener("click", function (event) {
+      if (event.target !== dropdownBtn) {
+        dropdownList.classList.add("hidden")
+      }
+    })
+  })
 
 // фильтр по странам
 
 function filtredByCountry(tours, country) {
-    if (country) {
-        const filtredTours = tours.filter((tour) => {
-            return tour.country === country
-        })
-        renderTours(filtredTours)
-    } else {
-        renderTours(tours)
-    }
+  if (country) {
+    const filtredTours = tours.filter((tour) => {
+      return tour.country === country
+    })
+    renderTours(filtredTours)
+  } else {
+    renderTours(tours)
+  }
 }
 
 // фильтр по рейтингу
 
 function filtredByRating(tours, rating) {
-    if (rating) {
-        const filtredTours = tours.filter((tour) => {
-            return tour.rating >= rating
-        })
-        renderTours(filtredTours)
-    } else {
-        renderTours(tours)
-    }
+  if (rating) {
+    const filtredTours = tours.filter((tour) => {
+      return tour.rating >= rating
+    })
+    renderTours(filtredTours)
+  } else {
+    renderTours(tours)
+  }
 }
 
 // фильтр по цене
 
 function filterByPrice(tours, price) {
-    const minPrice = document.getElementById("minPrice").value
-    const maxPrice = document.getElementById("maxPrice").value
+  const minPrice = document.getElementById("minPrice").value
+  const maxPrice = document.getElementById("maxPrice").value
 
-    const filteredTours = tours.filter((tour) => {
-        if (minPrice && maxPrice) {
-            return tour.price >= minPrice && tour.price <= maxPrice
-        } else if (minPrice) {
-            return tour.price >= minPrice
-        } else if (maxPrice) {
-            return tour.price <= maxPrice
-        } else {
-            renderTours(tours)
-        }
-    })
+  const filteredTours = tours.filter((tour) => {
+    if (minPrice && maxPrice) {
+      return tour.price >= minPrice && tour.price <= maxPrice
+    } else if (minPrice) {
+      return tour.price >= minPrice
+    } else if (maxPrice) {
+      return tour.price <= maxPrice
+    } else {
+      renderTours(tours)
+    }
+  })
 
-    renderTours(filteredTours)
+  renderTours(filteredTours)
 
-    document.getElementById("minPrice").value = ""
-    document.getElementById("maxPrice").value = ""
+  document.getElementById("minPrice").value = ""
+  document.getElementById("maxPrice").value = ""
 }
-
-
 
 // загрузка страницы
 async function init() {
-    const tours = await loadTours()
-    renderTours(tours)
-    saveToLocalStorage()
+  const tours = await loadTours()
+  renderTours(tours)
+  saveToLocalStorage()
 
-    let allFavoritesTours = document.getElementById("favoriteToursBtn") //находим "показать избранные туры"
-    allFavoritesTours.addEventListener("click", () => {
-        
-        if (favoriteTours == 0) {
+  let allFavoritesTours = document.getElementById("favoriteToursBtn") //находим "показать избранные туры"
+  allFavoritesTours.addEventListener("click", () => {
+    if (favoriteTours == 0) {
+      document.getElementById("container").innerHTML =
+        "Вы пока не добавили в избранное ни одного тура!"
+    } else {
+      renderTours(favoriteTours)
+      saveToLocalStorage()
+    }
+  })
 
-            document.getElementById("container").innerHTML = "Вы пока не добавили в избранное ни одного тура!"
-        } else {
-            renderTours(favoriteTours)
-            saveToLocalStorage()
-        }
-       
-    })
+  document
+    .getElementById("allCountries")
+    .addEventListener("click", () => filtredByCountry(tours))
+  document
+    .getElementById("tailand")
+    .addEventListener("click", () => filtredByCountry(tours, "Тайланд"))
+  document
+    .getElementById("egypt")
+    .addEventListener("click", () => filtredByCountry(tours, "Египет"))
+  document
+    .getElementById("cyprus")
+    .addEventListener("click", () => filtredByCountry(tours, "Кипр"))
+  document
+    .getElementById("maldives")
+    .addEventListener("click", () => filtredByCountry(tours, "Мальдивы"))
+  document
+    .getElementById("indonesia")
+    .addEventListener("click", () => filtredByCountry(tours, "Индонезия"))
+  document
+    .getElementById("mexico")
+    .addEventListener("click", () => filtredByCountry(tours, "Мексика"))
+  document
+    .getElementById("tanzania")
+    .addEventListener("click", () => filtredByCountry(tours, "Танзания"))
 
-    document
-        .getElementById("allCountries")
-        .addEventListener("click", () => filtredByCountry(tours))
-    document
-        .getElementById("tailand")
-        .addEventListener("click", () => filtredByCountry(tours, "Тайланд"))
-    document
-        .getElementById("egypt")
-        .addEventListener("click", () => filtredByCountry(tours, "Египет"))
-    document
-        .getElementById("cyprus")
-        .addEventListener("click", () => filtredByCountry(tours, "Кипр"))
-    document
-        .getElementById("maldives")
-        .addEventListener("click", () => filtredByCountry(tours, "Мальдивы"))
-    document
-        .getElementById("indonesia")
-        .addEventListener("click", () => filtredByCountry(tours, "Индонезия"))
-    document
-        .getElementById("mexico")
-        .addEventListener("click", () => filtredByCountry(tours, "Мексика"))
-    document
-        .getElementById("tanzania")
-        .addEventListener("click", () => filtredByCountry(tours, "Танзания"))
+  document
+    .getElementById("allRating")
+    .addEventListener("click", () => filtredByRating(tours))
+  document
+    .getElementById("rating7")
+    .addEventListener("click", () => filtredByRating(tours, 7))
+  document
+    .getElementById("rating8")
+    .addEventListener("click", () => filtredByRating(tours, 8))
+  document
+    .getElementById("rating9")
+    .addEventListener("click", () => filtredByRating(tours, 9))
 
-    document
-        .getElementById("allRating")
-        .addEventListener("click", () => filtredByRating(tours))
-    document
-        .getElementById("rating7")
-        .addEventListener("click", () => filtredByRating(tours, 7))
-    document
-        .getElementById("rating8")
-        .addEventListener("click", () => filtredByRating(tours, 8))
-    document
-        .getElementById("rating9")
-        .addEventListener("click", () => filtredByRating(tours, 9))
-
-    document
-        .getElementById("priceButton")
-        .addEventListener("click", () => filterByPrice(tours))
+  document
+    .getElementById("priceButton")
+    .addEventListener("click", () => filterByPrice(tours))
 }
 
 // // loader
 
 let loader = document.getElementById("loader")
 window.addEventListener("load", () => {
-    loader.classList.add("hidden")
-    setTimeout(() => {
-        loader.remove()
-    }, 1000)
+  loader.classList.add("hidden")
+  setTimeout(() => {
+    loader.remove()
+  }, 1000)
 })
 
 // отправка формы пронирования. НЕ ЗАВЕРШЕНО
 document.getElementById("form").addEventListener("submit", sendFormData)
 
 async function sendFormData(event) {
-    event.preventDefault()
+  event.preventDefault()
 
-    let name = document.getElementById("inputName")
-    let phone = document.getElementById("inputTel")
-    let email = document.getElementById("inputEmail")
-    let comment = document.getElementById("textarea")
+  let name = document.getElementById("inputName")
+  let phone = document.getElementById("inputTel")
+  let email = document.getElementById("inputEmail")
+  let comment = document.getElementById("textarea")
 
-    const params = {
-        customerName: name.value,
-        phone: phone.value,
-        email: email.value,
-        description: comment.value
-    }
+  const params = {
+    customerName: name.value,
+    phone: phone.value,
+    email: email.value,
+    description: comment.value,
+  }
 
-    const url = `https://www.bit-by-bit.ru/api/student-projects/tours/${currentId}`
+  const url = `https://www.bit-by-bit.ru/api/student-projects/tours/${currentId}`
 
-    let response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(params)
-    })
+  let response = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(params),
+  })
 }
 
-  function saveToLocalStorage() {
-
-    const toursJson = JSON.stringify(tours); 
-    localStorage.setItem("tours", toursJson); 
+function saveToLocalStorage() {
+  const toursJson = JSON.stringify(tours)
+  localStorage.setItem("tours", toursJson)
 }
 
-const toursJson = localStorage.getItem("tours"); //преобразование из JSON в JS
+const toursJson = localStorage.getItem("tours") //преобразование из JSON в JS
 
 if (toursJson) {
-  tours = JSON.parse(toursJson);
-} 
+  tours = JSON.parse(toursJson)
+}
 
 //отобразить все туры по клику
 let buttonAllTours = document.getElementById("allToursBtn")
 
 buttonAllTours.addEventListener("click", () => {
-    renderTours(tours)
+  renderTours(tours)
 })
 
 loadTours()

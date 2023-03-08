@@ -216,12 +216,11 @@ textarea.area:focus {
 
 @keyframes loader {
   100% {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
 @media (min-width: 900px) {
-
   .modal {
     height: 20%;
   }
@@ -239,7 +238,6 @@ textarea.area:focus {
   .select {
     width: 80%;
   }
-
 }
 
 @media (max-width: 768px) {
@@ -276,7 +274,8 @@ textarea.area:focus {
     margin: 0 auto;
   }
 
-  .modal-styles, .modal {
+  .modal-styles,
+  .modal {
     width: 90%;
     top: 0;
     right: 0;
@@ -293,7 +292,6 @@ textarea.area:focus {
   .checkbox-mini {
     margin-left: 5px;
   }
-
 }
 
 @media (min-width: 600px) {
