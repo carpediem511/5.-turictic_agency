@@ -1,5 +1,5 @@
 import { format, differenceInDays } from "date-fns"
-import { doc } from "prettier"
+import Swal from 'sweetalert2'
 const { default: ru } = require("date-fns/locale/ru")
 import Swal from 'sweetalert2'
 
@@ -298,37 +298,28 @@ async function submitFormData(e) {
       method: "POST",
       body: JSON.stringify(formData),
     })
-    responseSuccessfully()
+    
     if (response.ok) {
       //если запрос прошёл
-
+      Swal.fire({
+        icon: 'success',
+        title: 'Спасибо! Ваш запрос успешно отправлен!',
+        text: 'В ближайшее время наш менеджер с вами свяжется!',
+      })
+      document.getElementById("openModalWindow").style.display = "none"
       let result = await response.json() //прочитать данные, полученные с сервера
       return result //данные готовы к использованию
     } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Что-то пошло не так...',
+        text: 'Попробуйте ещё раз!',
+      })
+      document.getElementById("openModalWindow").style.display = "none"
     }
-    responseError()
+   
   }
 }
-
-/* function responseSuccessfully() {
-
-  document.getElementById("openModalWindow").style.display = "none"
-  document.getElementById("successfully").style.display = "flex"
-
-  document.getElementById("isSuccessfully").addEventListener("click", () => {
-    document.getElementById("successfully").style.display = "none"
-  })
-}
-
-function responseError() {
-
-  document.getElementById("openModalWindow").style.display = "none"
-  document.getElementById("mistake").style.display = "flex"
-
-  document.getElementById("isMistake").addEventListener("click", () => {
-    document.getElementById("mistake").style.display = "none"
-  })
-} */
 
 function formValidate() {  //проверка формы
 
