@@ -1,192 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Travel agency "Carpe diem"</title>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-    <script type="module" src="script.js"></script>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  </head>
 
-  <body>
-    <div class="loader-container" id="loader">
-      <div class="loader"></div>
-    </div>
+<head>
+	<meta charset="utf-8" />
+	<title>Travel agency "Carpe diem"</title>
+	<link rel="stylesheet" type="text/css" href="styles.css" />
+	<script type="module" src="script.js"></script>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+</head>
 
-    <div class="start-section">
-      <div class="content">
-        <h1 class="font-basic relative text-slate-50 text-2xl text-center xl:text-6xl pt-60 mb-60 lg:text-5xl md:text-4xl mb-48 sm:text-3xl">
-          Туристическое агентство <br />
-          "Carpe Diem"
-        </h1>
+<body>
+	<div class="loader-container" id="loader">
+		<div class="loader"></div>
+	</div>
 
-        <h2 class="font-attention relative bg-zinc-200/80 text-amber-600 text-lg border-4 border-sky-800 px-4 py-2.5 w-max xl:text-4xl -ml-36 mt-56 lg:text-3xl ml-10 mb-16 md:border-2 text-2xl sm:text-xl">
-          Жизнь во время путешествия — <br />
-          это мечта в чистом виде...
-        </h2>
-      </div>
-    </div>
+	<div class="start-section">
+		<div class="content">
+			<h1
+				class="font-basic relative text-slate-50 text-2xl text-center xl:text-6xl pt-60 mb-60 lg:text-5xl md:text-4xl mb-48 sm:text-3xl">
+				Туристическое агентство <br />
+				"Carpe Diem"
+			</h1>
 
-    <h2 class="title-2 text-center">Откройтесь новому...</h2>
+			<h2
+				class="font-attention relative bg-zinc-200/80 text-amber-600 text-lg border-4 border-sky-800 px-4 py-2.5 w-max xl:text-4xl -ml-36 mt-56 lg:text-3xl ml-10 mb-16 md:border-2 text-2xl sm:text-xl">
+				Жизнь во время путешествия — <br />
+				это мечта в чистом виде...
+			</h2>
+		</div>
+	</div>
 
-    <form>
-      <div class="content-choose">
-        <div class="solid bg-blue-50 rounded-3xl border-sky-500 border-2 max-w-3xl select">
-          <div class="text-center pt-10 font-attention text-4xl text-sky-600 font-semibold">
-            Выбрать тур:
-          </div>
+	<h2 class="title-2 text-center">Откройтесь новому...</h2>
 
-          <div class="flex justify-around pt-6 px-20 select-under mobile-version">
-            <div class="elem-mobile">
-              <div class="pt-4 font-attention text-3xl text-amber-400 font-semibold elem-mobile">
-                Звёздность тура:
-              </div>
+	<form>
+		<div class="content-choose">
+			<div class="solid bg-blue-50 rounded-3xl border-sky-500 border-2 max-w-3xl select">
+				<div class="text-center pt-10 font-attention text-4xl text-sky-600 font-semibold">
+					Выбрать тур:
+				</div>
 
-              <div class="flex pt-4">
-                <img src="/images/icon-chooseStar.png" class="w-8 h-8" data-minrating="1" data-maxrating="4" id="chooseStar"/>
-                <img src="/images/icon-emptyStar.png" class="w-8 h-8 choose" data-minrating="4" data-maxrating="7" id="emptyStar2"/>
-                <img src="/images/icon-emptyStar.png" class="w-8 h-8 choose" data-minrating="7" data-maxrating="8" id="emptyStar3"/>
-                <img src="/images/icon-emptyStar.png" class="w-8 h-8 choose" data-minrating="8" data-maxrating="9" id="emptyStar4"/>
-                <img src="/images/icon-emptyStar.png" class="w-8 h-8 choose" data-minrating="9" data-maxrating="10" id="emptyStar5"/>
-              </div>
+				<div class="flex justify-around pt-6 px-20 select-under mobile-version">
+					<div class="elem-mobile">
+						<div class="pt-4 font-attention text-3xl text-amber-400 font-semibold elem-mobile">
+							Звёздность тура:
+						</div>
 
-              <div class="pt-10 mb-10 font-attention text-3xl text-amber-400 font-semibold elem-mobile">
-                По продолжительности:
-              </div>
+						<div class="flex pt-4">
+							<img src="/images/icon-chooseStar.png" class="w-8 h-8" data-minrating="1" data-maxrating="4"
+								id="chooseStar" />
+							<img src="/images/icon-emptyStar.png" class="w-8 h-8 choose" data-minrating="4"
+								data-maxrating="7" id="emptyStar2" />
+							<img src="/images/icon-emptyStar.png" class="w-8 h-8 choose" data-minrating="7"
+								data-maxrating="8" id="emptyStar3" />
+							<img src="/images/icon-emptyStar.png" class="w-8 h-8 choose" data-minrating="8"
+								data-maxrating="9" id="emptyStar4" />
+							<img src="/images/icon-emptyStar.png" class="w-8 h-8 choose" data-minrating="9"
+								data-maxrating="10" id="emptyStar5" />
+						</div>
 
-              <input id="input" type="range" min="1" max="50" value="1" step="1" class="w-full" data-minduration="1" data-maxduration="50"/>
-              <label for="slider"></label>
+						<div class="pt-10 mb-10 font-attention text-3xl text-amber-400 font-semibold elem-mobile">
+							По продолжительности:
+						</div>
 
-              <div class="flex text-current text-md font-basic" id="inputResult"></div>
-            </div>
+						<input id="input" type="range" min="1" max="50" value="1" step="1" class="w-full"
+							data-minduration="1" data-maxduration="50" />
+						<label for="slider"></label>
 
-            <div class="mb-14">
-              <div class="text-center pt-4 font-attention text-3xl text-amber-400 font-semibold elem-mobile">
-                Курорт:
-              </div>
+						<div class="flex text-current text-md font-basic" id="inputResult"></div>
+					</div>
 
-              <fieldset id="countriesFilter" class="mt-4 w-max">
-                <!-- получать значения из полей чекбоксов-->
+					<div class="mb-14">
+						<div class="text-center pt-4 font-attention text-3xl text-amber-400 font-semibold elem-mobile">
+							Курорт:
+						</div>
 
-                <ol class="pt-4 leading-loose text-current text-xl font-basic overflow-y-scroll max-h-48 pr-10 scroll">
-                  <li>
-                    <input type="checkbox" id="egypt" class="checkbox checkbox-mini" name="Египет"/>
-                    <label for="egypt">Египет</label>
-                  </li>
+						<fieldset id="countriesFilter" class="mt-4 w-max">
+							<!-- получать значения из полей чекбоксов-->
 
-                  <li>
-                    <input type="checkbox" id="indonesia" class="checkbox checkbox-mini" name="Индонезия"/>
-                    <label for="indonesia">Индонезия</label>
-                  </li>
+							<ol
+								class="pt-4 leading-loose text-current text-xl font-basic overflow-y-scroll max-h-48 pr-10 scroll">
+								<li>
+									<input type="checkbox" id="egypt" class="checkbox checkbox-mini" name="Египет" />
+									<label for="egypt">Египет</label>
+								</li>
 
-                  <li>
-                    <input type="checkbox" id="cyprus" class="checkbox checkbox-mini" name="Кипр"/>
-                    <label for="cyprus">Кипр</label>
-                  </li>
+								<li>
+									<input type="checkbox" id="indonesia" class="checkbox checkbox-mini"
+										name="Индонезия" />
+									<label for="indonesia">Индонезия</label>
+								</li>
 
-                  <li>
-                    <input type="checkbox" id="maldives" class="checkbox checkbox-mini" name="Мальдивы"/>
-                    <label for="maldives">Мальдивы</label>
-                  </li>
+								<li>
+									<input type="checkbox" id="cyprus" class="checkbox checkbox-mini" name="Кипр" />
+									<label for="cyprus">Кипр</label>
+								</li>
 
-                  <li>
-                    <input type="checkbox" id="mexico" class="checkbox checkbox-mini" name="Мексика"/>
-                    <label for="mexico">Мексика</label>
-                  </li>
+								<li>
+									<input type="checkbox" id="maldives" class="checkbox checkbox-mini"
+										name="Мальдивы" />
+									<label for="maldives">Мальдивы</label>
+								</li>
 
-                  <li>
-                    <input type="checkbox" id="thailand" class="checkbox checkbox-mini" name="Таиланд"/>
-                    <label for="thailand">Таиланд</label>
-                  </li>
+								<li>
+									<input type="checkbox" id="mexico" class="checkbox checkbox-mini" name="Мексика" />
+									<label for="mexico">Мексика</label>
+								</li>
 
-                  <li>
-                    <input type="checkbox" id="tanzania" class="checkbox checkbox-mini" name="Танзания"/>
-                    <label for="tanzania">Танзания</label>
-                  </li>
-                </ol>
-              </fieldset>
-            </div>
-          </div>
+								<li>
+									<input type="checkbox" id="thailand" class="checkbox checkbox-mini"
+										name="Таиланд" />
+									<label for="thailand">Таиланд</label>
+								</li>
 
-          <div class="flex justify-center font-basic text-xl text-sky-600 font-normal mb-12 mobile-version-buttons">
-            <button type="button" class="mobile-version-button drop-shadow-lg border border-sky-500 hover:text-white hover:bg-orange-500 transition-all duration-300 rounded-md px-2 py-2 mr-12">
-              Показать тур
-            </button>
+								<li>
+									<input type="checkbox" id="tanzania" class="checkbox checkbox-mini"
+										name="Танзания" />
+									<label for="tanzania">Танзания</label>
+								</li>
+							</ol>
+						</fieldset>
+					</div>
+				</div>
 
-            <button type="reset" class="mobile-version-button drop-shadow-lg border border-sky-500 hover:text-white hover:bg-red-600 transition-all duration-300 rounded-md px-2 py-2">
-              Сбросить настройки
-            </button>
-          </div>
-        </div>
+				<div
+					class="flex justify-center font-basic text-xl text-sky-600 font-normal mb-12 mobile-version-buttons">
+					<button type="button"
+						class="mobile-version-button drop-shadow-lg border border-sky-500 hover:text-white hover:bg-orange-500 transition-all duration-300 rounded-md px-2 py-2 mr-12">
+						Показать тур
+					</button>
 
-        <fieldset class="fixed hidden inset-0 justify-center text-center z-30 modal-animation lg:mt-10 w-1/2 m-auto h-full modal-w" id="openModalWindow">
-          <div class="bg-yellow-100 p-7 rounded-xl shadow-xl flex flex-col w-4/12 modal-styles sm:w-9/12">
-            <div class="text-center text-xl text-rose-500 mb-6">
-              Пожалуйста, введите Ваши данные для бронирования:
-            </div>
+					<button type="reset"
+						class="mobile-version-button drop-shadow-lg border border-sky-500 hover:text-white hover:bg-red-600 transition-all duration-300 rounded-md px-2 py-2">
+						Сбросить настройки
+					</button>
+				</div>
+			</div>
 
-            <form id="form">
-              <div class="form_req">
-                <div class="flex">
-                  <img src="/images/icon-press-pass.png" class="w-8 h-8" />
-                  <p class="text-left ml-2 text-xl text-amber-500">ФИО*</p>
-                </div>
+			<fieldset
+				class="fixed hidden inset-0 justify-center text-center z-30 modal-animation lg:mt-10 w-1/2 m-auto h-full modal-w"
+				id="openModalWindow">
+				<div class="bg-yellow-100 p-7 rounded-xl shadow-xl flex flex-col w-4/12 modal-styles sm:w-9/12">
+					<div class="text-center text-xl text-rose-500 mb-6">
+						Пожалуйста, введите Ваши данные для бронирования:
+					</div>
 
-                <input id="customerName" type="text" class="border text-left p-2.5 rounded-md mt-1.5 pl-1.5 w-10/12 h-12 text-base ml-1 cursor-text mb-2.5 form-input _req" placeholder="Обязательно для заполнения"/>
+					<form id="form">
+						<div class="form_req">
+							<div class="flex">
+								<img src="/images/icon-press-pass.png" class="w-6 h-6" />
+								<p class="text-left ml-2 text-base text-amber-500">ФИО*</p>
+							</div>
 
-                <div class="flex">
-                  <img src="/images/phone-call.png" class="w-8 h-8" />
-                  <p class="text-left ml-2 text-xl text-amber-500"> Номер телефона*</p>
-                </div>
+							<input id="customerName" type="text"
+								class="border text-left p-2.5 rounded-md mt-1.5 pl-1.5 w-10/12 h-8 text-base ml-1 cursor-text mb-2.5 form-input _req"
+								placeholder="Обязательно для заполнения" />
 
-                <input id="customerPhone" type="tel" class="border text-leftp-2.5 rounded-md mt-1.5 pl-1.5 w-10/12 h-12 text-base ml-1 cursor-text mb-2.5 form-input _req" placeholder="Обязательно для заполнения"/>
+							<div class="flex">
+								<img src="/images/phone-call.png" class="w-6 h-6" />
+								<p class="text-left ml-2 text-base text-amber-500"> Номер телефона*</p>
+							</div>
 
-                <div class="flex">
-                  <img src="/images/icon-email.png" class="w-8 h-8" />
-                  <p class="text-left ml-2 text-xl text-amber-500">Адрес электронной почты*</p>
-                </div>
+							<input id="customerPhone" type="tel"
+								class="border text-leftp-2.5 rounded-md mt-1.5 pl-1.5 w-10/12 h-8 text-base ml-1 cursor-text mb-2.5 form-input _req"
+								placeholder="Обязательно для заполнения" />
 
-                <input id="customerEmail" type="email" class="border text-leftp-2.5 rounded-md mt-1.5 pl-1.5 w-10/12 h-12 text-base ml-1 cursor-text mb-2.5 form-input _req _email" placeholder="Обязательно для заполнения"/>
+							<div class="flex">
+								<img src="/images/icon-email.png" class="w-6 h-6" />
+								<p class="text-left ml-2 text-base text-amber-500">Адрес электронной почты*</p>
+							</div>
 
-                <div class="flex">
-                  <img src="/images/icon-comment.png" class="w-8 h-8" />
-                  <p class="text-left ml-2 text-xl text-amber-500">Комментарий*</p>
-                </div>
+							<input id="customerEmail" type="email"
+								class="border text-leftp-2.5 rounded-md mt-1.5 pl-1.5 w-10/12 h-8 text-base ml-1 cursor-text mb-2.5 form-input _req _email"
+								placeholder="Обязательно для заполнения" />
 
-                <textarea id="customerComment" cols="39" rows="4" placeholder="Здесь вы можете написать свои пожелания или оставить комментарий" class="border rounded-md mt-1.5 text-base ml-1 cursor-text mb-6 area w-10/12"></textarea>
-                
-                <div class="flex flex-col w-1/3">
-                  <button id="sendRequest" class="button-modal p-1.5 border-yellow-500 bg-sky-100 border rounded-md mt-1.5 text-base ml-1 cursor-pointer mb-1.5 hover:text-white hover:transition-all hover:duration-300" type="submit">
-                    Отправить запрос
-                  </button>
+							<div class="flex">
+								<img src="/images/icon-comment.png" class="w-6 h-6" />
+								<p class="text-left ml-2 text-base text-amber-500">Комментарий*</p>
+							</div>
 
-                  <button id="cancelRequest" class="button-modal p-1.5 border bg-sky-100 border-yellow-500 rounded-md mt-1.5 text-base ml-1 cursor-pointer mb-1.5 hover:bg-red-600 hover:transition-all hover:duration-300" type="button">
-                    Отменить
-                  </button>
+							<textarea id="customerComment" cols="39" rows="4"
+								placeholder="Здесь вы можете написать свои пожелания или оставить комментарий"
+								class="border rounded-md mt-1.5 text-base ml-1 cursor-text mb-2.5 area w-10/12"></textarea>
 
-                  <button type="reset" class="button-modal p-1.5 border bg-sky-100 border-yellow-500 rounded-md mt-1.5 text-base ml-1 cursor-pointer mb-1.5 hover:bg-red-600 hover:transition-all hover:duration-300">
-                    Очистить форму
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </fieldset>
-      </div>
-    </form>
+							<div class="flex w-2/3 sm:w-1/3">
+								<button id="sendRequest"
+									class="button-modal p-1 border-yellow-500 bg-sky-100 border rounded-md mt-1.5 text-sm ml-1 cursor-pointer mb-1.5 hover:text-white hover:transition-all hover:duration-300"
+									type="submit">
+									Отправить запрос
+								</button>
 
-    <div class="mt-32 flex justify-center">
-      <button class="border border-solid border-yellow-500 px-4 py-2 rounded-md hover:text-white hover:bg-orange-500 transition-all duration-300 mr-2" id="allToursBtn">
-        Все туры
-      </button>
+								<button id="cancelRequest"
+									class="button-modal p-1 border bg-sky-100 border-yellow-500 rounded-md mt-1.5 text-sm ml-1 cursor-pointer mb-1.5 hover:bg-red-600 hover:transition-all hover:duration-300"
+									type="button">
+									Отменить
+								</button>
 
-      <button class="border border-solid border-yellow-500 px-4 py-2 rounded-md hover:text-white hover:bg-fuchsia-400 transition-all duration-300" id="favoriteToursBtn">
-        Избранное
-      </button>
-    </div>
+								<button type="reset"
+									class="button-modal p-1 border bg-sky-100 border-yellow-500 rounded-md mt-1.5 text-sm ml-1 cursor-pointer mb-1.5 hover:bg-red-600 hover:transition-all hover:duration-300">
+									Очистить форму
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</fieldset>
+		</div>
+	</form>
 
-    <h2 class="title-2 text-center z-10">Смотреть все варианты:</h2>
+	<div class="mt-32 flex justify-center">
+		<button
+			class="border border-solid border-yellow-500 px-4 py-2 rounded-md hover:text-white hover:bg-orange-500 transition-all duration-300 mr-2"
+			id="allToursBtn">
+			Все туры
+		</button>
 
-    <div id="tours-all" class="flex flex-wrap justify-center"></div>
-  </body>
+		<button
+			class="border border-solid border-yellow-500 px-4 py-2 rounded-md hover:text-white hover:bg-fuchsia-400 transition-all duration-300"
+			id="favoriteToursBtn">
+			Избранное
+		</button>
+	</div>
+
+	<h2 class="title-2 text-center z-10">Смотреть все варианты:</h2>
+
+	<div id="tours-all" class="flex flex-wrap justify-center"></div>
+</body>
+
 </html>
