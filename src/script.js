@@ -1,5 +1,5 @@
 import { format, differenceInDays } from "date-fns"
-const { default: ru } = require("date-fns/locale/ru")
+import ru from "date-fns/locale/ru"; 
 import Swal from "sweetalert2"
 
 let tours = []
