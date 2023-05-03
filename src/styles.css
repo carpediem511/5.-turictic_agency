@@ -130,10 +130,12 @@
 }
 
 .modal-styles {
-  height: 90%;
+min-height: 100px;
+ overflow-y: scroll; 
+  position: fixed; 
   top: 0;
-  right: 0;
   left: 0;
+  right: 0;
   bottom: 0;
   animation-duration: 0.55s;
   animation-fill-mode: both;
@@ -240,7 +242,7 @@ textarea.area:focus {
   }
 
   .modal-w {
-    width: 90%;
+    width: 70%;
   }
 }
 
