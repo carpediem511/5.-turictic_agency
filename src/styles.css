@@ -71,7 +71,7 @@
   height: 17px;
   border: 1px solid #1564a0;
   margin-right: 10px;
-  margin-left: 80px;
+  margin-left: 10px;
   cursor: pointer;
 }
 
@@ -109,7 +109,6 @@
   font-size: 26px;
   font-family: "Lora", serif;
   text-align: center;
-  margin-top: 10px;
   margin-bottom: 150px;
   color: red;
 }
@@ -172,7 +171,7 @@ min-height: 100px;
 }
 
 .button-modal:hover {
-  background-color: #1564a0;
+  background-color: #44a6f0;
   color: aliceblue;
 }
 
@@ -181,11 +180,10 @@ input.form-input:focus {
   outline: 0;
   outline-offset: 0;
   box-shadow: 0 0 15px #1564a0;
-  background-color: #fdc409;
 }
 
 textarea.area:focus {
-  border: 2px solid #0ea5e9;
+  border: 2px solid #19a4e5;
   outline: 0;
   outline-offset: 0;
 }
@@ -223,9 +221,6 @@ textarea.area:focus {
 }
 
 @media (min-width: 900px) {
-  .modal {
-    height: 20%;
-  }
 
   .modal-styles {
     height: max-content;

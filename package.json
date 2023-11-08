@@ -15,7 +15,7 @@
     "staticOutPath": "images"
   },
   "dependencies": {
-    "date-fns": "^2.29.3",
+    "date-fns": "^2.30.0",
     "postcss": "^8.4.21",
     "sweetalert2": "^11.7.3",
     "tailwindcss": "^3.2.4"
