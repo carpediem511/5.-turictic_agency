@@ -20,8 +20,9 @@ async function getData() {
 
 async function init() {
 
-  tours = await getData()
-
+  	tours = await getData()
+	renderTours(tours)
+	
   let allFavoritesTours = document.getElementById("favoriteToursBtn") //находим "показать избранные туры"
 
   allFavoritesTours.addEventListener("click", () => {
@@ -30,7 +31,8 @@ async function init() {
       Swal.fire({
         icon: "warning",
         text: "Вы ещё не добавили в избранное ни одного тура!",
-        isDismissed: true,
+         showConfirmButton: false,
+        timer: 1500,
       })
     } else {
       renderTours(favoriteTours)
@@ -45,13 +47,6 @@ window.addEventListener("load", () => {
   setTimeout(() => {
     loader.remove()
   }, 1000)
-})
-
-//отобразить все туры по клику
-let buttonAllTours = document.getElementById("allToursBtn")
-
-buttonAllTours.addEventListener("click", () => {
-  renderTours(tours)
 })
 
 function checkCity(tour) {
@@ -172,7 +167,8 @@ function renderTours(tours) {
         Swal.fire({
           icon: "warning",
           text: "Вы ещё не добавили в избранное ни одного тура!",
-          isDismissed: true,
+        showConfirmButton: true,
+       
         })
       }
     })
@@ -334,21 +330,6 @@ function filterByCountry(tours) {
   }
 }
 
-/* function changeStar () {
-
-let choosedStar = document.getElementsByClassName("choose")
-
-choosedStar.addEventListener("click", () => {
-
-    if (choosedStar.getAttribute("src") == "/images/icon-emptyStar.png"){
-
-        choosedStar.src = "/images/icon-chooseStar.png"}
-
-    else{
-
-  image.src = "/images/icon-emptyStar.png"}
-
-})} */
 
 document.getElementById("emptyStar2").addEventListener("click", (event) => filterByRating(event, tours))
 document.getElementById("emptyStar3").addEventListener("click", (event) => filterByRating(event, tours))
@@ -453,22 +434,6 @@ document.getElementById("emptyStar5").addEventListener("mouseout", () => {
   document.getElementById("emptyStar3").src = "/images/icon-emptyStar.png"
   document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
 })
-
-/* let changeOnClick2 = document.getElementById("emptyStar2")
-let changeOnClick3 = document.getElementById("emptyStar3")
-let changeOnClick4 = document.getElementById("emptyStar4")
-let changeOnClick5 = document.getElementById("emptyStar5")
-
-changeOnClick2.addEventListener("click", () => {
-
-    if (changeOnClick2.getAttribute("src") == "/images/icon-emptyStar.png") {
-
-        changeOnClick2.src = "/images/icon-chooseStar.png"
-    } else {
-
-        changeOnClick2.src ="/images/icon-emptyStar.png"
-    }
-}) */
 
 function saveToLocalStorage() {
   const toursJson = JSON.stringify(tours)
