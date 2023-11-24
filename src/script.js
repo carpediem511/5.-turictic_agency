@@ -4,6 +4,7 @@ import Swal from "sweetalert2"
 
 let tours = []
 let favoriteTours = [] //массив с любимыми турами
+let isFavoritesMode = false; // Флаг для определения текущего режима
 
 async function getData() {
 
@@ -25,21 +26,32 @@ async function init() {
 	
   let allFavoritesTours = document.getElementById("favoriteToursBtn") //находим "показать избранные туры"
 
-  allFavoritesTours.addEventListener("click", () => {
-
-    if (favoriteTours.length === 0) {
-      Swal.fire({
-        icon: "warning",
-        text: "Вы ещё не добавили в избранное ни одного тура!",
-         showConfirmButton: false,
-        timer: 1500,
-      })
+ allFavoritesTours.addEventListener("click", () => {
+    if (isFavoritesMode) {
+      // Пользователь в режиме "Избранное", показываем все туры
+      renderTours(tours);
+      allFavoritesTours.innerText = "Избранное";
     } else {
-      renderTours(favoriteTours)
-      saveToLocalStorage()
+      // Пользователь в режиме "Все туры", показываем избранные туры
+      if (favoriteTours.length === 0) {
+        Swal.fire({
+          icon: "warning",
+          text: "Вы ещё не добавили в избранное ни одного тура!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        renderTours(favoriteTours);
+        saveToLocalStorage();
+        allFavoritesTours.innerText = "Все туры";
+      }
     }
-  })
+
+    // Инвертируем флаг при каждом клике
+    isFavoritesMode = !isFavoritesMode;
+  });
 }
+
 
 let loader = document.getElementById("loader")
 window.addEventListener("load", () => {
@@ -136,7 +148,7 @@ function renderTours(tours) {
 
       buttonCancelFromFavorite.addEventListener("click", () => {
 
-        favoriteTours.splice(tour) //удаляем тур из избранного
+        favoriteTours.splice(favoriteTours.indexOf(tour), 1) //удаляем тур из избранного
         buttonAddToFavorite.style.display = "flex"
         buttonCancelFromFavorite.style.display = "none"
       })
@@ -184,256 +196,7 @@ function renderTours(tours) {
   saveToLocalStorage() 
 }
 
-const findModalWindow = document.getElementById("openModalWindow") //найти модальное окно в html
-const buttonCancelRequest = document.getElementById("cancelRequest") //найти кнопку закрыть модальное окно
-const buttonSendRequest = document.getElementById("sendRequest") //найти кнопку забронировать тур
-let tourId
 
-function openBookingWindow(id) {  //ввожу функцию открыть модальное окно бронирования
-
-  tourId = id
-
-  findModalWindow.style.display = "flex" //показывать стили
-
-  tours.find((findTour) => {     //найти нужный тур по id
-      return findTour.id === id
-    },
-    buttonCancelRequest.addEventListener("click", closeModalWindow) //по нажатию кнопки отменить окно закрывается
-  )
-}
-
-function closeModalWindow() { //закрыть модальное окно
- 
-  findModalWindow.style.display = "none"
-}
-
-buttonSendRequest.addEventListener("click", (e) => submitFormData(e, tours))
-
-async function submitFormData(e) {
-  e.preventDefault() //запрещаем пустую отправку формы
-
-  const form = document.getElementById("form")
-
-  let error = formValidate(form)
-
-  const customerNameValue = document.getElementById("customerName").value //получить значения, введенные пользователем
-  const customerPhoneValue = document.getElementById("customerPhone").value
-  const customerEmailValue = document.getElementById("customerEmail").value
-  const customerCommentValue = document.getElementById("customerComment").value
-
-  let formData = {
-    customerName: customerNameValue,
-    phone: customerPhoneValue,
-    email: customerEmailValue,
-    description: customerCommentValue,
-  }
-
-  if (error === 0) {    //если ошибки нет
-
-    const url = `https://www.bit-by-bit.ru/api/student-projects/tours/${tourId}`
-    let response = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify(formData),
-    })
-
-    if (response.ok) {   //если запрос прошёл
-   
-      Swal.fire({
-        icon: "success",
-        title: "Спасибо! Ваш запрос успешно отправлен!",
-        text: "В ближайшее время наш менеджер с вами свяжется!",
-      })
-
-      closeModalWindow()
-      let result = await response.json() //прочитать данные, полученные с сервера
-      return result //данные готовы к использованию
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Что-то пошло не так...",
-        text: "Попробуйте ещё раз!",
-      })
-      closeModalWindow()
-    }
-  }
-}
-
-function formValidate() { //проверка формы
- 
-  let error = 0
-
-  let formReq = document.querySelectorAll("._req")
-
-  for (let index = 0; index < formReq.length; index++) {
-    const input = formReq[index]
-    formRemoveError(input)
-
-    if (input.classList.contains("_email")) {
-      if (emailTest(input)) {
-        formAddError(input)
-        error++
-      }
-    } else {
-      if (input.value === "") {
-        formAddError(input)
-        error++
-      }
-    }
-  }
-  return error
-}
-
-function formAddError(input) {
-  input.parentElement.classList.add("_error")
-  input.classList.add("_error")
-}
-
-function formRemoveError(input) {
-  input.parentElement.classList.remove("_error")
-  input.classList.remove("_error")
-}
-
-function emailTest(input) {
-  return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,20})+$/.test(input.value)
-}
-
-document.getElementById("countriesFilter").addEventListener("change", () => filterByCountry(tours))
-
-function filterByCountry(tours) {
-
-  const countriesFieldset = Array.from(
-    document.querySelectorAll("#countriesFilter .checkbox") //получаем все значения из всех чекбоксов в виде массива
-  )
-
-  let checkedCountries = [] //пустой массив, в котором будут отфильтрованные страны
-
-  countriesFieldset.forEach((checkbox) => {// проходимся по каждому чекбоксу
-    
-    if (checkbox.checked === true) {//если чекбокс выбран
-      
-      checkedCountries.push(checkbox.name) //добавить его в пустой массив
-    }
-  })
-
-  if (checkedCountries) {//если отфильтрованные страны
-    
-    const filteredTours = tours.filter((tour) => {
-      //фильтр по турам
-
-      return checkedCountries.includes(tour.country) //возвращаем отфильтрованные туры, добавляем выбранную страну
-    })
-
-    renderTours(filteredTours)
-
-  } else {
-    renderTours(tours)
-  }
-}
-
-
-document.getElementById("emptyStar2").addEventListener("click", (event) => filterByRating(event, tours))
-document.getElementById("emptyStar3").addEventListener("click", (event) => filterByRating(event, tours))
-document.getElementById("emptyStar4").addEventListener("click", (event) => filterByRating(event, tours))
-document.getElementById("emptyStar5").addEventListener("click", (event) => filterByRating(event, tours))
-
-function filterByRating(event, tours) {
-  /*  changeStar() */
-  const minRating = event.target.dataset.minrating
-  const maxRating = event.target.dataset.maxrating
-
-  const filteredTours = tours.filter((tour) => {
-    if (tour.rating >= minRating && tour.rating <= maxRating) {
-      return true
-    }
-  })
-
-  if (filteredTours.length > 0) {
-    renderTours(filteredTours)
-  } else {
-    document.getElementById("tours-all").innerHTML =
-      '<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>'
-  }
-}
-
-document.getElementById("input").addEventListener("input", () => {
-  let getValue = document.getElementById("input").value
-  document.getElementById("inputResult").innerHTML =
-    "Вы выбрали " + getValue + " дней"
-})
-
-let getDataOfDuration = document.getElementById("input")
-
-getDataOfDuration.addEventListener("change", () => filterByDuration(tours))
-
-function filterByDuration(tours) {
-  let getDataOfInput = getDataOfDuration.value
-
-  const filteredTours = tours.filter((tour) => {
-    let difference = differenceInDays(
-      new Date(tour.endTime),
-      new Date(tour.startTime)
-    )
-
-    if (difference == getDataOfInput) {
-      return true
-    }
-  })
-
-  if (filteredTours.length > 0) {
-    renderTours(filteredTours)
-  } else {
-    document.getElementById("tours-all").innerHTML =
-      '<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>'
-  }
-}
-
-document.getElementById("emptyStar2").addEventListener("mouseover", () => {
-  document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
-})
-
-document.getElementById("emptyStar2").addEventListener("click", () => {
-  document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
-})
-
-document.getElementById("emptyStar2").addEventListener("mouseout", () => {
-  document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
-})
-
-document.getElementById("emptyStar3").addEventListener("mouseover", () => {
-  document.getElementById("emptyStar3").src = "/images/icon-chooseStar.png"
-  document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
-})
-
-document.getElementById("emptyStar3").addEventListener("mouseout", () => {
-  document.getElementById("emptyStar3").src = "/images/icon-emptyStar.png"
-  document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
-})
-
-document.getElementById("emptyStar4").addEventListener("mouseover", () => {
-  document.getElementById("emptyStar4").src = "/images/icon-chooseStar.png"
-  document.getElementById("emptyStar3").src = "/images/icon-chooseStar.png"
-  document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
-})
-
-document.getElementById("emptyStar4").addEventListener("mouseout", () => {
-  document.getElementById("emptyStar4").src = "/images/icon-emptyStar.png"
-  document.getElementById("emptyStar3").src = "/images/icon-emptyStar.png"
-  document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
-})
-
-document.getElementById("emptyStar5").addEventListener("mouseover", () => {
-  document.getElementById("emptyStar5").src = "/images/icon-chooseStar.png"
-  document.getElementById("emptyStar4").src = "/images/icon-chooseStar.png"
-  document.getElementById("emptyStar3").src = "/images/icon-chooseStar.png"
-  document.getElementById("emptyStar2").src = "/images/icon-chooseStar.png"
-})
-
-document.getElementById("emptyStar5").addEventListener("mouseout", () => {
-  document.getElementById("emptyStar5").src = "/images/icon-emptyStar.png"
-  document.getElementById("emptyStar4").src = "/images/icon-emptyStar.png"
-  document.getElementById("emptyStar3").src = "/images/icon-emptyStar.png"
-  document.getElementById("emptyStar2").src = "/images/icon-emptyStar.png"
-})
 
 function saveToLocalStorage() {
   const toursJson = JSON.stringify(tours)
