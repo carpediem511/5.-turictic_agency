@@ -171,19 +171,19 @@ min-height: 100px;
 }
 
 .button-modal:hover {
-  background-color: #44a6f0;
+  background-color: #1564a0;
   color: aliceblue;
 }
 
 input.form-input:focus {
-  border: 2px solid #0ea5e9;
+  border: 2px solid #1564a0;
   outline: 0;
   outline-offset: 0;
   box-shadow: 0 0 15px #1564a0;
 }
 
 textarea.area:focus {
-  border: 2px solid #19a4e5;
+  border: 2px solid #1564a0;
   outline: 0;
   outline-offset: 0;
 }
@@ -217,13 +217,6 @@ textarea.area:focus {
 @keyframes loader {
   100% {
     transform: rotate(360deg);
-  }
-}
-
-@media (min-width: 900px) {
-
-  .modal-styles {
-    height: max-content;
   }
 }
 
@@ -291,6 +284,10 @@ textarea.area:focus {
   .modal-w {
     width: 90%;
   }
+
+  .hz {
+	flex-direction: column;
+  }
 }
 
 @media (max-width: 400px) {
@@ -303,8 +300,4 @@ textarea.area:focus {
   }
 }
 
-@media (min-width: 600px) {
-  .mobile-version {
-    flex-direction: row;
-  }
-}
+

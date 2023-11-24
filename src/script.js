@@ -19,7 +19,6 @@ async function getData() {
 
 async function init() {
   await getData();
-  renderTours(tours);
 
   const allFavoritesTours = document.getElementById("favoriteToursBtn");
 
@@ -60,10 +59,7 @@ function checkCity(tour) {
 }
 
 function renderTours(tours) {
-  if (tours.length === 0) {
-    toursContainer.innerHTML = `<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>`;
-    return;
-  }
+
 
   toursContainer.innerHTML = "";
 
@@ -75,6 +71,9 @@ function renderTours(tours) {
     const city = checkCity(tour);
     const isFavorite = favoriteTours.some((favTour) => favTour.id === tour.id);
 
+	  if (tours.length === 0) {
+    toursContainer.innerHTML = `<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>`;
+  } else {
     toursContainer.innerHTML += `
             <div class="tour bg-blue-50 rounded-3xl border-sky-500 border-2 max-w-md xl:w-1/4 mx-10 my-10" id="tourId">
                 <div>
@@ -127,7 +126,7 @@ function renderTours(tours) {
         </div>
             `
     
-  });
+  }})
 
   // Добавление обработчиков событий за пределы цикла
   tours.forEach((tour) => {
@@ -393,18 +392,135 @@ function emailTest(input) {
   return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,20})+$/.test(input.value);
 }
 
+const countriesFilter = document.getElementById("countriesFilter");
+const ratingStarsContainer = document.getElementById("ratingStars");
+const inputElement = document.getElementById("input");
+const lowPriceButton = document.getElementById("lowPrice");
+const highPriceButton = document.getElementById("highPrice");
+let selectedStar = null;
 
+ratingStarsContainer.addEventListener("click", handleStarClick);
+ratingStarsContainer.addEventListener("mouseover", handleStarMouseover);
+ratingStarsContainer.addEventListener("mouseout", handleStarMouseout);
+
+countriesFilter.addEventListener("change", () => filterByCountry());
+ratingStarsContainer.addEventListener("click", handleStarClick);
+inputElement.addEventListener("input", updateInputResult);
+lowPriceButton.addEventListener("click", sortByLowPrice);
+highPriceButton.addEventListener("click", sortByHighPrice);
+
+const durationInput = document.getElementById("input");
+durationInput.addEventListener("change", () => filterByDuration());
+
+function filterByCountry() {
+  const countriesFieldset = Array.from(document.querySelectorAll("#countriesFilter .checkbox"));
+  const checkedCountries = countriesFieldset.filter((checkbox) => checkbox.checked).map((checkbox) => checkbox.name);
+
+  const filteredTours = checkedCountries.length > 0
+    ? tours.filter((tour) => checkedCountries.includes(tour.country))
+    : tours;
+
+  renderTours(filteredTours);
+}
+
+function handleStarClick(event) {
+  const clickedStar = event.target;
+
+  if (clickedStar.tagName === "IMG") {
+    selectedStar = clickedStar;
+    filterByRating();
+  }
+}
+
+function handleStarMouseover(event) {
+  const hoveredStar = event.target;
+
+  if (hoveredStar.tagName === "IMG") {
+    const stars = Array.from(ratingStarsContainer.getElementsByTagName("IMG"));
+    const hoveredIndex = stars.indexOf(hoveredStar);
+    
+    stars.forEach((star, index) => {
+      if (index <= hoveredIndex) {
+        star.src = "/images/icon-chooseStar.png";
+      } else {
+        star.src = "/images/icon-emptyStar.png";
+      }
+    });
+  }
+}
+
+function handleStarMouseout(event) {
+  const outStar = event.target;
+
+  if (outStar.tagName === "IMG" && outStar !== selectedStar) {
+    const stars = Array.from(ratingStarsContainer.getElementsByTagName("IMG"));
+    
+    stars.forEach((star) => {
+      star.src = "/images/icon-emptyStar.png";
+    });
+  }
+}
+
+function filterByRating() {
+  const minRating = selectedStar.dataset.minrating;
+  const maxRating = selectedStar.dataset.maxrating;
+
+  const filteredTours = tours.filter((tour) => tour.rating >= minRating && tour.rating <= maxRating);
+
+  if (filteredTours.length > 0) {
+    renderTours(filteredTours);
+  } else {
+    renderNoToursFound();
+  }
+}
+
+function updateInputResult() {
+  const getValue = inputElement.value;
+  document.getElementById("inputResult").innerHTML = `Вы выбрали ${getValue} дней`;
+}
+
+function sortByLowPrice(event) {
+	  event.preventDefault();
+  const filteredTours = [...tours].sort((a, b) => a.price - b.price);
+  renderTours(filteredTours);
+}
+
+function sortByHighPrice(event) {
+	  event.preventDefault();
+  const filteredTours = [...tours].sort((a, b) => b.price - a.price);
+  renderTours(filteredTours);
+}
+
+function filterByDuration() {
+  const getDataOfInput = durationInput.value;
+
+  const filteredTours = tours.filter((tour) => {
+    const difference = differenceInDays(new Date(tour.endTime), new Date(tour.startTime));
+    return difference == getDataOfInput;
+  });
+
+  if (filteredTours.length > 0) {
+    renderTours(filteredTours);
+  } else {
+    renderNoToursFound();
+  }
+}
+
+function renderNoToursFound() {
+  document.getElementById("tours-all").innerHTML =
+    '<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>';
+}
 
 function saveToLocalStorage() {
-  const toursJson = JSON.stringify(tours)
-  localStorage.setItem("tours", toursJson)
+  const toursJson = JSON.stringify(tours);
+  localStorage.setItem("tours", toursJson);
 }
 
-const toursJson = localStorage.getItem("tours") //преобразование из JSON в JS
+const toursJson = localStorage.getItem("tours");
 
 if (toursJson) {
-  tours = JSON.parse(toursJson)
+  tours = JSON.parse(toursJson);
 }
 
-getData()
-init()
+getData();
+init();
