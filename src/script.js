@@ -1,31 +1,31 @@
 import { format, differenceInDays } from "date-fns"
-import ru from "date-fns/locale/ru"; 
+import ru from "date-fns/locale/ru"
 import Swal from "sweetalert2"
 
-const toursContainer = document.getElementById("tours-all");
-let tours = [];
-let favoriteTours = []; // массив с любимыми турами
-let isFavoritesMode = false; // Флаг для определения текущего режима
+const toursContainer = document.getElementById("tours-all")
+let tours = []
+let favoriteTours = [] // массив с любимыми турами
+let isFavoritesMode = false // Флаг для определения текущего режима
 
 async function getData() {
   const response = await fetch(
     "https://www.bit-by-bit.ru/api/student-projects/tours"
-  );
-  const data = await response.json();
-  tours = data;
-  renderTours(tours);
-  return data;
+  )
+  const data = await response.json()
+  tours = data
+  renderTours(tours)
+  return data
 }
 
 async function init() {
-  await getData();
+  await getData()
 
-  const allFavoritesTours = document.getElementById("favoriteToursBtn");
+  const allFavoritesTours = document.getElementById("favoriteToursBtn")
 
   allFavoritesTours.addEventListener("click", () => {
     if (isFavoritesMode) {
-      renderTours(tours);
-      allFavoritesTours.innerText = "Избранное";
+      renderTours(tours)
+      allFavoritesTours.innerText = "Избранное"
     } else {
       if (favoriteTours.length === 0) {
         Swal.fire({
@@ -33,67 +33,75 @@ async function init() {
           text: "Вы ещё не добавили в избранное ни одного тура!",
           showConfirmButton: false,
           timer: 1500,
-        });
+        })
       } else {
-        renderTours(favoriteTours);
-        saveToLocalStorage();
-        allFavoritesTours.innerText = "Все туры";
+        renderTours(favoriteTours)
+        saveToLocalStorage()
+        allFavoritesTours.innerText = "Все туры"
       }
     }
-    isFavoritesMode = !isFavoritesMode;
-  });
+    isFavoritesMode = !isFavoritesMode
+  })
 }
 
-const loader = document.getElementById("loader");
+const loader = document.getElementById("loader")
 
 window.addEventListener("load", async () => {
-  loader.classList.add("hidden");
+  loader.classList.add("hidden")
   setTimeout(() => {
-    loader.remove();
-  }, 1000);
-  await getData();
-});
+    loader.remove()
+  }, 1000)
+  await getData()
+})
 
 function checkCity(tour) {
-  return tour.city != null && tour.city.length > 0 ? tour.city : " ";
+  return tour.city != null && tour.city.length > 0 ? tour.city : " "
 }
 
 function renderTours(tours) {
-
-
-  toursContainer.innerHTML = "";
+  toursContainer.innerHTML = ""
 
   tours.forEach((tour) => {
     const duration = differenceInDays(
       new Date(tour.endTime),
       new Date(tour.startTime)
-    );
-    const city = checkCity(tour);
-    const isFavorite = favoriteTours.some((favTour) => favTour.id === tour.id);
+    )
+    const city = checkCity(tour)
+    const isFavorite = favoriteTours.some((favTour) => favTour.id === tour.id)
 
-	  if (tours.length === 0) {
-    toursContainer.innerHTML = `<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>`;
-  } else {
-    toursContainer.innerHTML += `
+    if (tours.length === 0) {
+      toursContainer.innerHTML = `<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>`
+    } else {
+      toursContainer.innerHTML += `
             <div class="tour bg-blue-50 rounded-3xl border-sky-500 border-2 max-w-md xl:w-1/4 mx-10 my-10" id="tourId">
                 <div>
                     <div class="flex justify-center pt-6 max-h-6">
-                        <img class="px-8 w-full h-full object-center max-h-48 sm:max-h-54 md:max-h-28 lg:max-h-32 xl:max-h-48" src="${tour.image}">
+                        <img class="px-8 w-full h-full object-center max-h-48 sm:max-h-54 md:max-h-28 lg:max-h-32 xl:max-h-48" src="${
+                          tour.image
+                        }">
                     </div>
     
                     <div class="title flex flex-col absolute font-attention">
-                        <div class="text-amber-600 pl-2.5 pt-1.5 xl:text-4xl">${tour.country}</div>
+                        <div class="text-amber-600 pl-2.5 pt-1.5 xl:text-4xl">${
+                          tour.country
+                        }</div>
                         <div class="text-current mb-2.5 pl-2.5 xl:text-2xl" id="cityId">${city}</div>
                     </div>
                 </div>
     
                 <div class="flex flex-col info border drop-shadow-lg xl:mx-10 my-10">
                 
-                    <div class="hotel font-basic text-sky-600 text-center font-semibold px-2 xl:text-2xl pt-6 pb-6">${tour.hotelName}</div>
+                    <div class="hotel font-basic text-sky-600 text-center font-semibold px-2 xl:text-2xl pt-6 pb-6">${
+                      tour.hotelName
+                    }</div>
                 
                     <div class="font-basic text-current text-sm text-center pb-6 font-bold xl:pt-6">
-                    ${format(new Date(tour.startTime), "dd MMMM y", {locale: ru,})} -
-                    ${format(new Date(tour.endTime), "dd MMMM y", {locale: ru,})}
+                    ${format(new Date(tour.startTime), "dd MMMM y", {
+                      locale: ru,
+                    })} -
+                    ${format(new Date(tour.endTime), "dd MMMM y", {
+                      locale: ru,
+                    })}
                     <span class="text-sky-900 underline decoration-solid underline-offset-4 text-sm"><br>
                     продолжительность:</span> ${duration} дней
                     </div>
@@ -102,22 +110,36 @@ function renderTours(tours) {
                     <div class="flex flex-col pb-10 pt-6 px-2 xl:px-10">
                         <div class="flex">
                             <img src="/images/icon-price.png" class="w-12 h-12">
-                            <div class="font-basic text-rose-700 pt-6  pl-2 xl:text-3xl font-bold">${tour.price}</div> 
+                            <div class="font-basic text-rose-700 pt-6  pl-2 xl:text-3xl font-bold">${
+                              tour.price
+                            }</div> 
                             <p class="font-basic text-rose-700 pt-9 pl-2 xl:text-base">рублей</p>
                         </div>
     
                         <div class="flex">
                             <img src="/images/icon-rating.png" class="w-12 h-12">
-                            <div class="font-basic text-amber-500 pt-4 pl-2 xl:text-2xl font-medium" id="rating">${tour.rating}</div> 
+                            <div class="font-basic text-amber-500 pt-4 pl-2 xl:text-2xl font-medium" id="rating">${
+                              tour.rating
+                            }</div> 
                             <p class="font-basic text-amber-500 pt-6 pl-2 xl:text-base">по версии TopHotels.com</p>
                         </div>
 
                         <div class="flex flex-col mt-6 w-3/4 mx-auto">
-                            <button id="openModalButton-${tour.id}" class="mb-4 text-rose-700 font-medium drop-shadow-lg justify-center border border-sky-500 hover:text-white hover:bg-orange-500 transition-all duration-300 hover:text-white rounded-md px-2 py-2">Забронировать</button>
-                              <button id="btnAddFavorite-${tour.id}" class="text-amber-500 font-medium drop-shadow-lg border justify-center border-sky-500 hover:text-white rounded-md px-3 py-2 hover:bg-fuchsia-400 transition-all duration-300" style="${isFavorite ? 'display:none;' : 'display:flex;'}">
+                            <button id="openModalButton-${
+                              tour.id
+                            }" class="mb-4 text-rose-700 font-medium drop-shadow-lg justify-center border border-sky-500 hover:text-white hover:bg-orange-500 transition-all duration-300 hover:text-white rounded-md px-2 py-2">Забронировать</button>
+                              <button id="btnAddFavorite-${
+                                tour.id
+                              }" class="text-amber-500 font-medium drop-shadow-lg border justify-center border-sky-500 hover:text-white rounded-md px-3 py-2 hover:bg-fuchsia-400 transition-all duration-300" style="${
+        isFavorite ? "display:none;" : "display:flex;"
+      }">
           В избранное
         </button>
-        <button id="btnRemoveFromFavorites-${tour.id}" class="text-amber-500 font-medium drop-shadow-lg justify-center border border-sky-500 hover:text-white rounded-md px-3 py-2 hover:bg-red-600 transition-all duration-300" style="${isFavorite ? 'display:flex;' : 'display:none;'}">
+        <button id="btnRemoveFromFavorites-${
+          tour.id
+        }" class="text-amber-500 font-medium drop-shadow-lg justify-center border border-sky-500 hover:text-white rounded-md px-3 py-2 hover:bg-red-600 transition-all duration-300" style="${
+        isFavorite ? "display:flex;" : "display:none;"
+      }">
           Удалить из избранного
         </button>
                         </div>
@@ -125,83 +147,90 @@ function renderTours(tours) {
                 </div>
         </div>
             `
-    
-  }})
+    }
+  })
 
   // Добавление обработчиков событий за пределы цикла
   tours.forEach((tour) => {
     const buttonCancelFromFavorite = document.getElementById(
       `btnRemoveFromFavorites-${tour.id}`
-    );
-    buttonCancelFromFavorite.style.display = "none";
+    )
+    buttonCancelFromFavorite.style.display = "none"
 
     const buttonAddToFavorite = document.getElementById(
       `btnAddFavorite-${tour.id}`
-    );
+    )
 
     buttonAddToFavorite.addEventListener("click", () => {
-      favoriteTours.push(tour);
-      buttonAddToFavorite.style.display = "none";
-      buttonCancelFromFavorite.style.display = "flex";
+      favoriteTours.push(tour)
+      buttonAddToFavorite.style.display = "none"
+      buttonCancelFromFavorite.style.display = "flex"
 
       buttonCancelFromFavorite.addEventListener("click", () => {
-        favoriteTours.splice(favoriteTours.indexOf(tour), 1);
-        buttonAddToFavorite.style.display = "flex";
-        buttonCancelFromFavorite.style.display = "none";
-      });
-    });
+        favoriteTours.splice(favoriteTours.indexOf(tour), 1)
+        buttonAddToFavorite.style.display = "flex"
+        buttonCancelFromFavorite.style.display = "none"
+      })
+    })
 
-    const IdOfFavoritesTours = favoriteTours.map((idOfTours) => idOfTours.id);
-    const isFavorite = IdOfFavoritesTours.includes(tour.id);
+    const IdOfFavoritesTours = favoriteTours.map((idOfTours) => idOfTours.id)
+    const isFavorite = IdOfFavoritesTours.includes(tour.id)
 
     if (isFavorite) {
-      buttonAddToFavorite.style.display = "none";
-      buttonCancelFromFavorite.style.display = "flex";
+      buttonAddToFavorite.style.display = "none"
+      buttonCancelFromFavorite.style.display = "flex"
     }
 
     buttonCancelFromFavorite.addEventListener("click", () => {
-      const tourDelete = tours.find((findTour) => findTour.id === tour.id);
-      const tourIndex = favoriteTours.indexOf(tourDelete);
-      favoriteTours.splice(tourIndex, 1);
-      renderTours(tours);
+      const tourDelete = tours.find((findTour) => findTour.id === tour.id)
+      const tourIndex = favoriteTours.indexOf(tourDelete)
+      favoriteTours.splice(tourIndex, 1)
+      renderTours(tours)
 
       if (favoriteTours.length === 0) {
         Swal.fire({
           icon: "warning",
           text: "Вы ещё не добавили в избранное ни одного тура!",
           showConfirmButton: true,
-        });
+        })
       }
-    });
-  });
+    })
+  })
 
   tours.forEach((tour) => {
     document
       .getElementById(`openModalButton-${tour.id}`)
       .addEventListener("click", () => {
-        openBookingWindow(tour.id);
-      });
-  });
+        openBookingWindow(tour.id)
+      })
+  })
 
-  saveToLocalStorage();
+  saveToLocalStorage()
 }
 
-
-const modalWindow = document.getElementById("openModalWindow");
-const tourInfoContainer = document.getElementById("tour-info");
-const cancelRequestButton = document.getElementById("cancelRequest");
-const form = document.getElementById("form");
+const modalWindow = document.getElementById("openModalWindow")
+const tourInfoContainer = document.getElementById("tour-info")
+const cancelRequestButton = document.getElementById("cancelRequest")
+const form = document.getElementById("form")
 
 // Функция открытия модального окна бронирования
 function openBookingWindow(id) {
-  const selectedTour = tours.find((t) => t.id === id);
-  const startTimeFormatted = selectedTour.startTime ? new Date(selectedTour.startTime) : null;
-  const endTimeFormatted = selectedTour.endTime ? new Date(selectedTour.endTime) : null;
+  const selectedTour = tours.find((t) => t.id === id)
+  const startTimeFormatted = selectedTour.startTime
+    ? new Date(selectedTour.startTime)
+    : null
+  const endTimeFormatted = selectedTour.endTime
+    ? new Date(selectedTour.endTime)
+    : null
 
-  const startTimeString = startTimeFormatted ? format(startTimeFormatted, "dd MMMM y", { locale: ru }) : "";
-  const endTimeString = endTimeFormatted ? format(endTimeFormatted, "dd MMMM y", { locale: ru }) : "";
+  const startTimeString = startTimeFormatted
+    ? format(startTimeFormatted, "dd MMMM y", { locale: ru })
+    : ""
+  const endTimeString = endTimeFormatted
+    ? format(endTimeFormatted, "dd MMMM y", { locale: ru })
+    : ""
 
-  modalWindow.style.display = "flex";
+  modalWindow.style.display = "flex"
   tourInfoContainer.innerHTML = `
 <div class="modal fixed top-0 left-0 flex items-center justify-center w-full h-full bg-blue-500 bg-opacity-50">
   <div class="bg-blue-500 p-4 md:p-7 rounded-xl shadow-xl mx-auto">
@@ -264,61 +293,62 @@ function openBookingWindow(id) {
     </section>
   </div>
 </div>
-`;
+`
 
-  const buttonSendRequest = document.getElementById("sendRequest");
-  const cancelRequestButton = document.getElementById("cancelModalButton");
-  const clearFormButton = document.getElementById("clearFormButton");
+  const buttonSendRequest = document.getElementById("sendRequest")
+  const cancelRequestButton = document.getElementById("cancelModalButton")
+  const clearFormButton = document.getElementById("clearFormButton")
 
   if (buttonSendRequest) {
-    buttonSendRequest.addEventListener("click", (e) => submitFormData(e, selectedTour));
-    cancelRequestButton.addEventListener("click", closeModalWindow);
+    buttonSendRequest.addEventListener("click", (e) =>
+      submitFormData(e, selectedTour)
+    )
+    cancelRequestButton.addEventListener("click", closeModalWindow)
   }
 
   if (clearFormButton) {
     clearFormButton.addEventListener("click", () => {
-      const form = document.getElementById("form");
+      const form = document.getElementById("form")
       if (form) {
-        form.reset();
+        form.reset()
       }
-    });
+    })
   }
 
-  const cancelModalButton = document.getElementById("cancelModalButton");
+  const cancelModalButton = document.getElementById("cancelModalButton")
   if (cancelModalButton) {
     cancelModalButton.addEventListener("click", () => {
-      closeModalWindow();
-    });
+      closeModalWindow()
+    })
   }
 }
 
 // Функция закрытия модального окна
 function closeModalWindow() {
-  modalWindow.style.display = "none";
+  modalWindow.style.display = "none"
 
   // Сбросить форму
-  const form = document.getElementById("form");
+  const form = document.getElementById("form")
   if (form) {
-    form.reset();
+    form.reset()
   }
 }
 
-
 // Функция отправки данных формы
 async function submitFormData(e, selectedTour) {
-  const error = formValidate(form);
+  const error = formValidate(form)
 
-  const customerNameValue = document.getElementById("customerName").value;
-  const customerPhoneValue = document.getElementById("customerPhone").value;
-  const customerEmailValue = document.getElementById("customerEmail").value;
-  const customerCommentValue = document.getElementById("customerComment").value;
+  const customerNameValue = document.getElementById("customerName").value
+  const customerPhoneValue = document.getElementById("customerPhone").value
+  const customerEmailValue = document.getElementById("customerEmail").value
+  const customerCommentValue = document.getElementById("customerComment").value
 
   const formData = {
     customerName: customerNameValue,
     phone: customerPhoneValue,
     email: customerEmailValue,
     description: customerCommentValue,
-  };
+  }
 
   if (error === 0) {
     const url = `https://www.bit-by-bit.ru/api/student-projects/tours/${selectedTour.id}`
@@ -327,200 +357,212 @@ async function submitFormData(e, selectedTour) {
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify(formData),
-      });
+      })
 
       if (response.ok) {
         Swal.fire({
           icon: "success",
           title: "Спасибо! Ваш запрос успешно отправлен!",
           text: "В ближайшее время наш менеджер с вами свяжется!",
-        });
+        })
 
-        closeModalWindow();
+        closeModalWindow()
       } else {
-        throw new Error("Что-то пошло не так...");
+        throw new Error("Что-то пошло не так...")
       }
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Что-то пошло не так...",
         text: "Попробуйте ещё раз!",
-      });
-      closeModalWindow();
+      })
+      closeModalWindow()
     }
   }
 }
 
 // Функция валидации формы
 function formValidate() {
-  let error = 0;
+  let error = 0
   let formReq = document.querySelectorAll("._req")
 
   for (let index = 0; index < formReq.length; index++) {
-    const input = formReq[index];
-    formRemoveError(input);
+    const input = formReq[index]
+    formRemoveError(input)
 
     if (input.classList.contains("_email")) {
       if (emailTest(input)) {
-        formAddError(input);
-        error++;
+        formAddError(input)
+        error++
       }
     } else {
       if (input.value === "") {
-        formAddError(input);
-        error++;
+        formAddError(input)
+        error++
       }
     }
   }
-  return error;
+  return error
 }
 
 // Добавление класса ошибки к элементу формы
 function formAddError(input) {
-  input.parentElement.classList.add("_error");
-  input.classList.add("_error");
+  input.parentElement.classList.add("_error")
+  input.classList.add("_error")
 }
 
 // Удаление класса ошибки у элемента формы
 function formRemoveError(input) {
-  input.parentElement.classList.remove("_error");
-  input.classList.remove("_error");
+  input.parentElement.classList.remove("_error")
+  input.classList.remove("_error")
 }
 
 // Тест на валидность email
 function emailTest(input) {
-  return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,20})+$/.test(input.value);
+  return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,20})+$/.test(input.value)
 }
 
-const countriesFilter = document.getElementById("countriesFilter");
-const ratingStarsContainer = document.getElementById("ratingStars");
-const inputElement = document.getElementById("input");
-const lowPriceButton = document.getElementById("lowPrice");
-const highPriceButton = document.getElementById("highPrice");
-let selectedStar = null;
+const countriesFilter = document.getElementById("countriesFilter")
+const ratingStarsContainer = document.getElementById("ratingStars")
+const inputElement = document.getElementById("input")
+const lowPriceButton = document.getElementById("lowPrice")
+const highPriceButton = document.getElementById("highPrice")
+let selectedStar = null
 
-ratingStarsContainer.addEventListener("click", handleStarClick);
-ratingStarsContainer.addEventListener("mouseover", handleStarMouseover);
-ratingStarsContainer.addEventListener("mouseout", handleStarMouseout);
+ratingStarsContainer.addEventListener("click", handleStarClick)
+ratingStarsContainer.addEventListener("mouseover", handleStarMouseover)
+ratingStarsContainer.addEventListener("mouseout", handleStarMouseout)
 
-countriesFilter.addEventListener("change", () => filterByCountry());
-ratingStarsContainer.addEventListener("click", handleStarClick);
-inputElement.addEventListener("input", updateInputResult);
-lowPriceButton.addEventListener("click", sortByLowPrice);
-highPriceButton.addEventListener("click", sortByHighPrice);
+countriesFilter.addEventListener("change", () => filterByCountry())
+ratingStarsContainer.addEventListener("click", handleStarClick)
+inputElement.addEventListener("input", updateInputResult)
+lowPriceButton.addEventListener("click", sortByLowPrice)
+highPriceButton.addEventListener("click", sortByHighPrice)
 
-const durationInput = document.getElementById("input");
-durationInput.addEventListener("change", () => filterByDuration());
+const durationInput = document.getElementById("input")
+durationInput.addEventListener("change", () => filterByDuration())
 
 function filterByCountry() {
-  const countriesFieldset = Array.from(document.querySelectorAll("#countriesFilter .checkbox"));
-  const checkedCountries = countriesFieldset.filter((checkbox) => checkbox.checked).map((checkbox) => checkbox.name);
+  const countriesFieldset = Array.from(
+    document.querySelectorAll("#countriesFilter .checkbox")
+  )
+  const checkedCountries = countriesFieldset
+    .filter((checkbox) => checkbox.checked)
+    .map((checkbox) => checkbox.name)
 
-  const filteredTours = checkedCountries.length > 0
-    ? tours.filter((tour) => checkedCountries.includes(tour.country))
-    : tours;
+  const filteredTours =
+    checkedCountries.length > 0
+      ? tours.filter((tour) => checkedCountries.includes(tour.country))
+      : tours
 
-  renderTours(filteredTours);
+  renderTours(filteredTours)
 }
 
 function handleStarClick(event) {
-  const clickedStar = event.target;
+  const clickedStar = event.target
 
   if (clickedStar.tagName === "IMG") {
-    selectedStar = clickedStar;
-    filterByRating();
+    selectedStar = clickedStar
+    filterByRating()
   }
 }
 
 function handleStarMouseover(event) {
-  const hoveredStar = event.target;
+  const hoveredStar = event.target
 
   if (hoveredStar.tagName === "IMG") {
-    const stars = Array.from(ratingStarsContainer.getElementsByTagName("IMG"));
-    const hoveredIndex = stars.indexOf(hoveredStar);
-    
+    const stars = Array.from(ratingStarsContainer.getElementsByTagName("IMG"))
+    const hoveredIndex = stars.indexOf(hoveredStar)
+
     stars.forEach((star, index) => {
       if (index <= hoveredIndex) {
-        star.src = "/images/icon-chooseStar.png";
+        star.src = "/images/icon-chooseStar.png"
       } else {
-        star.src = "/images/icon-emptyStar.png";
+        star.src = "/images/icon-emptyStar.png"
       }
-    });
+    })
   }
 }
 
 function handleStarMouseout(event) {
-  const outStar = event.target;
+  const outStar = event.target
 
   if (outStar.tagName === "IMG" && outStar !== selectedStar) {
-    const stars = Array.from(ratingStarsContainer.getElementsByTagName("IMG"));
-    
+    const stars = Array.from(ratingStarsContainer.getElementsByTagName("IMG"))
+
     stars.forEach((star) => {
-      star.src = "/images/icon-emptyStar.png";
-    });
+      star.src = "/images/icon-emptyStar.png"
+    })
   }
 }
 
 function filterByRating() {
-  const minRating = selectedStar.dataset.minrating;
-  const maxRating = selectedStar.dataset.maxrating;
+  const minRating = selectedStar.dataset.minrating
+  const maxRating = selectedStar.dataset.maxrating
 
-  const filteredTours = tours.filter((tour) => tour.rating >= minRating && tour.rating <= maxRating);
+  const filteredTours = tours.filter(
+    (tour) => tour.rating >= minRating && tour.rating <= maxRating
+  )
 
   if (filteredTours.length > 0) {
-    renderTours(filteredTours);
+    renderTours(filteredTours)
   } else {
-    renderNoToursFound();
+    renderNoToursFound()
   }
 }
 
 function updateInputResult() {
-  const getValue = inputElement.value;
-  document.getElementById("inputResult").innerHTML = `Вы выбрали ${getValue} дней`;
+  const getValue = inputElement.value
+  document.getElementById(
+    "inputResult"
+  ).innerHTML = `Вы выбрали ${getValue} дней`
 }
 
 function sortByLowPrice(event) {
-	  event.preventDefault();
-  const filteredTours = [...tours].sort((a, b) => a.price - b.price);
-  renderTours(filteredTours);
+  event.preventDefault()
+  const filteredTours = [...tours].sort((a, b) => a.price - b.price)
+  renderTours(filteredTours)
 }
 
 function sortByHighPrice(event) {
-	  event.preventDefault();
-  const filteredTours = [...tours].sort((a, b) => b.price - a.price);
-  renderTours(filteredTours);
+  event.preventDefault()
+  const filteredTours = [...tours].sort((a, b) => b.price - a.price)
+  renderTours(filteredTours)
 }
 
 function filterByDuration() {
-  const getDataOfInput = durationInput.value;
+  const getDataOfInput = durationInput.value
 
   const filteredTours = tours.filter((tour) => {
-    const difference = differenceInDays(new Date(tour.endTime), new Date(tour.startTime));
-    return difference == getDataOfInput;
-  });
+    const difference = differenceInDays(
+      new Date(tour.endTime),
+      new Date(tour.startTime)
+    )
+    return difference == getDataOfInput
+  })
 
   if (filteredTours.length > 0) {
-    renderTours(filteredTours);
+    renderTours(filteredTours)
   } else {
-    renderNoToursFound();
+    renderNoToursFound()
   }
 }
 
 function renderNoToursFound() {
   document.getElementById("tours-all").innerHTML =
-    '<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>';
+    '<div><img src="/images/icon-sad_smile.png" class="oups"> <div class="nothing">По вашему запросу не найдено ни одного тура... Попробуйте выбрать другие параметры поиска</div></div>'
 }
 
 function saveToLocalStorage() {
-  const toursJson = JSON.stringify(tours);
-  localStorage.setItem("tours", toursJson);
+  const toursJson = JSON.stringify(tours)
+  localStorage.setItem("tours", toursJson)
 }
 
-const toursJson = localStorage.getItem("tours");
+const toursJson = localStorage.getItem("tours")
 
 if (toursJson) {
-  tours = JSON.parse(toursJson);
+  tours = JSON.parse(toursJson)
 }
 
-getData();
-init();
+getData()
+init()

@@ -1,182 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Travel agency "Carpe diem"</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script type="module" src="script.js"></script>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  </head>
 
-<head>
-	<meta charset="utf-8" />
-	<title>Travel agency "Carpe diem"</title>
-	<link rel="stylesheet" type="text/css" href="styles.css" />
-	<script type="module" src="script.js"></script>
-	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-</head>
+  <body>
+    <div class="loader-container" id="loader">
+      <div class="loader"></div>
+    </div>
 
-<body>
-	<div class="loader-container" id="loader">
-		<div class="loader"></div>
-	</div>
+    <div class="start-section">
+      <div class="content">
+        <h1
+          class="font-basic relative text-slate-50 text-2xl text-center xl:text-6xl pt-60 lg:text-5xl md:text-4xl mb-48 sm:text-3xl"
+        >
+          Туристическое агентство <br />
+          "Carpe Diem"
+        </h1>
 
-	<div class="start-section">
-		<div class="content">
-			<h1
-				class="font-basic relative text-slate-50 text-2xl text-center xl:text-6xl pt-60 lg:text-5xl md:text-4xl mb-48 sm:text-3xl">
-				Туристическое агентство <br />
-				"Carpe Diem"
-			</h1>
+        <h2
+          class="font-attention relative bg-zinc-200/80 text-amber-600 border-4 border-sky-800 px-4 py-2.5 w-max xl:text-4xl mt-56 lg:text-3xl ml-10 mb-16 md:border-2 text-2xl sm:text-xl"
+        >
+          Жизнь во время путешествия — <br />
+          это мечта в чистом виде...
+        </h2>
+      </div>
+    </div>
 
-			<h2
-				class="font-attention relative bg-zinc-200/80 text-amber-600  border-4 border-sky-800 px-4 py-2.5 w-max xl:text-4xl mt-56 lg:text-3xl ml-10 mb-16 md:border-2 text-2xl sm:text-xl">
-				Жизнь во время путешествия — <br />
-				это мечта в чистом виде...
-			</h2>
-		</div>
-	</div>
+    <h2 class="title-2 text-center">Откройтесь новому...</h2>
 
+    <form>
+      <div class="content-choose mx-auto">
+        <div class="max-w-3xl select">
+          <div
+            class="text-center pt-10 font-attention text-4xl text-sky-600 font-semibold"
+          >
+            Выбрать тур:
+          </div>
+          <div class="flex hz">
+            <div
+              class="flex flex-col justify-center items-baseline pt-6 px-4 select-under mobile-version"
+            >
+              <div class="elem-mobile mb-4">
+                <div
+                  class="p-2 rounded-md shadow-lg transition duration-150 ease-in-out transform hover:scale-105"
+                >
+                  <div
+                    class="pt-2 font-attention text-3xl text-amber-400 font-semibold elem-mobile"
+                  >
+                    Звёздность тура:
+                  </div>
+                  <div class="flex pt-4" id="ratingStars">
+                    <img
+                      src="/images/icon-chooseStar.png"
+                      class="w-8 h-8"
+                      data-minrating="1"
+                      data-maxrating="4"
+                    />
+                    <img
+                      src="/images/icon-emptyStar.png"
+                      class="w-8 h-8 choose"
+                      data-minrating="4"
+                      data-maxrating="7"
+                    />
+                    <img
+                      src="/images/icon-emptyStar.png"
+                      class="w-8 h-8 choose"
+                      data-minrating="7"
+                      data-maxrating="8"
+                    />
+                    <img
+                      src="/images/icon-emptyStar.png"
+                      class="w-8 h-8 choose"
+                      data-minrating="8"
+                      data-maxrating="9"
+                    />
+                    <img
+                      src="/images/icon-emptyStar.png"
+                      class="w-8 h-8 choose"
+                      data-minrating="9"
+                      data-maxrating="10"
+                    />
+                  </div>
+                </div>
+              </div>
 
-	<h2 class="title-2 text-center">Откройтесь новому...</h2>
+              <div class="elem-mobile mb-4">
+                <div
+                  class="mt-5 p-2 rounded-md shadow-lg transition duration-150 ease-in-out transform hover:scale-105"
+                >
+                  <div
+                    class="pt-2 mb-6 font-attention text-3xl text-amber-400 font-semibold elem-mobile"
+                  >
+                    По продолжительности:
+                  </div>
+                  <input
+                    id="input"
+                    type="range"
+                    min="1"
+                    max="50"
+                    value="1"
+                    step="1"
+                    class="w-full"
+                    data-minduration="1"
+                    data-maxduration="50"
+                  />
+                  <label for="slider"></label>
+                  <div
+                    class="flex text-current text-md font-basic"
+                    id="inputResult"
+                  ></div>
+                </div>
+              </div>
 
-	<form>
-		<div class="content-choose mx-auto">
-			<div class="max-w-3xl select">
-				<div class="text-center pt-10 font-attention text-4xl text-sky-600 font-semibold">
-					Выбрать тур:
-				</div>
-				<div class="flex hz">
-					<div class="flex flex-col justify-center items-baseline pt-6 px-4 select-under mobile-version">
-						<div class="elem-mobile mb-4">
-							<div
-								class="p-2 rounded-md shadow-lg transition duration-150 ease-in-out transform hover:scale-105">
-								<div class="pt-2 font-attention text-3xl text-amber-400 font-semibold elem-mobile">
-									Звёздность тура:
-								</div>
-								<div class="flex pt-4" id="ratingStars">
-									<img src="/images/icon-chooseStar.png" class="w-8 h-8" data-minrating="1"
-										data-maxrating="4" />
-									<img src="/images/icon-emptyStar.png" class="w-8 h-8 choose" data-minrating="4"
-										data-maxrating="7" />
-									<img src="/images/icon-emptyStar.png" class="w-8 h-8 choose" data-minrating="7"
-										data-maxrating="8" />
-									<img src="/images/icon-emptyStar.png" class="w-8 h-8 choose" data-minrating="8"
-										data-maxrating="9" />
-									<img src="/images/icon-emptyStar.png" class="w-8 h-8 choose" data-minrating="9"
-										data-maxrating="10" />
-								</div>
-							</div>
-						</div>
+              <div class="elem-mobile mb-4">
+                <div
+                  class="mt-5 p-2 rounded-md shadow-lg transition duration-150 ease-in-out transform hover:scale-105"
+                >
+                  <div
+                    class="pt-2 mb-10 font-attention text-3xl text-amber-400 font-semibold elem-mobile"
+                  >
+                    По стоимости:
+                  </div>
+                  <div class="mt-5">
+                    <button
+                      class="mb-4 text-orange-700 font-medium drop-shadow-lg justify-center border border-sky-500 hover:text-white hover:bg-orange-500 transition-all duration-300 rounded-md px-2 py-2"
+                      id="lowPrice"
+                      type="button"
+                    >
+                      Сначала самые дешевые туры
+                    </button>
+                    <button
+                      class="mb-4 text-orange-700 font-medium drop-shadow-lg justify-center border border-sky-500 hover:text-white hover:bg-orange-500 transition-all duration-300 rounded-md px-2 py-2"
+                      id="highPrice"
+                      type="button"
+                    >
+                      Сначала самые дорогие туры
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="elem-mobile">
+              <div
+                class="my-auto pb-10 p-2 rounded-md shadow-lg transition duration-150 ease-in-out transform hover:scale-105"
+              >
+                <div
+                  class="text-center pt-4 font-attention text-3xl text-amber-400 font-semibold elem-mobile"
+                >
+                  Курорт:
+                </div>
+                <fieldset
+                  id="countriesFilter"
+                  class="mt-4 w-full max-w-xs mx-auto overflow-hidden"
+                >
+                  <ol
+                    class="pt-4 lg:w-auto leading-loose text-current text-xl font-basic overflow-y-scroll max-h-48 pr-2 scroll"
+                  >
+                    <li>
+                      <input
+                        type="checkbox"
+                        id="egypt"
+                        class="checkbox checkbox-mini"
+                        name="Египет"
+                      />
+                      <label for="egypt">Египет</label>
+                    </li>
 
-						<div class="elem-mobile mb-4">
-							<div
-								class="mt-5 p-2 rounded-md shadow-lg transition duration-150 ease-in-out transform hover:scale-105">
-								<div class="pt-2 mb-6 font-attention text-3xl text-amber-400 font-semibold elem-mobile">
-									По продолжительности:
-								</div>
-								<input id="input" type="range" min="1" max="50" value="1" step="1" class="w-full"
-									data-minduration="1" data-maxduration="50" />
-								<label for="slider"></label>
-								<div class="flex text-current text-md font-basic" id="inputResult"></div>
-							</div>
-						</div>
+                    <li>
+                      <input
+                        type="checkbox"
+                        id="indonesia"
+                        class="checkbox checkbox-mini"
+                        name="Индонезия"
+                      />
+                      <label for="indonesia">Индонезия</label>
+                    </li>
 
-						<div class="elem-mobile mb-4">
-							<div
-								class="mt-5 p-2 rounded-md shadow-lg transition duration-150 ease-in-out transform hover:scale-105">
-								<div
-									class="pt-2 mb-10 font-attention text-3xl text-amber-400 font-semibold elem-mobile">
-									По стоимости:
-								</div>
-								<div class="mt-5">
-									<button
-										class="mb-4 text-orange-700 font-medium drop-shadow-lg justify-center border border-sky-500 hover:text-white hover:bg-orange-500 transition-all duration-300 rounded-md px-2 py-2"
-										id="lowPrice" type="button">
-										Сначала самые дешевые туры
-									</button>
-									<button
-										class="mb-4 text-orange-700 font-medium drop-shadow-lg justify-center border border-sky-500 hover:text-white hover:bg-orange-500 transition-all duration-300 rounded-md px-2 py-2"
-										id="highPrice" type="button">
-										Сначала самые дорогие туры
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="elem-mobile">
-						<div
-							class="my-auto pb-10 p-2 rounded-md shadow-lg transition duration-150 ease-in-out transform hover:scale-105">
-							<div
-								class="text-center pt-4 font-attention text-3xl text-amber-400 font-semibold elem-mobile">
-								Курорт:
-							</div>
-							<fieldset id="countriesFilter" class="mt-4 w-full max-w-xs mx-auto overflow-hidden">
-								<ol
-									class="pt-4 lg:w-auto leading-loose text-current text-xl font-basic overflow-y-scroll max-h-48 pr-2 scroll">
-									<li>
-										<input type="checkbox" id="egypt" class="checkbox checkbox-mini"
-											name="Египет" />
-										<label for="egypt">Египет</label>
-									</li>
+                    <li>
+                      <input
+                        type="checkbox"
+                        id="cyprus"
+                        class="checkbox checkbox-mini"
+                        name="Кипр"
+                      />
+                      <label for="cyprus">Кипр</label>
+                    </li>
 
-									<li>
-										<input type="checkbox" id="indonesia" class="checkbox checkbox-mini"
-											name="Индонезия" />
-										<label for="indonesia">Индонезия</label>
-									</li>
+                    <li>
+                      <input
+                        type="checkbox"
+                        id="maldives"
+                        class="checkbox checkbox-mini"
+                        name="Мальдивы"
+                      />
+                      <label for="maldives">Мальдивы</label>
+                    </li>
 
-									<li>
-										<input type="checkbox" id="cyprus" class="checkbox checkbox-mini" name="Кипр" />
-										<label for="cyprus">Кипр</label>
-									</li>
+                    <li>
+                      <input
+                        type="checkbox"
+                        id="mexico"
+                        class="checkbox checkbox-mini"
+                        name="Мексика"
+                      />
+                      <label for="mexico">Мексика</label>
+                    </li>
 
-									<li>
-										<input type="checkbox" id="maldives" class="checkbox checkbox-mini"
-											name="Мальдивы" />
-										<label for="maldives">Мальдивы</label>
-									</li>
+                    <li>
+                      <input
+                        type="checkbox"
+                        id="thailand"
+                        class="checkbox checkbox-mini"
+                        name="Таиланд"
+                      />
+                      <label for="thailand">Таиланд</label>
+                    </li>
 
-									<li>
-										<input type="checkbox" id="mexico" class="checkbox checkbox-mini"
-											name="Мексика" />
-										<label for="mexico">Мексика</label>
-									</li>
+                    <li>
+                      <input
+                        type="checkbox"
+                        id="tanzania"
+                        class="checkbox checkbox-mini"
+                        name="Танзания"
+                      />
+                      <label for="tanzania">Танзания</label>
+                    </li>
+                  </ol>
+                </fieldset>
+                <button
+                  type="reset"
+                  class="mobile-version-button drop-shadow-lg mt-4 mx-auto border border-sky-500 hover:text-white hover-bg-red-600 transition-all duration-300 rounded-md px-2 py-2 block"
+                >
+                  Сбросить настройки
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
 
-									<li>
-										<input type="checkbox" id="thailand" class="checkbox checkbox-mini"
-											name="Таиланд" />
-										<label for="thailand">Таиланд</label>
-									</li>
+    <fieldset
+      class="fixed hidden inset-0 justify-center text-center z-30 modal-animation lg:mt-10 w-1/2 m-auto h-full modal-w"
+      id="openModalWindow"
+    >
+      <div id="tour-info"></div>
+    </fieldset>
 
-									<li>
-										<input type="checkbox" id="tanzania" class="checkbox checkbox-mini"
-											name="Танзания" />
-										<label for="tanzania">Танзания</label>
-									</li>
-								</ol>
-							</fieldset>
-							<button type="reset"
-								class="mobile-version-button drop-shadow-lg mt-4 mx-auto border border-sky-500 hover:text-white hover-bg-red-600 transition-all duration-300 rounded-md px-2 py-2 block">
-								Сбросить настройки
-							</button>
-						</div>
-					</div>
-				</div>
+    <h2 class="title-2 text-center z-10">Смотреть все варианты:</h2>
 
-			</div>
-		</div>
-	</form>
-
-	<fieldset
-		class="fixed hidden inset-0 justify-center text-center z-30 modal-animation lg:mt-10 w-1/2 m-auto h-full modal-w"
-		id="openModalWindow">
-		<div id="tour-info"></div>
-	</fieldset>
-
-	<h2 class="title-2 text-center z-10">Смотреть все варианты:</h2>
-
-	<div class="mt-4 flex justify-evenly">
-		<button
-			class="mb-5 border border-solid border-yellow-500 hover:text-white text-orange-700 font-medium drop-shadow-lg justify-centerhover:text-white hover:bg-orange-500 transition-all duration-300 rounded-md px-2 py-2"
-			id="favoriteToursBtn">
-			Посмотреть избранное
-		</button>
-	</div>
-	<div id="tours-all" class="flex flex-wrap justify-center"></div>
-</body>
-
+    <div class="mt-4 flex justify-evenly">
+      <button
+        class="mb-5 border border-solid border-yellow-500 hover:text-white text-orange-700 font-medium drop-shadow-lg justify-centerhover:text-white hover:bg-orange-500 transition-all duration-300 rounded-md px-2 py-2"
+        id="favoriteToursBtn"
+      >
+        Посмотреть избранное
+      </button>
+    </div>
+    <div id="tours-all" class="flex flex-wrap justify-center"></div>
+  </body>
 </html>
